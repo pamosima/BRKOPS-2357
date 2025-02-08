@@ -1,0 +1,255 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+# Playbook to add data to Netbox
+# Usage: ansible-playbook playbooks/00_setup/02_nb_config.yml
+- name: NetBox Infrastructure Setup
+  hosts: localhost
+  gather_facts: no
+  collections:
+    - netbox.netbox
+
+  vars:
+    netbox_login: &netbox_login
+      netbox_url: "{{ lookup('env', 'NETBOX_API') }}"
+      netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+      validate_certs: false
+    netbox_setup: "light"
+
+  vars_files:
+    - ../../vars/nb_infra_vars.yml
+
+  tasks:
+    - name: Create choice sets in NetBox
+      netbox.netbox.netbox_custom_field_choice_set:
+        <<: *netbox_login
+        data:
+          name: "{{ choice_set.name }}"
+          extra_choices: "{{ choice_set.extra_choices }}"
+          order_alphabetically: "{{ choice_set.order_alphabetically }}"
+        state: present
+      loop: "{{ choice_sets }}"
+      loop_control:
+        loop_var: choice_set
+
+    - name: Create custom fields in NetBox
+      netbox.netbox.netbox_custom_field:
+        <<: *netbox_login
+        data:
+          name: "{{ custom_field.name }}"
+          label: "{{ custom_field.label }}"
+          type: "{{ custom_field.type }}"
+          object_types: "{{ custom_field.object_type }}"
+          required: "{{ custom_field.required }}"
+          choice_set: "{{ custom_field.choice_set | default(omit) }}"
+        state: present
+      loop: "{{ custom_fields }}"
+      loop_control:
+        loop_var: custom_field
+
+    - name: Create Tenants
+      netbox.netbox.netbox_tenant:
+        <<: *netbox_login
+        data:
+          name: "{{ tenant.name }}"
+          slug: "{{ tenant.slug }}"
+        state: present
+      loop: "{{ tenants }}"
+      loop_control:
+        loop_var: tenant
+
+    - name: Create Regions
+      netbox.netbox.netbox_region:
+        <<: *netbox_login
+        data:
+          name: "{{ region.name }}"
+          slug: "{{ region.name | lower | replace(' ', '-') }}"
+        state: present
+      loop: "{{ regions }}"
+      loop_control:
+        loop_var: region
+
+    - name: Create Sites
+      netbox.netbox.netbox_site:
+        <<: *netbox_login
+        data:
+          name: "{{ site.name }}"
+          slug: "{{ site.name | lower | replace(' ', '-') }}"
+          region: "{{ site.region }}"
+          tenant: "{{ site.tenant }}"
+          physical_address: "{{ site.physical_address }}"
+          latitude: "{{ site.latitude }}"
+          longitude: "{{ site.longitude }}"
+          status: "{{ site.status }}"
+        state: present
+      loop: "{{ sites }}"
+      loop_control:
+        loop_var: site
+      when: netbox_setup == "full"
+
+    - name: Create Locations
+      netbox.netbox.netbox_location:
+        <<: *netbox_login
+        data:
+          name: "{{ location.name }}"
+          slug: "{{ location.name | lower | replace(' ', '-') }}"
+          site: "{{ location.site }}"
+          tenant: "{{ location.tenant }}"
+          status: "{{ location.status }}"
+          custom_fields: "{{ location.custom_fields }}"
+        state: present
+      loop: "{{ locations }}"
+      loop_control:
+        loop_var: location
+      when: netbox_setup == "full"
+
+    - name: Create vlans
+      netbox_vlan:
+        <<: *netbox_login
+        data:
+          name: "{{ vlan.name }}"
+          vid: "{{ vlan.vid }}"
+        state: present
+      loop: "{{ vlans }}"
+      loop_control:
+        loop_var: vlan
+
+    - name: "Add manufacturers to Netbox"
+      netbox_manufacturer:
+        <<: *netbox_login
+        data:
+          name: "{{ manufacturer.name }}"
+          slug: "{{ manufacturer.slug }}"
+        state: present
+      loop: "{{ manufacturers }}"
+      loop_control:
+        loop_var: manufacturer
+
+    - name: Create platform
+      netbox.netbox.netbox_platform:
+        <<: *netbox_login
+        data:
+          name: "{{ platform.name }}"
+          slug: "{{ platform.slug }}"
+          manufacturer: "{{ platform.manufacturer }}"
+        state: present
+      loop: "{{ platforms }}"
+      loop_control:
+        loop_var: platform
+
+    - name: "Build device template in Netbox"
+      netbox_device_type:
+        <<: *netbox_login
+        data:
+          manufacturer: "{{ device_type.manufacturer }}"
+          model: "{{ device_type.model }}"
+          part_number: "{{ device_type.part_number }}"
+          slug: "{{ device_type.slug }}"
+          default_platform: "{{ device_type.default_platform }}"
+          u_height: "{{ device_type.u_height if defined | default(false) else omit  }}"
+          is_full_depth: "{{ device_type.is_full_depth if defined | default(false) else omit }}"
+        state: present
+      loop: "{{ device_types }}"
+      loop_control:
+        loop_var: device_type
+
+    - name: "Create interface templates for device template"
+      netbox_device_interface_template:
+        <<: *netbox_login
+        data:
+          device_type: "{{ interface_template.slug }}"
+          name: "{{ interface_template.name }}"
+          type: "{{ interface_template.type }}"
+          mgmt_only: "{{ interface_template.mgmt_only  | default(false) }}"
+        state: present
+      loop: "{{ interface_templates }}"
+      loop_control:
+        loop_var: interface_template
+
+    - name: Create device roles within NetBox
+      netbox.netbox.netbox_device_role:
+        <<: *netbox_login
+        data:
+          name: "{{ device_role.name }}"
+          slug: "{{ device_role.slug }}"
+          color: "{{ device_role.color }}"
+        state: present
+      loop: "{{ device_roles }}"
+      loop_control:
+        loop_var: device_role
+
+    - name: Create Devices
+      netbox.netbox.netbox_device:
+        <<: *netbox_login
+        data:
+          name: "{{ device.name }}"
+          device_type: "{{ device.type }}"
+          device_role: "{{ device.role }}"
+          site: "{{ device.site }}"
+          location: "{{ device.location }}"
+          tenant: "{{ device.tenant }}"
+          status: "{{ device.status }}"
+          serial: "{{ device.serial_number }}"
+          platform: "{{ device.platform }}"
+          custom_fields: "{{ device.custom_fields }}"
+        state: present
+      loop: "{{ devices }}"
+      loop_control:
+        loop_var: device
+      when: netbox_setup == "full"
+
+    - name: Create Interfaces
+      netbox.netbox.netbox_device_interface:
+        <<: *netbox_login
+        data:
+          name: "{{ interface.name }}"
+          device: "{{ interface.device }}"
+          label: "{{ interface.label if (interface.label is defined and interface.label != '') else omit }}"
+          enabled: "{{ interface.enabled }}"
+          type: "{{ interface.type }}"
+          mode: "{{ interface.mode if (interface.mode is defined and interface.mode != '') else omit }}"
+          untagged_vlan: "{{ interface.untagged_vlan if (interface.untagged_vlan is defined and interface.untagged_vlan != '') else omit }}"
+          parent_interface: "{{ interface.parent_interface if (interface.parent_interface is defined and interface.parent_interface != '') else omit }}"
+        state: present
+      loop: "{{ interfaces }}"
+      loop_control:
+        loop_var: interface
+      when: netbox_setup == "full"
+
+    - name: Create IP Addresses
+      netbox.netbox.netbox_ip_address:
+        <<: *netbox_login
+        data:
+          address: "{{ ip_address.address }}"
+          assigned_object: "{{ ip_address.assigned_object }}"
+          tenant: "{{ ip_address.tenant }}"
+        state: present
+      loop: "{{ ip_addresses }}"
+      loop_control:
+        loop_var: ip_address
+      when: netbox_setup == "full"
+
+    - name: Assing IP to Devices
+      netbox.netbox.netbox_device:
+        <<: *netbox_login
+        data:
+          name: "{{ device.name }}"
+          primary_ip4: "{{ device.primary_ip4 }}"
+        state: present
+      loop: "{{ devices }}"
+      loop_control:
+        loop_var: device
+      when: netbox_setup == "full"

@@ -1,0 +1,106 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+# Playbook to onboard the planned switches definied in Netbox
+# Usage: ansible-playbook playbooks/02_demo_nb-ccc/02_switch-onboarding.yml -i inventory/nb_inventory.yml
+- name: Playbook to manage Cisco Catalyst Center Plug and Play using NetBox inventory
+  hosts: brkops2357
+  connection: local
+  gather_facts: false
+
+  vars:
+    dnac_login: &dnac_login
+      dnac_host: "{{ dnac_host }}"
+      dnac_username: "{{ dnac_username }}"
+      dnac_password: "{{ dnac_password }}"
+      dnac_verify: "{{ dnac_verify }}"
+      dnac_port: "{{ dnac_port }}"
+      dnac_version: "{{ dnac_version }}"
+      dnac_debug: "{{ dnac_debug }}"
+
+  tasks:
+    - name: Initialize pnp_details
+      ansible.builtin.set_fact:
+        pnp_details:
+          claim_switching_devices: []
+
+    - name: Retrieve NetBox interfaces (Uplink and MGMT)
+      ansible.builtin.set_fact:
+        nb_uplink: "{{ query('netbox.netbox.nb_lookup', 'interfaces',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify,
+          api_filter='device=' + hostvars[inventory_hostname].inventory_hostname + ' label=Uplink') }}"
+        nb_mgmtvlan: "{{ query('netbox.netbox.nb_lookup', 'vlans',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify,
+          api_filter='name=MGMT') }}"
+
+    - name: Build PnP device information
+      ansible.builtin.set_fact:
+        pnp_device_info:
+          device_info:
+            - serial_number: "{{ hostvars[inventory_hostname].serial }}"
+              hostname: "{{ hostvars[inventory_hostname].inventory_hostname }}"
+              state: "{{ 'Unclaimed' if hostvars[inventory_hostname].status.value == 'planned' else 'Unknown' }}"
+              pid: "{{ hostvars[inventory_hostname].ccc_pid }}"
+          site_name: "Global/{{ hostvars[inventory_hostname].sites[0].tenant.name }}/{{ hostvars[inventory_hostname].sites[0].region.name }}/{{ hostvars[inventory_hostname].sites[0].name }}{{ '/'+hostvars[inventory_hostname].ccc_location if hostvars[inventory_hostname].ccc_location | default('') else '' }}"
+          add_device_method: "Single"
+          project_name: "Onboarding Configuration"
+          template_name: "{{ hostvars[inventory_hostname].ccc_template_name }}"
+          template_params:
+            Hostname: "{{ hostvars[inventory_hostname].inventory_hostname }}"
+            SystemMTU: 1500
+            MgmtVlan: "{{ nb_mgmtvlan[0].value.vid }}"
+            Portchannel: 1
+            Interfaces: "{{ nb_uplink[0].value.name }}"
+            SwitchIP: "{{ hostvars[inventory_hostname].primary_ip4 }}"
+            SubnetMask: >-
+              {{ (hostvars[inventory_hostname].ccc_ip )
+                 | ansible.utils.ipaddr('netmask') }}
+            Gateway: >-
+              {{ ((hostvars[inventory_hostname].ccc_ip )
+                 | ansible.utils.ipaddr('1'))
+                 | ansible.utils.ipaddr('address') }}
+          state: merged
+      when: hostvars[inventory_hostname].status.value == 'planned'
+
+    - name: Append device info to pnp_details.claim_switching_devices
+      ansible.builtin.set_fact:
+        pnp_details: "{{ pnp_details | combine({'claim_switching_devices': pnp_details.claim_switching_devices + [pnp_device_info]}) }}"
+      when: hostvars[inventory_hostname].status.value == 'planned'
+
+    - name: Claim Switching devices through PnP
+      cisco.dnac.pnp_workflow_manager:
+        <<: *dnac_login
+        validate_response_schema: false
+        config:
+          - "{{ item }}"
+      loop: "{{ pnp_details.claim_switching_devices }}"
+      when: pnp_details.claim_switching_devices | length > 0
+
+    - name: Wait for device to be onboarded
+      cisco.dnac.pnp_device_info:
+        <<: *dnac_login
+        serialNumber: "{{ hostvars[inventory_hostname].serial }}"
+      register: onboarding_result
+      until: onboarding_result.dnac_response[0].deviceInfo.onbState == "Provisioned"
+      retries: 25
+      delay: 15
+      when:
+        - pnp_details.claim_switching_devices | length > 0
+        - not ansible_check_mode

@@ -1,0 +1,80 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+# Playbook to configure the general global settings in Catalyst Center
+# Usage: ansible-playbook playbooks/00_setup/01_ccc_config.yml -i inventory/ccc_inventory.yml
+- name: Create global configuration in DNAC
+  hosts: brkops2357
+  connection: local
+  gather_facts: false
+
+  # Import global ccc vars for deployment
+  vars_files:
+    - "../../vars/ccc_global_vars.yml"
+
+  # Initialize ccc connection vars
+  vars:
+    dnac_login: &dnac_login
+      dnac_host: "{{ dnac_host }}"
+      dnac_username: "{{ dnac_username }}"
+      dnac_password: "{{ dnac_password }}"
+      dnac_verify: "{{ dnac_verify }}"
+      dnac_port: "{{ dnac_port }}"
+      dnac_version: "{{ dnac_version }}"
+      dnac_debug: "{{ dnac_debug }}"
+      state: merged
+
+  # Creating the top-level area
+  tasks:
+    - name: Create sites from design_sites config
+      cisco.dnac.site_workflow_manager:
+        <<: *dnac_login
+        config_verify: true
+        config: "{{ global_design_sites }}"
+
+    # Creating credentials
+    - name: Create Global Credentials
+      cisco.dnac.device_credential_workflow_manager:
+        <<: *dnac_login
+        config:
+          - global_credential_details: "{{ global_credential_details }}"
+
+    # Assigning credentials to top-level area
+    - name: Assign Credentials to a site
+      cisco.dnac.device_credential_workflow_manager:
+        <<: *dnac_login
+        config:
+          - assign_credentials_to_site: "{{ assign_credentials_to_site }}"
+
+    # Adjusting networking settings for top-level area
+    - name: Manage the network settings
+      cisco.dnac.network_settings_workflow_manager:
+        <<: *dnac_login
+        config_verify: true
+        config:
+          - network_management_details: "{{ network_management_details }}"
+
+    # Creating new onboarding template for the project
+    - name: Create a new template
+      cisco.dnac.template_workflow_manager:
+        <<: *dnac_login
+        config_verify: true
+        config:
+          - import:
+              template:
+                do_version: true
+                project_name: Onboarding Configuration
+                template_file: "../../templates/Ansible_Day0-Template.json"

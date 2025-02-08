@@ -1,0 +1,116 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+default:
+  image: git.its-best.ch:5050/ciscolive/brkops-2357-pipline:latest
+
+variables:
+  ANSIBLE_FORCE_COLOR: "true"
+
+stages:
+  - verify
+  - deploy
+  - test
+
+site-creation_dry-run:
+  stage: verify
+  extends:
+    - .sites
+  script:
+    - ansible-playbook -i $INVENTORY ./playbooks/02_demo_nb-ccc/01_create-site-hierarchy.yml --check | tee ansible_dry_run_output.log
+  artifacts:
+    paths:
+      - ./Ansible/ansible_dry_run_output.log
+
+site-creation:
+  stage: deploy
+  extends:
+    - .sites
+  script:
+    - ansible-playbook -i $INVENTORY ./playbooks/02_demo_nb-ccc/01_create-site-hierarchy.yml
+  when: manual
+  allow_failure: false
+
+switch-onboarding_dry-run:
+  stage: verify
+  extends:
+    - .switches
+  script:
+    - ansible-playbook -i $INVENTORY ./playbooks/02_demo_nb-ccc/02_switch-onboarding.yml --check | tee ansible_dry_run_output.log
+  artifacts:
+    paths:
+      - ./Ansible/ansible_dry_run_output.log
+
+switch-onboarding-pnp:
+  stage: deploy
+  extends:
+    - .switches
+  script:
+    - ansible-playbook -i $INVENTORY ./playbooks/02_demo_nb-ccc/02_switch-onboarding.yml
+  when: manual
+  allow_failure: false
+
+switch-onboarding-provision:
+  stage: deploy
+  extends:
+    - .switches
+  script:
+    - ansible-playbook -i $INVENTORY ./playbooks/02_demo_nb-ccc/03_provision-switch.yml
+  needs:
+    - switch-onboarding-pnp
+
+switch-onboarding-test:
+  image: git.its-best.ch:5050/ciscolive/brkops-2357-pipline/pyats
+  stage: test
+  variables:
+    DEBUG: true
+  before_script:
+    - cd ./pyATS
+    # Optional: Connect to dCloud from Docker runner
+    # Step 1: Append the Netbox IP and hostname to the /etc/hosts file due to DNS issue
+    - sudo -- sh -c "echo 172.21.254.10 netbox.its-best.ch >> /etc/hosts"
+    # Step 2: Establish a VPN connection using openconnect
+    - echo "$VPN_PASSWORD" | sudo openconnect "$VPN_SERVER" --passwd-on-stdin -u "$VPN_USERNAME" --verbose --timestamp --background --no-dtls --base-mtu=1000 -i tun0 >> openconnect.log 2>&1
+    # Step 3: Allow time for the VPN connection to establish
+    - sleep 10
+  script:
+    - pyats run job job.py
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $SWITCH_PIPELINE == "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $SWITCH_PIPELINE == "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $TEST_PIPELINE == "true"
+  artifacts:
+    paths:
+      - ./pyATS/openconnect.log
+
+# hidden jobs
+
+.sites:
+  variables:
+    INVENTORY: ./inventory/ccc_inventory.yml
+  before_script:
+    - cd ./Ansible/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $SITE_PIPELINE == "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $SITE_PIPELINE == "true"
+
+.switches:
+  variables:
+    INVENTORY: ./inventory/nb_inventory.yml
+  before_script:
+    - cd ./Ansible/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "trigger" && $SWITCH_PIPELINE == "true"
+    - if: $CI_PIPELINE_SOURCE == "web" && $SWITCH_PIPELINE == "true"

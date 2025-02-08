@@ -1,0 +1,394 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+choice_sets:
+  - name: "ccc_floor_units"
+    extra_choices:
+      - ["feet", "feet"]
+      - ["meters", "meters"]
+    order_alphabetically: false
+  - name: "ccc_rf_model"
+    extra_choices:
+      - ["Outdoor Open Space", "Outdoor Open Space"]
+      - ["Cubes And Walled Offices", "Cubes And Walled Offices"]
+      - ["Indoor High Ceiling", "Indoor High Ceiling"]
+      - ["Drywall Office Only", "Drywall Office Only"]
+    order_alphabetically: false
+
+custom_fields:
+  - name: "ccc_floor_height"
+    object_type: ["dcim.location"]
+    label: "Floor height"
+    type: "decimal"
+    required: false
+  - name: "ccc_floor_length"
+    object_type: ["dcim.location"]
+    label: "Floor length"
+    type: "decimal"
+    required: false
+  - name: "ccc_floor_number"
+    object_type: ["dcim.location"]
+    label: "Floor number"
+    type: "integer"
+    required: false
+  - name: "ccc_floor_units"
+    object_type: ["dcim.location"]
+    label: "Unit of measurement"
+    type: "select"
+    required: false
+    choice_set: "ccc_floor_units"
+  - name: "ccc_floor_width"
+    object_type: ["dcim.location"]
+    label: "Floor width"
+    type: "decimal"
+    required: false
+  - name: "ccc_rf_model"
+    object_type: ["dcim.location"]
+    label: "rf Model"
+    type: "select"
+    required: false
+    choice_set: "ccc_rf_model"
+  - name: "ccc_template_name"
+    object_type: ["dcim.device"]
+    label: "Day0 Template Name"
+    type: "text"
+    required: false
+  - name: "ccc_pid"
+    object_type: ["dcim.device"]
+    label: "Part Number"
+    type: "text"
+    required: false
+
+tenants:
+  - name: "BRKOPS-2357"
+    slug: "brkops2357"
+
+regions:
+  - name: "EMEA"
+  - name: "AMER"
+  - name: "APAC"
+
+sites:
+  - name: "Site-1"
+    region: "EMEA"
+    tenant: "brkops2357"
+    physical_address: "Richtistrasse 7, 8304 Wallisellen, Switzerland"
+    latitude: 47.409871
+    longitude: 8.590509
+    status: planned
+  - name: "Site-2"
+    region: "EMEA"
+    tenant: "brkops2357"
+    physical_address: "Richtistrasse 7, 8304 Wallisellen, Switzerland"
+    latitude: 47.409871
+    longitude: 8.590509
+    status: planned
+  - name: "Site-3"
+    region: "EMEA"
+    tenant: "brkops2357"
+    physical_address: "Richtistrasse 7, 8304 Wallisellen, Switzerland"
+    latitude: 47.409871
+    longitude: 8.590509
+    status: planned
+  - name: "Site-4"
+    region: "EMEA"
+    tenant: "brkops2357"
+    physical_address: "Richtistrasse 7, 8304 Wallisellen, Switzerland"
+    latitude: 47.409871
+    longitude: 8.590509
+    status: planned
+  - name: "Site-5"
+    region: "EMEA"
+    tenant: "brkops2357"
+    physical_address: "Richtistrasse 7, 8304 Wallisellen, Switzerland"
+    latitude: 47.409871
+    longitude: 8.590509
+    status: planned
+
+locations:
+  - name: "Site-1-1"
+    site: "Site-1"
+    tenant: "brkops2357"
+    status: planned
+    custom_fields:
+      ccc_floor_height: 3
+      ccc_floor_length: 100
+      ccc_floor_number: 1
+      ccc_floor_units: "meters"
+      ccc_floor_width: 100
+      ccc_rf_model: "Cubes And Walled Offices"
+  - name: "Site-2-1"
+    site: "Site-2"
+    tenant: "brkops2357"
+    status: planned
+    custom_fields:
+      ccc_floor_height: 3
+      ccc_floor_length: 100
+      ccc_floor_number: 1
+      ccc_floor_units: "meters"
+      ccc_floor_width: 100
+      ccc_rf_model: "Cubes And Walled Offices"
+  - name: "Site-3-1"
+    site: "Site-3"
+    tenant: "brkops2357"
+    status: planned
+    custom_fields:
+      ccc_floor_height: 3
+      ccc_floor_length: 100
+      ccc_floor_number: 1
+      ccc_floor_units: "meters"
+      ccc_floor_width: 100
+      ccc_rf_model: "Cubes And Walled Offices"
+  - name: "Site-4-1"
+    site: "Site-4"
+    tenant: "brkops2357"
+    status: planned
+    custom_fields:
+      ccc_floor_height: 3
+      ccc_floor_length: 100
+      ccc_floor_number: 1
+      ccc_floor_units: "meters"
+      ccc_floor_width: 100
+      ccc_rf_model: "Cubes And Walled Offices"
+  - name: "Site-5-1"
+    site: "Site-5"
+    tenant: "brkops2357"
+    status: planned
+    custom_fields:
+      ccc_floor_height: 3
+      ccc_floor_length: 100
+      ccc_floor_number: 1
+      ccc_floor_units: "meters"
+      ccc_floor_width: 100
+      ccc_rf_model: "Cubes And Walled Offices"
+
+vlans:
+  - name: "MGMT"
+    vid: 1
+
+manufacturers:
+  - name: "Cisco"
+    slug: "cisco"
+
+device_types:
+  - part_number: C9KV-UADP-8P
+    manufacturer: Cisco
+    model: Catalyst 9000 UADP 8 Port Virtual Switch
+    slug: cisco-c9kv-uadp-8p
+    default_platform: iosxe
+    u_height: 1
+    is_full_depth: false
+
+interface_templates:
+  - name: GigabitEthernet1/0/1
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/2
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/3
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/4
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/5
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/6
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/7
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet1/0/8
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+  - name: GigabitEthernet0/0
+    type: 1000base-t
+    slug: cisco-c9kv-uadp-8p
+    mgmt_only: true
+
+device_roles:
+  - name: "Branch"
+    slug: "branch"
+    color: "2986cc"
+
+platforms:
+  - name: "iosxe"
+    slug: "iosxe"
+    manufacturer: "Cisco"
+
+devices:
+  - name: "sw1-1"
+    site: "Site-1"
+    location: "Site-1-1"
+    tenant: "brkops2357"
+    status: "Planned"
+    role: "Branch"
+    manufacturer: "Cisco"
+    type: "cisco-c9kv-uadp-8p"
+    primary_ip4: "198.18.1.11/24"
+    serial_number: "CML11SW1"
+    platform: "iosxe"
+    custom_fields:
+      ccc_template_name: "Ansible_Day0-Template"
+  - name: "sw2-1"
+    site: "Site-2"
+    location: "Site-2-1"
+    tenant: "brkops2357"
+    status: "Planned"
+    role: "Branch"
+    manufacturer: "Cisco"
+    type: "cisco-c9kv-uadp-8p"
+    primary_ip4: "198.18.2.11/24"
+    serial_number: "CML12SW1"
+    platform: "iosxe"
+    custom_fields:
+      ccc_template_name: "Ansible_Day0-Template"
+  - name: "sw3-1"
+    site: "Site-3"
+    location: "Site-3-1"
+    tenant: "brkops2357"
+    status: "Planned"
+    role: "Branch"
+    manufacturer: "Cisco"
+    type: "cisco-c9kv-uadp-8p"
+    primary_ip4: "198.18.3.11/24"
+    serial_number: "CML13SW1"
+    platform: "iosxe"
+    custom_fields:
+      ccc_template_name: "Ansible_Day0-Template"
+  - name: "sw4-1"
+    site: "Site-4"
+    location: "Site-4-1"
+    tenant: "brkops2357"
+    status: "Planned"
+    role: "Branch"
+    manufacturer: "Cisco"
+    type: "cisco-c9kv-uadp-8p"
+    primary_ip4: "198.18.4.11/24"
+    serial_number: "CML14SW1"
+    platform: "iosxe"
+    custom_fields:
+      ccc_template_name: "Ansible_Day0-Template"
+  - name: "sw5-1"
+    site: "Site-5"
+    location: "Site-5-1"
+    tenant: "brkops2357"
+    status: "Planned"
+    role: "Branch"
+    manufacturer: "Cisco"
+    type: "cisco-c9kv-uadp-8p"
+    primary_ip4: "198.18.5.11/24"
+    serial_number: "CML15SW1"
+    platform: "iosxe"
+    custom_fields:
+      ccc_template_name: "Ansible_Day0-Template"
+
+interfaces:
+  - name: "GigabitEthernet1/0/1"
+    device: "sw1-1"
+    label: "Uplink"
+    enabled: true
+    type: "1000Base-t (1GE)"
+    mode: "tagged-all"
+    untagged_vlan:
+      name: MGMT
+  - name: "vlan1"
+    device: "sw1-1"
+    enabled: true
+    type: "virtual"
+    parent_interface: "GigabitEthernet1/0/1"
+  - name: "GigabitEthernet1/0/1"
+    device: "sw2-1"
+    label: "Uplink"
+    enabled: true
+    type: "1000Base-t (1GE)"
+    mode: "tagged-all"
+    untagged_vlan:
+      name: MGMT
+  - name: "vlan1"
+    device: "sw2-1"
+    enabled: true
+    type: "virtual"
+    parent_interface: "GigabitEthernet1/0/1"
+  - name: "GigabitEthernet1/0/1"
+    device: "sw3-1"
+    label: "Uplink"
+    enabled: true
+    type: "1000Base-t (1GE)"
+    mode: "tagged-all"
+    untagged_vlan:
+      name: MGMT
+  - name: "vlan1"
+    device: "sw3-1"
+    enabled: true
+    type: "virtual"
+    parent_interface: "GigabitEthernet1/0/1"
+  - name: "GigabitEthernet1/0/1"
+    device: "sw4-1"
+    label: "Uplink"
+    enabled: true
+    type: "1000Base-t (1GE)"
+    mode: "tagged-all"
+    untagged_vlan:
+      name: MGMT
+  - name: "vlan1"
+    device: "sw4-1"
+    enabled: true
+    type: "virtual"
+    parent_interface: "GigabitEthernet1/0/1"
+  - name: "GigabitEthernet1/0/1"
+    device: "sw5-1"
+    label: "Uplink"
+    enabled: true
+    type: "1000Base-t (1GE)"
+    mode: "tagged-all"
+    untagged_vlan:
+      name: MGMT
+  - name: "vlan1"
+    device: "sw5-1"
+    enabled: true
+    type: "virtual"
+    parent_interface: "GigabitEthernet1/0/1"
+
+ip_addresses:
+  - address: 198.18.1.11/24
+    assigned_object:
+      name: vlan1
+      device: sw1-1
+    tenant: "brkops2357"
+  - address: 198.18.2.11/24
+    assigned_object:
+      name: vlan1
+      device: sw2-1
+    tenant: "brkops2357"
+  - address: 198.18.3.11/24
+    assigned_object:
+      name: vlan1
+      device: sw3-1
+    tenant: "brkops2357"
+  - address: 198.18.4.11/24
+    assigned_object:
+      name: vlan1
+      device: sw4-1
+    tenant: "brkops2357"
+  - address: 198.18.5.11/24
+    assigned_object:
+      name: vlan1
+      device: sw5-1
+    tenant: "brkops2357"

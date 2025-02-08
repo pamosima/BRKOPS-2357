@@ -1,0 +1,175 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+# Playbook to create areas, building and floors in Catalyst Center according to Netbox data
+# Usage: ansible-playbook playbooks/02_demo_nb-ccc/01_create-site-hierarchy.yml -i inventory/ccc_inventory.yml
+- name: Create Sites on Cisco Catalyst Center, includes Areas, Buildings, and Floors
+  hosts: brkops2357
+  connection: local
+  gather_facts: false
+
+  vars:
+    dnac_login: &dnac_login
+      dnac_host: "{{ dnac_host }}"
+      dnac_username: "{{ dnac_username }}"
+      dnac_password: "{{ dnac_password }}"
+      dnac_verify: "{{ dnac_verify }}"
+      dnac_port: "{{ dnac_port }}"
+      dnac_version: "{{ dnac_version }}"
+      dnac_debug: "{{ dnac_debug }}"
+      state: merged
+
+  tasks:
+    - name: Retrieve data from NetBox
+      ansible.builtin.set_fact:
+        nb_tenants: "{{ query('netbox.netbox.nb_lookup', 'tenants',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify) }}"
+        nb_regions: "{{ query('netbox.netbox.nb_lookup', 'regions',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify,
+          api_filter='tenant=' ~ tenant) }}"
+        nb_sites: "{{ query('netbox.netbox.nb_lookup', 'sites',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify,
+          api_filter='tenant=' ~ tenant) }}"
+        nb_locations: "{{ query('netbox.netbox.nb_lookup', 'locations',
+          api_endpoint=netbox_api_endpoint,
+          token=netbox_token,
+          validate_certs=netbox_verify,
+          api_filter='tenant=' ~ tenant) }}"
+
+    - name: Initialize design_sites
+      ansible.builtin.set_fact:
+        design_sites: []
+
+    - name: Append area data to design_sites
+      ansible.builtin.set_fact:
+        design_sites: >-
+          {{
+            design_sites + [
+              {
+                'site': {
+                  'area': {
+                    'name': item.value.name,
+                    'parent_name': 'Global/' + dnac_area +
+                                   (item.value.parent.display if item.value.parent is not none else '')
+                  }
+                },
+                'type': 'area'
+              }
+            ]
+          }}
+      loop: "{{ nb_regions }}"
+
+    - name: Append building data to design_sites
+      vars:
+        region_name:
+          "{{ nb_regions | selectattr('value.id', 'equalto', item.value.region.id)
+          | map(attribute='value.name') | first }}"
+        tenant_display:
+          "{{ nb_tenants | selectattr('value.id', 'equalto', item.value.tenant.id)
+          | map(attribute='value.name') | first }}"
+      ansible.builtin.set_fact:
+        design_sites: >-
+          {{
+            design_sites + [
+              {
+                'site': {
+                  'building': {
+                    'name': item.value.name,
+                    'parent_name': 'Global/' + dnac_area + '/' + region_name,
+                    'address': item.value.physical_address,
+                    'latitude': item.value.latitude | float,
+                    'longitude': item.value.longitude | float,
+                    'country': item.value.physical_address.split(',')[-1].strip()
+                     if item.value.physical_address else 'Country Not Specified'
+                  }
+                },
+                'type': 'building'
+              }
+            ]
+          }}
+      loop: "{{ nb_sites }}"
+      when: item.value.status.value == 'planned'
+
+    - name: Append floor data to design_sites
+      vars:
+        site: "{{ nb_sites | selectattr('value.id', 'equalto', item.value.site.id) | first }}"
+        region_name:
+          "{{ nb_regions | selectattr('value.id', 'equalto', site.value.region.id)
+          | map(attribute='value.name') | first }}"
+        tenant_display:
+          "{{ nb_tenants | selectattr('value.id', 'equalto', site.value.tenant.id)
+          | map(attribute='value.name') | first }}"
+      ansible.builtin.set_fact:
+        design_sites: >-
+          {{
+            design_sites + [
+              {
+                'site': {
+                  'floor': {
+                    'name': item.value.name,
+                    'floor_number': item.value.custom_fields.get('ccc_floor_number', 1) | int,
+                    'parent_name': 'Global/' + dnac_area + '/' + region_name + '/' + site.value.name,
+                    'rfModel': item.value.custom_fields.get('ccc_rf_model', 'Cubes And Walled Offices'),
+                    'width': item.value.custom_fields.get('ccc_floor_width', 100.0) | float,
+                    'length': item.value.custom_fields.get('ccc_floor_length', 100.0) | float,
+                    'height': item.value.custom_fields.get('ccc_floor_height', 10.0) | float,
+                    'units_of_measure': item.value.custom_fields.get('ccc_floor_units', 'feet')
+                  }
+                },
+                'type': 'floor'
+              }
+            ]
+          }}
+      loop: "{{ nb_locations }}"
+      when: item.value.status.value == 'planned'
+
+    - name: Create sites from design_sites config
+      cisco.dnac.site_workflow_manager:
+        <<: *dnac_login
+        config: "{{ design_sites }}"
+      register: site_creation_result
+      when: design_sites
+
+    - name: Update site status in NetBox to "active"
+      netbox.netbox.netbox_site:
+        netbox_url: "{{ netbox_api_endpoint }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          name: "{{ item.value.name }}"
+          status: active
+      loop: "{{ nb_sites }}"
+      when: item.value.status.value == 'planned' and not site_creation_result.failed
+
+    - name: Update floor status in NetBox to "active"
+      netbox.netbox.netbox_location:
+        netbox_url: "{{ netbox_api_endpoint }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          name: "{{ item.value.name }}"
+          status: active
+      loop: "{{ nb_locations }}"
+      when: item.value.status.value == 'planned' and not site_creation_result.failed
+
+    - name: Print Create Site Hierarchy for dry run
+      ansible.builtin.debug:
+        var: design_sites
+      when: ansible_check_mode

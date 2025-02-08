@@ -1,0 +1,43 @@
+# Copyright (c) 2025 Cisco and/or its affiliates.
+#
+# This software is licensed to you under the terms of the Cisco Sample
+# Code License, Version 1.1 (the "License"). You may obtain a copy of the
+# License at
+#
+#                https://developer.cisco.com/docs/licenses
+#
+# All use of the material herein must be in accordance with the terms of
+# the License. All rights not expressly granted by the License are
+# reserved. Unless required by applicable law or agreed to separately in
+# writing, software distributed under the License is distributed on an "AS
+# IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+
+---
+tenant: brkops2357
+
+# Netbox API vars
+netbox_api_endpoint: "{{ lookup('env', 'NETBOX_API') }}"
+netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+netbox_verify: true
+
+# DNAC connection variables
+dnac_host: "{{ lookup('env', 'DNAC_HOST') }}"
+dnac_username: "{{ lookup('env', 'DNAC_USER') }}"
+dnac_password: "{{ lookup('env', 'DNAC_PASSWORD') }}"
+dnac_verify: false
+dnac_port: 443
+dnac_version: 2.3.7.6
+dnac_debug: true
+
+# DNAC global configuration vars
+dnac_area: BRKOPS-2357
+dnac_dhcp: 198.18.130.11
+dnac_domain_name: demo.local
+dnac_dns_server: 198.18.130.11
+dnac_ntp_server: 198.18.133.141
+dnac_timezone: Europe/Amsterdam
+dnac_cli_user: netadmin
+dnac_cli_password: C1sco12345
+dnac_snmp_ro_community: public
+dnac_snmp_rw_community: private
