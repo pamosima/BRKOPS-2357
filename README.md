@@ -2,7 +2,7 @@
 
 This repository contains demonstration code from the Cisco Live session BRKOPS-2357, titled "Automate Network Operation Tasks with NetDevOps and Source of Truth." The demo illustrates modern techniques in network infrastructure management, showcasing how technologies like NetBox, Ansible, and GitLab CI/CD can automate network operations from configuration management to testing and verification.
 
-For those who missed the session, you can watch the recording in the [Cisco Live On-Demand Library](https://www.ciscolive.com/on-demand/on-demand-library.html?zid=pp&search=brkops-2357#/s).
+For those who missed the session, you can watch the recording in the [Cisco Live On-Demand Library](https://www.ciscolive.com/on-demand/on-demand-library.html?zid=pp&search=brkops-2357#/s) (coming soon).
 
 ## Repository Components
 
