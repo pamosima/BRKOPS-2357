@@ -36,6 +36,9 @@ terraform.rc
 # Ignore .DS_Store
 .DS_Store
 
+# Ignore bash script
+.bash-script.sh
+
 **/__pycache__/*
 
 venv/*
