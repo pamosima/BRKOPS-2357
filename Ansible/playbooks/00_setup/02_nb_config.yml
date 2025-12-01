@@ -27,7 +27,7 @@
       netbox_url: "{{ lookup('env', 'NETBOX_API') }}"
       netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
       validate_certs: false
-    netbox_setup: "light"
+    netbox_setup: "full"
 
   vars_files:
     - ../../vars/nb_infra_vars.yml
