@@ -113,6 +113,16 @@ class CreateSiteAndLocations(Script):
         GITLAB_TRIGGER_TOKEN = vars_data.get("GITLAB_TRIGGER_TOKEN")
         NETBOX_URL = vars_data.get("NETBOX_API")
 
+        # Handle tenant and region - convert IDs to objects if needed
+        # When called via API, these might be integers; when via UI, they're objects
+        tenant = data["tenant"]
+        if isinstance(tenant, int) or (isinstance(tenant, str) and tenant.isdigit()):
+            tenant = Tenant.objects.get(id=int(tenant))
+        
+        region = data["region"]
+        if isinstance(region, int) or (isinstance(region, str) and region.isdigit()):
+            region = Region.objects.get(id=int(region))
+
         # Fetch GPS coordinates
         latitude, longitude = self.get_coordinates(GOOGLE_API_KEY, data["address"])
 
@@ -128,8 +138,8 @@ class CreateSiteAndLocations(Script):
         site = Site.objects.create(
             name=data["site_name"],
             slug=slugify(data["site_name"]),
-            tenant=data["tenant"],
-            region=data["region"],
+            tenant=tenant,
+            region=region,
             status="planned",
             physical_address=data["address"],
             latitude=latitude,
@@ -156,7 +166,7 @@ class CreateSiteAndLocations(Script):
                 name=location_name,
                 slug=location_slug,
                 site=site,
-                tenant=data["tenant"],
+                tenant=tenant,
                 status="planned",
                 custom_field_data={
                     "ccc_rf_model": "Cubes And Walled Offices",
