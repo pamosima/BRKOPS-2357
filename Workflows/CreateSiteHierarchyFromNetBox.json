@@ -1,0 +1,1126 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S",
+    "name": "Create Site Hierarchy in Catalyst Center from NetBox",
+    "title": "Create Site Hierarchy in Catalyst Center from NetBox",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "Current Site Latitude",
+          "type": "datatype.string",
+          "description": "Latitude for current site",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM93",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "planned",
+          "scope": "input",
+          "name": "Status",
+          "type": "datatype.string",
+          "description": "NetBox status to filter sites and locations (e.g., planned, active)",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9U",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Locations Count",
+          "type": "datatype.integer",
+          "description": "Number of locations",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9E",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Sites Array",
+          "type": "datatype.string",
+          "description": "JSON array of sites from NetBox",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9A",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Tenant ID",
+          "type": "datatype.string",
+          "description": "NetBox Tenant ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcC",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "1",
+          "scope": "local",
+          "name": "Current Floor Number",
+          "type": "datatype.string",
+          "description": "Floor number for current location",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM98",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Site Region Name",
+          "type": "datatype.string",
+          "description": "Region name for current site",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM91",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "Global",
+          "scope": "local",
+          "name": "Catalyst Center Parent",
+          "type": "datatype.string",
+          "description": "Parent hierarchy name in Catalyst Center (fixed: Global)",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9V",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "Current Location ID",
+          "type": "datatype.string",
+          "description": "NetBox location ID for current location being processed",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcB",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Locations Array",
+          "type": "datatype.string",
+          "description": "JSON array of locations from NetBox",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9B",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Location Counter",
+          "type": "datatype.integer",
+          "description": "Counter for iterating through locations",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Location Site Name",
+          "type": "datatype.string",
+          "description": "Site name for current location",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM96",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "BRKOPS-2357",
+          "scope": "input",
+          "name": "Tenant Name",
+          "type": "datatype.string",
+          "description": "NetBox tenant name to filter sites and locations",
+          "is_required": true,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9T",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "Current Site Longitude",
+          "type": "datatype.string",
+          "description": "Longitude for current site",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM94",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Location Name",
+          "type": "datatype.string",
+          "description": "Current location name being processed",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM95",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Site Counter",
+          "type": "datatype.integer",
+          "description": "Counter for iterating through sites",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Sites Count",
+          "type": "datatype.integer",
+          "description": "Number of sites",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9D",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Site Name",
+          "type": "datatype.string",
+          "description": "Current site name being processed",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM90",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "Current Site ID",
+          "type": "datatype.string",
+          "description": "NetBox site ID for current site being processed",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcA",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Site Address",
+          "type": "datatype.string",
+          "description": "Physical address for current site",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM92",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Creates site hierarchy in Catalyst Center based on NetBox data.\n\nPrerequisites:\n• Tenant area (e.g., Global/BRKOPS-2357) must already exist\n• Region areas (e.g., Global/BRKOPS-2357/AMER) must already exist\n• Import AtomicGetDataFromNetBox.json and AtomicPatchNetBox.json atomic workflows first\n\nWorkflow:\n1. Calls AtomicGetDataFromNetBox atomic workflow 3 times:\n   - Get tenant by name\n   - Get sites by tenant_id and status\n   - Get locations by tenant_id and status\n2. Creates Buildings in Catalyst Center (from NetBox sites)\n3. Creates Floors in Catalyst Center (from NetBox locations)\n4. Uses AtomicPatchNetBox to update NetBox status to active after successful creation\n\nHierarchy: Global/{TenantName}/{Region}/{Building}/{Floor}",
+      "display_name": "Create Site Hierarchy in Catalyst Center from NetBox",
+      "owner": "system",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "no_target": true
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd1",
+        "name": "Get Data from NetBox",
+        "title": "Get Tenant from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get Tenant from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/tenancy/tenants/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "name=$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.input.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9T$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+            "target_type": "netbox.endpoint"
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd2",
+        "name": "JSONPath Query",
+        "title": "Extract Tenant ID",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Extract Tenant ID",
+          "input_json": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd1.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$[0].id",
+              "jsonpath_query_name": "tenant_id",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd3",
+        "name": "Set Variables",
+        "title": "Set Tenant ID",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Tenant ID",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcC$",
+              "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd2.output.jsonpath_queries.tenant_id$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd4",
+        "name": "Get Data from NetBox",
+        "title": "Get Sites from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get Sites from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/sites/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "tenant_id=$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcC$&status=$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.input.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9U$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+            "target_type": "netbox.endpoint"
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd6",
+        "name": "Get Data from NetBox",
+        "title": "Get Locations from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Get Locations from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/locations/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "tenant_id=$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcC$&status=$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.input.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9U$&depth=2"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target": true,
+            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+            "target_type": "netbox.endpoint"
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9F",
+        "name": "Set Variables",
+        "title": "Store NetBox Data",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Store NetBox Data",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9A$",
+              "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd4.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9B$",
+              "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd6.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9D$",
+              "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd4.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxE$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9E$",
+              "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMd6.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxE$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$",
+              "variable_value_new": 0
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$",
+              "variable_value_new": 0
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9M",
+        "name": "While Loop",
+        "title": "Create Buildings Loop (Sites)",
+        "type": "logic.while",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Create Buildings Loop (Sites)",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9N",
+            "name": "Condition Branch",
+            "title": "While Site Counter < Sites Count",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$",
+                "operator": "lt",
+                "right_operand": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9D$"
+              },
+              "continue_on_failure": false,
+              "display_name": "While Site Counter < Sites Count",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O",
+                "name": "JSONPath Query",
+                "title": "Extract Current Site Data",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "display_name": "Extract Current Site Data",
+                  "input_json": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9A$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].name",
+                      "jsonpath_query_name": "site_name",
+                      "jsonpath_query_type": "string"
+                    },
+                    {
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].region.name",
+                      "jsonpath_query_name": "region_name",
+                      "jsonpath_query_type": "string"
+                    },
+                    {
+                      "default_value": "Unknown Address",
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].physical_address",
+                      "jsonpath_query_name": "address",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": true
+                    },
+                    {
+                      "default_value": "0",
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].latitude",
+                      "jsonpath_query_name": "latitude",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": true
+                    },
+                    {
+                      "default_value": "0",
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].longitude",
+                      "jsonpath_query_name": "longitude",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": true
+                    },
+                    {
+                      "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$].id",
+                      "jsonpath_query_name": "site_id",
+                      "jsonpath_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9P",
+                "name": "Set Variables",
+                "title": "Set Current Site Data",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Current Site Data",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM90$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.site_name$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM91$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.region_name$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM92$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.address$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM93$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.latitude$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM94$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.longitude$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcA$",
+                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9O.output.jsonpath_queries.site_id$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Q",
+                "name": "Generic Catalyst Center API Request",
+                "title": "Create Building in Catalyst Center",
+                "type": "catalystcenter.invoke_api",
+                "base_type": "activity",
+                "properties": {
+                  "_body": "{\"type\": \"building\", \"site\": {\"building\": {\"name\": \"$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM90$\", \"parentName\": \"$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9V$/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.input.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9T$/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM91$\", \"address\": \"$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM92$\", \"latitude\": $workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM93$, \"longitude\": $workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM94$}}}",
+                  "_endpoint": "/dna/intent/api/v1/site",
+                  "_method": "POST",
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "description": "Creates building in Catalyst Center from NetBox site",
+                  "display_name": "Create Building in Catalyst Center",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target": true,
+                    "target_id": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d"
+                  }
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcC",
+                "name": "Condition Block",
+                "title": "Check Building Creation Success",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Check Building Creation Success",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcD",
+                    "name": "Condition Branch",
+                    "title": "If Building Created Successfully",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Q.output.succeeded$",
+                        "operator": "eq",
+                        "right_operand": true
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "If Building Created Successfully",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcE",
+                        "name": "Patch Data in NetBox",
+                        "title": "Update Site Status to Active",
+                        "type": "workflow.atomic_workflow",
+                        "base_type": "subworkflow",
+                        "properties": {
+                          "continue_on_failure": true,
+                          "description": "Updates the NetBox site status to active after successful Catalyst Center building creation",
+                          "display_name": "Update Site Status to Active",
+                          "input": {
+                            "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/sites/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcA$/",
+                            "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxC": "{\"status\": \"active\"}"
+                          },
+                          "runtime_user": {
+                            "target_default": true
+                          },
+                          "skip_execution": false,
+                          "target": {
+                            "override_workflow_target": true,
+                            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+                            "target_type": "netbox.endpoint"
+                          },
+                          "workflow_id": "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA",
+                          "workflow_name": "Patch Data in NetBox"
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMbA",
+                "name": "Set Variables",
+                "title": "Reset Location Counter",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Reset Location Counter",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$",
+                      "variable_value_new": "0"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaS",
+                "name": "While Loop",
+                "title": "Create Floors for Current Site",
+                "type": "logic.while",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Create Floors for Current Site",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaT",
+                    "name": "Condition Branch",
+                    "title": "While Location Counter < Locations Count",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$",
+                        "operator": "lt",
+                        "right_operand": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9E$"
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "While Location Counter < Locations Count",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU",
+                        "name": "JSONPath Query",
+                        "title": "Extract Current Location Data",
+                        "type": "corejava.jsonpathquery",
+                        "base_type": "activity",
+                        "properties": {
+                          "action_timeout": 180,
+                          "continue_on_failure": true,
+                          "display_name": "Extract Current Location Data",
+                          "input_json": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9B$",
+                          "jsonpath_queries": [
+                            {
+                              "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$].name",
+                              "jsonpath_query_name": "location_name",
+                              "jsonpath_query_type": "string"
+                            },
+                            {
+                              "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$].site.name",
+                              "jsonpath_query_name": "site_name",
+                              "jsonpath_query_type": "string"
+                            },
+                            {
+                              "default_value": "1",
+                              "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$].custom_fields.ccc_floor_number",
+                              "jsonpath_query_name": "floor_number",
+                              "jsonpath_query_type": "string",
+                              "set_default_value": true
+                            },
+                            {
+                              "jsonpath_query": "$[$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$].id",
+                              "jsonpath_query_name": "location_id",
+                              "jsonpath_query_type": "string"
+                            }
+                          ],
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMbB",
+                        "name": "Condition Block",
+                        "title": "Check if Location Belongs to Current Site",
+                        "type": "logic.if_else",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Check if Location Belongs to Current Site",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "blocks": [
+                          {
+                            "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMbC",
+                            "name": "Condition Branch",
+                            "title": "If Location Site Matches Current Site",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU.output.jsonpath_queries.site_name$",
+                                "operator": "eq",
+                                "right_operand": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM90$"
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "If Location Site Matches Current Site",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaV",
+                                "name": "Set Variables",
+                                "title": "Set Current Location Data",
+                                "type": "core.set_multiple_variables",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Set Current Location Data",
+                                  "skip_execution": false,
+                                  "variables_to_update": [
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM95$",
+                                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU.output.jsonpath_queries.location_name$"
+                                    },
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM96$",
+                                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU.output.jsonpath_queries.site_name$"
+                                    },
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM98$",
+                                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU.output.jsonpath_queries.floor_number$"
+                                    },
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcB$",
+                                      "variable_value_new": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaU.output.jsonpath_queries.location_id$"
+                                    }
+                                  ]
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaW",
+                                "name": "Generic Catalyst Center API Request",
+                                "title": "Create Floor in Catalyst Center",
+                                "type": "catalystcenter.invoke_api",
+                                "base_type": "activity",
+                                "properties": {
+                                  "_body": "{\"type\": \"floor\", \"site\": {\"floor\": {\"name\": \"$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM95$\", \"parentName\": \"$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9V$/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.input.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9T$/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM91$/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM90$\", \"floorNumber\": $workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM98$, \"rfModel\": \"Cubes And Walled Offices\", \"width\": 100, \"length\": 100, \"height\": 10}}}",
+                                  "_endpoint": "/dna/intent/api/v1/site",
+                                  "_method": "POST",
+                                  "action_timeout": 180,
+                                  "continue_on_failure": true,
+                                  "description": "Creates floor in Catalyst Center from NetBox location",
+                                  "display_name": "Create Floor in Catalyst Center",
+                                  "runtime_user": {
+                                    "target_default": true
+                                  },
+                                  "skip_execution": false,
+                                  "target": {
+                                    "override_workflow_target": true,
+                                    "target_id": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d"
+                                  }
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcF",
+                                "name": "Condition Block",
+                                "title": "Check Floor Creation Success",
+                                "type": "logic.if_else",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Check Floor Creation Success",
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity",
+                                "blocks": [
+                                  {
+                                    "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcG",
+                                    "name": "Condition Branch",
+                                    "title": "If Floor Created Successfully",
+                                    "type": "logic.condition_block",
+                                    "base_type": "activity",
+                                    "properties": {
+                                      "condition": {
+                                        "left_operand": "$activity.definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaW.output.succeeded$",
+                                        "operator": "eq",
+                                        "right_operand": true
+                                      },
+                                      "continue_on_failure": false,
+                                      "display_name": "If Floor Created Successfully",
+                                      "skip_execution": false
+                                    },
+                                    "object_type": "definition_activity",
+                                    "actions": [
+                                      {
+                                        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcH",
+                                        "name": "Patch Data in NetBox",
+                                        "title": "Update Location Status to Active",
+                                        "type": "workflow.atomic_workflow",
+                                        "base_type": "subworkflow",
+                                        "properties": {
+                                          "continue_on_failure": true,
+                                          "description": "Updates the NetBox location status to active after successful Catalyst Center floor creation",
+                                          "display_name": "Update Location Status to Active",
+                                          "input": {
+                                            "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/locations/$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMcB$/",
+                                            "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxC": "{\"status\": \"active\"}"
+                                          },
+                                          "runtime_user": {
+                                            "target_default": true
+                                          },
+                                          "skip_execution": false,
+                                          "target": {
+                                            "override_workflow_target": true,
+                                            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+                                            "target_type": "netbox.endpoint"
+                                          },
+                                          "workflow_id": "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA",
+                                          "workflow_name": "Patch Data in NetBox"
+                                        },
+                                        "object_type": "definition_activity"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiMaX",
+                        "name": "Set Variables",
+                        "title": "Increment Location Counter",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Increment Location Counter",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$",
+                              "variable_value_new": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9Y$ + 1"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9R",
+                "name": "Set Variables",
+                "title": "Increment Site Counter",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Increment Site Counter",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$",
+                      "variable_value_new": "$workflow.definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S.local.variable_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9X$ + 1"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN"
+    ]
+  },
+  "categories": {
+    "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN": {
+      "unique_name": "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d": {
+      "unique_name": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
+      "name": "Catalyst Center",
+      "title": "Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.10",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": false,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+        "display_name": "Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC": {
+      "unique_name": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+      "name": "NetBox",
+      "title": "NetBox",
+      "type": "netbox.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.93",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+        "display_name": "NetBox",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX": {
+      "unique_name": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+      "name": "CatC API Admin",
+      "title": "CatC API Admin",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "devnet",
+        "display_name": "CatC API Admin"
+      }
+    },
+    "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9": {
+      "unique_name": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+      "name": "NetBox",
+      "title": "NetBox",
+      "type": "runtime_user.netbox_token_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_token": "*****",
+        "display_name": "NetBox"
+      }
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA"
+  ],
+  "remotemetas": {
+    "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh": {
+      "base_type": "remote_meta",
+      "type": "generic.remote_meta",
+      "name": "remote-wlsn-01",
+      "title": "remote-wlsn-01",
+      "version": "1.0.0",
+      "properties": {
+        "advanced": {
+          "require_advanced": false
+        },
+        "cloud_type": "vmware",
+        "display_name": "remote-wlsn-01",
+        "network": {
+          "dns_servers": "192.168.99.101,192.168.99.102",
+          "gateway": "192.168.99.1",
+          "ip_endpoint": "192.168.99.21/24",
+          "is_static_ip": true
+        },
+        "proxy": {
+          "require_proxy": false
+        }
+      },
+      "unique_name": "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh",
+      "object_type": "remote_meta"
+    }
+  },
+  "dependent_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA"
+  ]
+}
