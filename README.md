@@ -1,4 +1,4 @@
-# BRKOPS-2357 Demo Code (2025)
+# BRKOPS-2357 Demo Code (2026)
 
 This repository contains demonstration code from the Cisco Live session BRKOPS-2357, titled "Automate Network Operation Tasks with NetDevOps and Source of Truth." The demo illustrates modern techniques in network infrastructure management, showcasing how technologies like NetBox, Cisco Catalyst Center, and automation platforms can streamline network operations from configuration management to testing and verification.
 
@@ -58,12 +58,13 @@ Contributions to this project are welcome! Please refer to the [CONTRIBUTING](./
 This project was written and is maintained by the following individuals:
 
 - Patrick Mosimann (<pamosima@cisco.com>)
-- Tobias Spuhler (<tspuhler@cisco.com>)
-- Luca Gubler (<luca.gubler@onway.ch>)
+
 
 ## Credits
 
 - Keith B for DNAC Template: [Platinum Onboarding Template](https://github.com/kebaldwi/DNAC-TEMPLATES/blob/master/ONBOARDING/Platinum-Onboarding-Template-J2.json)
+- Tobias Spuhler (<tspuhler@cisco.com>)
+- Luca Gubler (<luca.gubler@onway.ch>)
 
 ## License
 
