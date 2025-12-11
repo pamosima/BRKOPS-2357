@@ -1,8 +1,8 @@
 {
   "workflow": {
     "unique_name": "definition_workflow_02RRPOMCWOSPW0aR0mLzeLT2JLlJhHbiM9S",
-    "name": "Create Site Hierarchy in Catalyst Center from NetBox",
-    "title": "Create Site Hierarchy in Catalyst Center from NetBox",
+    "name": "[Sub-Site] Create Hierarchy in CCC",
+    "title": "[Sub-Site] Create Hierarchy in CCC",
     "type": "generic.workflow",
     "base_type": "workflow",
     "variables": [
@@ -25,7 +25,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "planned",
+          "value": "",
           "scope": "input",
           "name": "Status",
           "type": "datatype.string",
@@ -201,7 +201,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "BRKOPS-2357",
+          "value": "",
           "scope": "input",
           "name": "Tenant Name",
           "type": "datatype.string",
@@ -332,14 +332,34 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Creates site hierarchy in Catalyst Center based on NetBox data.\n\nPrerequisites:\n• Tenant area (e.g., Global/BRKOPS-2357) must already exist\n• Region areas (e.g., Global/BRKOPS-2357/AMER) must already exist\n• Import AtomicGetDataFromNetBox.json and AtomicPatchNetBox.json atomic workflows first\n\nWorkflow:\n1. Calls AtomicGetDataFromNetBox atomic workflow 3 times:\n   - Get tenant by name\n   - Get sites by tenant_id and status\n   - Get locations by tenant_id and status\n2. Creates Buildings in Catalyst Center (from NetBox sites)\n3. Creates Floors in Catalyst Center (from NetBox locations)\n4. Uses AtomicPatchNetBox to update NetBox status to active after successful creation\n\nHierarchy: Global/{TenantName}/{Region}/{Building}/{Floor}",
-      "display_name": "Create Site Hierarchy in Catalyst Center from NetBox",
+      "description": "Creates site hierarchy in Catalyst Center based on NetBox data.\n\nWorkflow:\n1. Retrieves tenant, sites, and locations from NetBox\n2. Creates Buildings in Catalyst Center (from NetBox sites)\n3. Creates Floors in Catalyst Center (from NetBox locations)\n4. Updates NetBox status to active after successful creation\n\nHierarchy Structure:\nGlobal/{TenantName}/{Region}/{Building}/{Floor}\n\nPrerequisites:\n- Tenant area must exist in Catalyst Center (e.g., Global/BRKOPS-2357)\n- Region areas must exist in Catalyst Center (e.g., Global/BRKOPS-2357/AMER)\n- Atomic workflows must be imported\n- NetBox and Catalyst Center targets must be configured",
+      "display_name": "[Sub-Site] Create Hierarchy in CCC",
       "owner": "system",
       "runtime_user": {
         "target_default": true
       },
       "target": {
-        "no_target": true
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint",
+            "catalystcenter.endpoint",
+            "netbox.endpoint",
+            "terminal.unix_linux_endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+              }
+            ]
+          }
+        }
       }
     },
     "object_type": "definition_workflow",
@@ -362,9 +382,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Get Data from NetBox"
@@ -430,9 +461,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Get Data from NetBox"
@@ -457,9 +499,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Get Data from NetBox"
@@ -647,8 +700,20 @@
                   },
                   "skip_execution": false,
                   "target": {
-                    "override_workflow_target": true,
-                    "target_id": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d"
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                          }
+                        ]
+                      }
+                    }
                   }
                 },
                 "object_type": "definition_activity"
@@ -703,9 +768,20 @@
                           },
                           "skip_execution": false,
                           "target": {
-                            "override_workflow_target": true,
-                            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-                            "target_type": "netbox.endpoint"
+                            "override_workflow_target_group_criteria": true,
+                            "target_group": {
+                              "run_on_all_targets": false,
+                              "use_criteria": {
+                                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                                "conditions": [
+                                  {
+                                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                                    "operator": "eq",
+                                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                                  }
+                                ]
+                              }
+                            }
                           },
                           "workflow_id": "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA",
                           "workflow_name": "Patch Data in NetBox"
@@ -886,8 +962,20 @@
                                   },
                                   "skip_execution": false,
                                   "target": {
-                                    "override_workflow_target": true,
-                                    "target_id": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d"
+                                    "override_workflow_target_group_criteria": true,
+                                    "target_group": {
+                                      "run_on_all_targets": false,
+                                      "use_criteria": {
+                                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                                        "conditions": [
+                                          {
+                                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                                            "operator": "eq",
+                                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "object_type": "definition_activity"
@@ -942,9 +1030,20 @@
                                           },
                                           "skip_execution": false,
                                           "target": {
-                                            "override_workflow_target": true,
-                                            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-                                            "target_type": "netbox.endpoint"
+                                            "override_workflow_target_group_criteria": true,
+                                            "target_group": {
+                                              "run_on_all_targets": false,
+                                              "use_criteria": {
+                                                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                                                "conditions": [
+                                                  {
+                                                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                                                    "operator": "eq",
+                                                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           },
                                           "workflow_id": "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA",
                                           "workflow_name": "Patch Data in NetBox"
@@ -1022,25 +1121,6 @@
     }
   },
   "targets": {
-    "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d": {
-      "unique_name": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
-      "name": "Catalyst Center",
-      "title": "Catalyst Center",
-      "type": "catalystcenter.endpoint",
-      "base_type": "target",
-      "object_type": "definition_target",
-      "properties": {
-        "_host": "192.168.99.10",
-        "_port": 443,
-        "_protocol": "https",
-        "_tls_insecure": false,
-        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
-        "default_runtime_user_id": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
-        "display_name": "Catalyst Center",
-        "ignore_proxy": false,
-        "is_https_proxy": false
-      }
-    },
     "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC": {
       "unique_name": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
       "name": "NetBox",
@@ -1059,22 +1139,61 @@
         "ignore_proxy": false,
         "is_https_proxy": false
       }
+    },
+    "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c": {
+      "unique_name": "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c",
+      "name": "Google Maps API",
+      "title": "Google Maps API",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "Google Maps API",
+        "host": "maps.googleapis.com",
+        "ignore_proxy": false,
+        "is_https_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7": {
+      "unique_name": "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7",
+      "name": "dCloud Catalyst Center",
+      "title": "dCloud Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "dcloud-dnac.its-best.ch",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": false,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+        "display_name": "dCloud Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR": {
+      "unique_name": "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+      "name": "Docker Host",
+      "title": "Docker Host",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+        "display_name": "Docker Host",
+        "host": "192.168.99.94",
+        "port": 22
+      }
     }
   },
   "runtime_users": {
-    "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX": {
-      "unique_name": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
-      "name": "CatC API Admin",
-      "title": "CatC API Admin",
-      "type": "runtime_user.catalystcenter_basic_credentials",
-      "base_type": "runtime_user",
-      "object_type": "definition_runtime_user",
-      "properties": {
-        "_password": "*****",
-        "_username": "devnet",
-        "display_name": "CatC API Admin"
-      }
-    },
     "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9": {
       "unique_name": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
       "name": "NetBox",
@@ -1085,6 +1204,32 @@
       "properties": {
         "_token": "*****",
         "display_name": "NetBox"
+      }
+    },
+    "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC": {
+      "unique_name": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+      "name": "dCloud CatC API User",
+      "title": "dCloud CatC API User",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "user1",
+        "display_name": "dCloud CatC API User"
+      }
+    },
+    "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8": {
+      "unique_name": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+      "name": "devnet",
+      "title": "devnet",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "devnet",
+        "password": "*****",
+        "user": "devnet"
       }
     }
   },
@@ -1122,5 +1267,80 @@
   "dependent_workflows": [
     "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
     "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA"
-  ]
+  ],
+  "target_groups": {
+    "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4": {
+      "unique_name": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "catalystcenter.endpoint",
+          "view_target_type": "catalystcenter.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7"
+          ]
+        },
+        {
+          "data_target_type": "netbox.endpoint",
+          "view_target_type": "netbox.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR"
+          ]
+        },
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk": {
+      "unique_name": "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk",
+      "properties": {
+        "value": "dCloud Catalyst Center",
+        "scope": "global",
+        "name": "Target_CatC",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    },
+    "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh": {
+      "unique_name": "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh",
+      "properties": {
+        "value": "NetBox",
+        "scope": "global",
+        "name": "Target_NetBox",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    }
+  }
 }
