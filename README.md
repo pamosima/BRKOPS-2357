@@ -1,12 +1,12 @@
 # BRKOPS-2357 Demo Code (2026)
 
-This repository contains demonstration code from the Cisco Live session BRKOPS-2357, titled "Automate Network Operation Tasks with NetDevOps and Source of Truth." The demo illustrates modern techniques in network infrastructure management, showcasing how technologies like NetBox, Cisco Catalyst Center, and automation platforms can streamline network operations from configuration management to testing and verification.
+This repository contains demonstration code from the Cisco Live session BRKOPS-2357, titled "From NetDevOps to AI-Assisted Operations: Automating Networks with a Source of Truth," The demo illustrates modern techniques in network infrastructure management, showcasing how technologies like NetBox, Cisco Catalyst Center, and automation platforms can streamline network operations from configuration management to testing and verification.
 
 For those who missed the session, you can watch the recording in the [Cisco Live On-Demand Library](https://www.ciscolive.com/on-demand/on-demand-library.html?zid=pp&search=brkops-2357#/s) (coming soon).
 
 ## Repository Components
 
-- [Cisco Workflows Automation](./Workflows/README.md) - Low-code/no-code automation for NetBox and Catalyst Center integration
+- [Cisco Workflows Automation - Low-code/no-code automation for NetBox and Catalyst Center](./Workflows/README.md)
 - [Automating Network Operations with Ansible, Catalyst Center, and NetBox](./Ansible/README.md)
 - [GitLab CI/CD Integration for Network Automation](./GitLab/README.md)
 - [NetBox Custom Scripts for Cisco Catalyst Center Site Creation and Plug-and-Play](./Netbox/README.md)
@@ -58,7 +58,6 @@ Contributions to this project are welcome! Please refer to the [CONTRIBUTING](./
 This project was written and is maintained by the following individuals:
 
 - Patrick Mosimann (<pamosima@cisco.com>)
-
 
 ## Credits
 
