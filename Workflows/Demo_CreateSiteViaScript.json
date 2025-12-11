@@ -1,15 +1,15 @@
 {
   "workflow": {
     "unique_name": "definition_workflow_02RFKVH7TGEHT7eQT3N9cGnhLOMvjR1wVFr",
-    "name": "Create Site & Locations",
-    "title": "Create Site & Locations",
+    "name": "[Demo] Create Site via NetBox Script",
+    "title": "[Demo] Create Site via NetBox Script",
     "type": "generic.workflow",
     "base_type": "workflow",
     "variables": [
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "3",
+          "value": "",
           "scope": "input",
           "name": "Number of Floors",
           "type": "datatype.string",
@@ -24,7 +24,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "Site-5",
+          "value": "",
           "scope": "input",
           "name": "Site Name",
           "type": "datatype.string",
@@ -39,7 +39,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "BRKOPS-2357",
+          "value": "",
           "scope": "static",
           "name": "Tenant",
           "type": "datatype.string",
@@ -54,7 +54,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "EMEA",
+          "value": "",
           "scope": "input",
           "name": "Region",
           "type": "datatype.string",
@@ -69,7 +69,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "1",
+          "value": "",
           "scope": "input",
           "name": "Lowest Floor",
           "type": "datatype.string",
@@ -84,7 +84,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "Richtistrasse 7, 8304 Wallisellen, Switzerland",
+          "value": "",
           "scope": "input",
           "name": "Address",
           "type": "datatype.string",
@@ -102,13 +102,33 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Automated workflow to create network sites with multi-floor locations in NetBox, including GPS geocoding and optional CI/CD pipeline integration. Dynamically resolves tenant and region references by name and validates data before creation.\n\nKey Features:\n\n• Automated GPS coordinate lookup via Google Maps API\n• Dynamic tenant and region ID resolution by name\n• Multi-floor location generation with customizable floor ranges\n• Negative floor support for basements and parking levels\n• GitLab CI/CD pipeline trigger for downstream automation\n• Comprehensive error handling and transaction rollback\n• Rich logging with hyperlinked resource references",
-      "display_name": "Create Site & Locations",
+      "description": "Demonstration workflow that creates sites using a NetBox custom script.\n\nThis workflow calls a pre-configured NetBox custom script (api/extras/scripts/17/) to create a site with floor locations in a single API call.\n\nNote: This is a demo workflow showing how to integrate with NetBox custom scripts. For production use, consider using the Sub_Site workflows which use atomic operations.\n\nInputs:\n- Tenant: Static tenant name\n- Region: Region name\n- Site Name: Name for the new site\n- Address: Physical address\n- Number of Floors: How many floors to create\n- Lowest Floor: Starting floor number\n\nPrerequisites:\n- NetBox custom script must be configured at the specified endpoint\n- NetBox target must be configured",
+      "display_name": "[Demo] Create Site via NetBox Script",
       "runtime_user": {
         "target_default": true
       },
       "target": {
-        "no_target": true
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint",
+            "catalystcenter.endpoint",
+            "netbox.endpoint",
+            "terminal.unix_linux_endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+              }
+            ]
+          }
+        }
       }
     },
     "object_type": "definition_workflow",
@@ -131,8 +151,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           }
         },
         "object_type": "definition_activity"
@@ -177,8 +209,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           }
         },
         "object_type": "definition_activity"
@@ -224,8 +268,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           }
         },
         "object_type": "definition_activity"
@@ -254,6 +310,58 @@
         "ignore_proxy": false,
         "is_https_proxy": false
       }
+    },
+    "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c": {
+      "unique_name": "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c",
+      "name": "Google Maps API",
+      "title": "Google Maps API",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "Google Maps API",
+        "host": "maps.googleapis.com",
+        "ignore_proxy": false,
+        "is_https_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7": {
+      "unique_name": "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7",
+      "name": "dCloud Catalyst Center",
+      "title": "dCloud Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "dcloud-dnac.its-best.ch",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": false,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+        "display_name": "dCloud Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR": {
+      "unique_name": "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+      "name": "Docker Host",
+      "title": "Docker Host",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+        "display_name": "Docker Host",
+        "host": "192.168.99.94",
+        "port": 22
+      }
     }
   },
   "runtime_users": {
@@ -267,6 +375,32 @@
       "properties": {
         "_token": "*****",
         "display_name": "NetBox"
+      }
+    },
+    "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC": {
+      "unique_name": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+      "name": "dCloud CatC API User",
+      "title": "dCloud CatC API User",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "user1",
+        "display_name": "dCloud CatC API User"
+      }
+    },
+    "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8": {
+      "unique_name": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+      "name": "devnet",
+      "title": "devnet",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "devnet",
+        "password": "*****",
+        "user": "devnet"
       }
     }
   },
@@ -295,6 +429,81 @@
       },
       "unique_name": "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh",
       "object_type": "remote_meta"
+    }
+  },
+  "target_groups": {
+    "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4": {
+      "unique_name": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "catalystcenter.endpoint",
+          "view_target_type": "catalystcenter.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7"
+          ]
+        },
+        {
+          "data_target_type": "netbox.endpoint",
+          "view_target_type": "netbox.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR"
+          ]
+        },
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk": {
+      "unique_name": "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk",
+      "properties": {
+        "value": "dCloud Catalyst Center",
+        "scope": "global",
+        "name": "Target_CatC",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    },
+    "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh": {
+      "unique_name": "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh",
+      "properties": {
+        "value": "NetBox",
+        "scope": "global",
+        "name": "Target_NetBox",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
     }
   }
 }

@@ -1,15 +1,15 @@
 {
   "workflow": {
     "unique_name": "definition_workflow_02RRHT296T3YE6HKuGnc8FqZCcAwBUqQtfL",
-    "name": "Create Site & Locations in NetBox",
-    "title": "Create Site & Locations in NetBox",
+    "name": "[Sub-Site] Create in NetBox",
+    "title": "[Sub-Site] Create in NetBox",
     "type": "generic.workflow",
     "base_type": "workflow",
     "variables": [
       {
         "schema_id": "datatype.integer",
         "properties": {
-          "value": 3,
+          "value": 1,
           "scope": "input",
           "name": "Number of Floors",
           "type": "datatype.integer",
@@ -24,7 +24,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "BRKOPS-2357",
+          "value": "",
           "scope": "input",
           "name": "Tenant Name",
           "type": "datatype.string",
@@ -39,7 +39,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "EMEA",
+          "value": "",
           "scope": "input",
           "name": "Region Name",
           "type": "datatype.string",
@@ -54,7 +54,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "Richtistrasse 7, 8304 Wallisellen, Switzerland",
+          "value": "",
           "scope": "input",
           "name": "Address",
           "type": "datatype.string",
@@ -144,7 +144,7 @@
       {
         "schema_id": "datatype.string",
         "properties": {
-          "value": "Site-1",
+          "value": "",
           "scope": "input",
           "name": "Site Name",
           "type": "datatype.string",
@@ -222,13 +222,33 @@
         "is_atomic": false
       },
       "delete_workflow_instance": false,
-      "description": "Workflow to create network sites with multi-floor locations directly in NetBox via API.\n\nKey Features:\n• Google Maps Geocoding integration for automatic GPS coordinates\n• Uses AtomicGetDataFromNetBox for data retrieval\n• Uses AtomicPostDataToNetBox for creating sites and locations\n• Dynamic tenant and region ID resolution by name\n• Multi-floor location generation with loop\n• Supports variable number of floors starting from lowest floor\n• Custom field population for Catalyst Center",
-      "display_name": "Create Site & Locations in NetBox",
+      "description": "Creates a site with multi-floor locations in NetBox.\n\nKey Features:\n- Google Maps Geocoding integration for automatic GPS coordinates\n- Dynamic tenant and region ID resolution by name\n- Multi-floor location generation with configurable floor range\n- Supports variable number of floors starting from lowest floor\n- Custom field population for Catalyst Center integration\n\nInputs:\n- Tenant Name: Name of the tenant\n- Region Name: Name of the region\n- Site Name: Name for the new site\n- Site Address: Physical address (used for GPS lookup)\n- Number of Floors: How many floors to create\n- Lowest Floor: Starting floor number (can be negative for basements)\n\nPrerequisites:\n- Atomic workflows must be imported\n- NetBox target must be configured\n- Google Maps API key configured (for GPS lookup)",
+      "display_name": "[Sub-Site] Create in NetBox",
       "runtime_user": {
         "target_default": true
       },
       "target": {
-        "no_target": true
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint",
+            "catalystcenter.endpoint",
+            "netbox.endpoint",
+            "terminal.unix_linux_endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+              }
+            ]
+          }
+        }
       }
     },
     "object_type": "definition_workflow",
@@ -252,9 +272,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c",
-            "target_type": "web-service.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFQJUU93YC08PkmD28qYBiRETBdueLN7.global.variable_02RYFQJUU93YC08PkmD28qYBiRETBdueLN7$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRSDEF40TUC0oWGXLkN1TmA8lXoe3RBxS",
           "workflow_name": "Get GPS Coordinates from Google API"
@@ -334,9 +365,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Get Data from NetBox"
@@ -403,9 +445,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Get Data from NetBox"
@@ -472,9 +525,20 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-            "target_type": "netbox.endpoint"
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
           },
           "workflow_id": "definition_workflow_02RRTPOS00TUC0oWGXLkN1TmA8lXoe3RBxA",
           "workflow_name": "Post Data to NetBox"
@@ -592,9 +656,20 @@
                   },
                   "skip_execution": false,
                   "target": {
-                    "override_workflow_target": true,
-                    "target_id": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
-                    "target_type": "netbox.endpoint"
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                          }
+                        ]
+                      }
+                    }
                   },
                   "workflow_id": "definition_workflow_02RRTPOS00TUC0oWGXLkN1TmA8lXoe3RBxA",
                   "workflow_name": "Post Data to NetBox"
@@ -680,6 +755,41 @@
         "no_runtime_user": true,
         "protocol": "https"
       }
+    },
+    "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7": {
+      "unique_name": "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7",
+      "name": "dCloud Catalyst Center",
+      "title": "dCloud Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "dcloud-dnac.its-best.ch",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": false,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+        "display_name": "dCloud Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR": {
+      "unique_name": "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+      "name": "Docker Host",
+      "title": "Docker Host",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+        "display_name": "Docker Host",
+        "host": "192.168.99.94",
+        "port": 22
+      }
     }
   },
   "runtime_users": {
@@ -694,22 +804,32 @@
         "_token": "*****",
         "display_name": "NetBox"
       }
-    }
-  },
-  "variables": {
-    "variable_02RSG982LJ7551tipOSeto40dSqvLi9aChr": {
-      "unique_name": "variable_02RSG982LJ7551tipOSeto40dSqvLi9aChr",
+    },
+    "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC": {
+      "unique_name": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+      "name": "dCloud CatC API User",
+      "title": "dCloud CatC API User",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
       "properties": {
-        "value": "*****",
-        "scope": "global",
-        "name": "Google API Key",
-        "type": "datatype.secure_string",
-        "is_required": false,
-        "display_on_wizard": false,
-        "is_invisible": false,
-        "variable_string_format": ""
-      },
-      "object_type": "variable"
+        "_password": "*****",
+        "_username": "user1",
+        "display_name": "dCloud CatC API User"
+      }
+    },
+    "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8": {
+      "unique_name": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+      "name": "devnet",
+      "title": "devnet",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "devnet",
+        "password": "*****",
+        "user": "devnet"
+      }
     }
   },
   "atomic_workflows": [
@@ -747,5 +867,80 @@
     "definition_workflow_02RRSDEF40TUC0oWGXLkN1TmA8lXoe3RBxS",
     "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
     "definition_workflow_02RRTPOS00TUC0oWGXLkN1TmA8lXoe3RBxA"
-  ]
+  ],
+  "target_groups": {
+    "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4": {
+      "unique_name": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "catalystcenter.endpoint",
+          "view_target_type": "catalystcenter.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RW1NY1JGXS70l9Aa54VxKpnmAIn0qyix7"
+          ]
+        },
+        {
+          "data_target_type": "netbox.endpoint",
+          "view_target_type": "netbox.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR"
+          ]
+        },
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk": {
+      "unique_name": "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk",
+      "properties": {
+        "value": "dCloud Catalyst Center",
+        "scope": "global",
+        "name": "Target_CatC",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    },
+    "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh": {
+      "unique_name": "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh",
+      "properties": {
+        "value": "NetBox",
+        "scope": "global",
+        "name": "Target_NetBox",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    }
+  }
 }
