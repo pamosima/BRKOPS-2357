@@ -122,7 +122,7 @@ Create a target group named `BRKOPS-2357` containing:
 |-------------|-------------|
 | `netbox.endpoint` | NetBox API endpoint |
 | `catalystcenter.endpoint` | Catalyst Center API endpoint |
-| `terminal.unix_linux_endpoint` | Docker host for pyATS tests |
+| `terminal.unix_linux_endpoint` | SSH host for pyATS tests |
 | `web-service.endpoint` | Google Maps API |
 
 ### Global Variables
@@ -133,7 +133,7 @@ Create these global variables to control target selection:
 |---------------|------|-------|-------------|
 | `Target_NetBox` | String | `NetBox` | Display name of NetBox target |
 | `Target_CatC` | String | `dCloud Catalyst Center` | Display name of Catalyst Center target |
-| `Target_Docker` | String | `Docker Host` | Display name of Docker host target |
+| `Target_Docker` | String | `dCloud Docker` | Display name of SSH host target for pyATS |
 | `Target_GoogleMapsAPI` | String | `Google Maps API` | Display name of Google API target |
 | `Google API Key` | Secure String | `*****` | Google Maps Geocoding API key |
 
@@ -190,10 +190,10 @@ Devices require the following custom fields for Catalyst Center integration:
 
 ### pyATS Testing Requirements
 
-- Docker host accessible via SSH
-- pyATS Docker image available
-- Network connectivity to devices (direct or via VPN)
-- `.env` file on Docker host with credentials
+- SSH host with Python 3 and pyATS installed in a virtual environment
+- pyATS venv at `{pyATS Scripts Path}/venv`
+- Network connectivity to devices under test
+- `.env` file with credentials (NETBOX_API, NETBOX_TOKEN, DNAC_CLI_USER, DNAC_CLI_PASSWORD)
 
 ## Import Order
 

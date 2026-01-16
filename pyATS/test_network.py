@@ -87,6 +87,7 @@ class NetboxUpdate(aetest.Testcase):
 
         logging.info("Updating device statuses in NetBox...")
         nb = pynetbox.api(url=netbox_url, token=netbox_token)
+        nb.http_session.verify = False  # Disable SSL verification for self-signed certs
 
         for device_name, _ in testbed.devices.items():
             logging.info(f"Updating status for device: {device_name}")
