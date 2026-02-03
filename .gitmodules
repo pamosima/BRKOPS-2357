@@ -1,0 +1,3 @@
+[submodule "MCP"]
+	path = MCP
+	url = https://github.com/pamosima/network-mcp-docker-suite.git
