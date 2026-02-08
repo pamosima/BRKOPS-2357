@@ -1,0 +1,1779 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf",
+    "name": "[Sub-Onboard] Claim Device via PnP",
+    "title": "[Sub-Onboard] Claim Device via PnP",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current PID",
+          "type": "datatype.string",
+          "description": "Product ID of current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFA",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Template Name",
+          "type": "datatype.string",
+          "description": "Day0 template name for current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFC",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Device Counter",
+          "type": "datatype.integer",
+          "description": "Counter for device iteration",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Poll Counter",
+          "type": "datatype.integer",
+          "description": "Counter for polling PnP status",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFJ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Site Path",
+          "type": "datatype.string",
+          "description": "Full site path for Catalyst Center (Global/Tenant/Region/Site/Location)",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFB",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "MGMT VLAN ID",
+          "type": "datatype.string",
+          "description": "Management VLAN ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFH",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current IP Address",
+          "type": "datatype.string",
+          "description": "Management IP of current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFD",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "0",
+          "scope": "local",
+          "name": "Current Device ID",
+          "type": "datatype.string",
+          "description": "NetBox device ID for status update",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFI",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Serial Number",
+          "type": "datatype.string",
+          "description": "Serial number of current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF9",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Devices Array",
+          "type": "datatype.string",
+          "description": "JSON array of devices from NetBox",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Subnet Mask",
+          "type": "datatype.string",
+          "description": "Subnet mask for current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFE",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "PnP Device State",
+          "type": "datatype.string",
+          "description": "Current PnP onboarding state",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFK",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "planned",
+          "scope": "static",
+          "name": "Device Status",
+          "type": "datatype.string",
+          "description": "NetBox device status to filter (e.g., planned)",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Gateway",
+          "type": "datatype.string",
+          "description": "Gateway IP for current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFF",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Uplink Interface",
+          "type": "datatype.string",
+          "description": "Uplink interface name",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFG",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "CCC Site ID",
+          "type": "datatype.string",
+          "description": "Catalyst Center site ID for claiming device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFM",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "CCC PnP Device ID",
+          "type": "datatype.string",
+          "description": "Catalyst Center PnP device ID for claiming",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFL",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Tenant ID",
+          "type": "datatype.string",
+          "description": "NetBox Tenant ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF4",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Current Device Name",
+          "type": "datatype.string",
+          "description": "Hostname of current device",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF8",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "input",
+          "name": "Tenant Name",
+          "type": "datatype.string",
+          "description": "NetBox tenant name to filter devices",
+          "is_required": true,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF1",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Devices Count",
+          "type": "datatype.integer",
+          "description": "Number of devices to process",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF6",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Claims switches in Catalyst Center via Plug and Play (PnP) based on NetBox data.\n\nWorkflow:\n1. Gets planned devices from NetBox (filtered by tenant and status)\n2. Gets MGMT VLAN information\n3. For each device:\n   - Extracts device info (serial, hostname, PID, site, template)\n   - Gets uplink interface info\n   - Builds site path (Global/Tenant/Region/Site/Location)\n   - Calculates IP settings (IP, subnet mask, gateway)\n   - Claims device via Catalyst Center PnP API\n   - Polls for provisioning completion\n   - Updates NetBox device status to active\n\nPrerequisites:\n- Devices must exist in NetBox with status 'planned'\n- Devices must have custom fields: ccc_pid, ccc_template_name, ccc_location, ccc_ip\n- Interfaces must have label 'Uplink' for uplink detection\n- MGMT VLAN must exist in NetBox\n- Site hierarchy must exist in Catalyst Center",
+      "display_name": "[Sub-Onboard] Claim Device via PnP",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint",
+            "catalystcenter.endpoint",
+            "netbox.endpoint",
+            "terminal.unix_linux_endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt01",
+        "name": "Get Tenant ID from NetBox",
+        "title": "Get Tenant ID from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Get Tenant ID based on Tenant Name",
+          "display_name": "Get Tenant ID from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/tenancy/tenants/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "name=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.input.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF1$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt02",
+        "name": "JSONPath Query",
+        "title": "Extract Tenant ID",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Extract Tenant ID",
+          "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt01.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$[0].id",
+              "jsonpath_query_name": "tenant_id",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt03",
+        "name": "Set Variables",
+        "title": "Set Tenant ID",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Set Tenant ID",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF4$",
+              "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt02.output.jsonpath_queries.tenant_id$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt04",
+        "name": "Get Data from NetBox",
+        "title": "Get Planned Devices from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Get all devices with specified tenant and status",
+          "display_name": "Get Planned Devices from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/devices/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "tenant_id=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF4$&status=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.static.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF2$"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt05",
+        "name": "Get Data from NetBox",
+        "title": "Get MGMT VLAN from NetBox",
+        "type": "workflow.atomic_workflow",
+        "base_type": "subworkflow",
+        "properties": {
+          "continue_on_failure": false,
+          "description": "Get MGMT VLAN ID",
+          "display_name": "Get MGMT VLAN from NetBox",
+          "input": {
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/ipam/vlans/",
+            "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "name=MGMT"
+          },
+          "runtime_user": {
+            "target_default": true
+          },
+          "skip_execution": false,
+          "target": {
+            "override_workflow_target_group_criteria": true,
+            "target_group": {
+              "run_on_all_targets": false,
+              "use_criteria": {
+                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                "conditions": [
+                  {
+                    "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                    "operator": "eq",
+                    "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                  }
+                ]
+              }
+            }
+          },
+          "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+          "workflow_name": "Get Data from NetBox"
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt06",
+        "name": "JSONPath Query",
+        "title": "Extract MGMT VLAN ID",
+        "type": "corejava.jsonpathquery",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Extract MGMT VLAN ID",
+          "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt05.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+          "jsonpath_queries": [
+            {
+              "jsonpath_query": "$[0].vid",
+              "jsonpath_query_name": "mgmt_vlan_id",
+              "jsonpath_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt07",
+        "name": "Execute Python Script",
+        "title": "Get Device Count and Store Data",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Get Device Count and Store Data",
+          "script": "import json\nimport sys\n\ndevices_json = sys.argv[1]\ndevices = json.loads(devices_json) if devices_json else []\ndevice_count = len(devices)\n\nprint(f\"Device count: {device_count}\")",
+          "script_arguments": [
+            "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt04.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "device_count",
+              "script_query_name": "device_count",
+              "script_query_type": "integer"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt08",
+        "name": "Set Variables",
+        "title": "Store Devices Data and Initialize Counters",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Store Devices Data and Initialize Counters",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF5$",
+              "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt04.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF6$",
+              "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt07.output.script_queries.device_count$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7$",
+              "variable_value_new": 0
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFH$",
+              "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt06.output.jsonpath_queries.mgmt_vlan_id$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt09",
+        "name": "While Loop",
+        "title": "Process Each Device",
+        "type": "logic.while",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Process Each Device",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "blocks": [
+          {
+            "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt10",
+            "name": "Condition Branch",
+            "title": "While Device Counter < Devices Count",
+            "type": "logic.condition_block",
+            "base_type": "activity",
+            "properties": {
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7$",
+                "operator": "lt",
+                "right_operand": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF6$"
+              },
+              "continue_on_failure": false,
+              "display_name": "While Device Counter < Devices Count",
+              "skip_execution": false
+            },
+            "object_type": "definition_activity",
+            "actions": [
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11",
+                "name": "Execute Python Script",
+                "title": "Extract Current Device Data",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Extract Current Device Data",
+                  "script": "import json\nimport sys\nimport ipaddress\n\ndevices_json = sys.argv[1]\ndevice_index = int(sys.argv[2])\n\ndevices = json.loads(devices_json) if devices_json else []\n\nif device_index < len(devices):\n    device = devices[device_index]\n    device_name = device.get('name', '')\n    serial_number = device.get('serial', '')\n    device_id = str(device.get('id', ''))\n    \n    custom_fields = device.get('custom_fields', {}) or {}\n    template_name = custom_fields.get('ccc_template_name', '')\n    \n    # Get PID from ccc_pid custom field (like Ansible playbook line 60)\n    pid = custom_fields.get('ccc_pid', '')\n    \n    # Get ccc_location custom field for floor (like Ansible playbook line 61)\n    location_name = custom_fields.get('ccc_location', '') or ''\n    \n    # Get ccc_ip custom field for IP calculations (like Ansible playbook lines 72-78)\n    ccc_ip = custom_fields.get('ccc_ip', '') or ''\n    \n    # Get primary_ip4 for SwitchIP (like Ansible playbook line 71)\n    # NetBox API returns {address: 'x.x.x.x/24'}, extract just the IP\n    primary_ip = device.get('primary_ip4', {}) or {}\n    primary_ip_address = primary_ip.get('address', '') if primary_ip else ''\n    \n    # SwitchIP = just the IP from primary_ip4 (without /mask)\n    if primary_ip_address and '/' in primary_ip_address:\n        ip_address = primary_ip_address.split('/')[0]\n    else:\n        ip_address = primary_ip_address\n    \n    # SubnetMask and Gateway from ccc_ip custom field (CIDR format)\n    try:\n        network = ipaddress.ip_interface(ccc_ip)\n        subnet_mask = str(network.network.netmask)\n        gateway = str(list(network.network.hosts())[0])\n    except Exception:\n        # Fallback: try to calculate from primary_ip4 if ccc_ip not set\n        try:\n            network = ipaddress.ip_interface(primary_ip_address)\n            subnet_mask = str(network.network.netmask)\n            gateway = str(list(network.network.hosts())[0])\n        except Exception:\n            subnet_mask = ''\n            gateway = ''\n    \n    # Get site ID for fetching site details (to get region)\n    site = device.get('site', {}) or {}\n    site_name = site.get('name', '')\n    site_id = str(site.get('id', ''))\n    \n    tenant = device.get('tenant', {}) or {}\n    tenant_name = tenant.get('name', '')\n\n    print(f\"Device: {device_name}, IP: {ip_address}, ccc_ip: {ccc_ip}\")\nelse:\n    device_name = ''\n    serial_number = ''\n    device_id = ''\n    pid = ''\n    template_name = ''\n    site_id = ''\n    site_name = ''\n    location_name = ''\n    tenant_name = ''\n    ip_address = ''\n    subnet_mask = ''\n    gateway = ''\n\nprint(f\"Device: {device_name}, Serial: {serial_number}, Site ID: {site_id}\")",
+                  "script_arguments": [
+                    "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF5$",
+                    "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "device_name",
+                      "script_query_name": "device_name",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "serial_number",
+                      "script_query_name": "serial_number",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "device_id",
+                      "script_query_name": "device_id",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "pid",
+                      "script_query_name": "pid",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "template_name",
+                      "script_query_name": "template_name",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "site_id",
+                      "script_query_name": "site_id",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "site_name",
+                      "script_query_name": "site_name",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "location_name",
+                      "script_query_name": "location_name",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "tenant_name",
+                      "script_query_name": "tenant_name",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "ip_address",
+                      "script_query_name": "ip_address",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "subnet_mask",
+                      "script_query_name": "subnet_mask",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "gateway",
+                      "script_query_name": "gateway",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt31",
+                "name": "Get Data from NetBox",
+                "title": "Get Site Details with Region",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": false,
+                  "description": "Get site details including region",
+                  "display_name": "Get Site Details with Region",
+                  "input": {
+                    "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/sites/$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.site_id$/",
+                    "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+                  "workflow_name": "Get Data from NetBox"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt32",
+                "name": "Execute Python Script",
+                "title": "Build Site Path with Region",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Build Site Path with Region",
+                  "script": "import json\nimport sys\n\nraw_response = sys.argv[1]\ntenant_name = sys.argv[2]\nsite_name = sys.argv[3]\nlocation_name = sys.argv[4]\n\n# Parse site response - could be single object or wrapped in results\ntry:\n    response = json.loads(raw_response) if raw_response else {}\n    # Single object endpoint returns object directly\n    # List endpoint returns {count, results}\n    if 'results' in response:\n        site = response['results'][0] if response['results'] else {}\n    else:\n        site = response\nexcept:\n    site = {}\n\n# Get region from site details\nregion = site.get('region', {}) or {}\nregion_name = region.get('name', '') if region else ''\n\n# Build site path - filter out empty segments\npath_parts = ['Global', tenant_name, region_name, site_name, location_name]\npath_parts = [p for p in path_parts if p]  # Remove empty strings\nsite_path = '/'.join(path_parts)\n\nprint(f\"Site path: {site_path}, Region: {region_name}\")",
+                  "script_arguments": [
+                    "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt31.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxF$",
+                    "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.tenant_name$",
+                    "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.site_name$",
+                    "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.location_name$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "site_path",
+                      "script_query_name": "site_path",
+                      "script_query_type": "string"
+                    },
+                    {
+                      "script_query": "region_name",
+                      "script_query_name": "region_name",
+                      "script_query_type": "string"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt12",
+                "name": "Get Data from NetBox",
+                "title": "Get Uplink Interface for Current Device",
+                "type": "workflow.atomic_workflow",
+                "base_type": "subworkflow",
+                "properties": {
+                  "continue_on_failure": true,
+                  "description": "Get interface with label=Uplink for current device",
+                  "display_name": "Get Uplink Interface for Current Device",
+                  "input": {
+                    "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/interfaces/",
+                    "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": "device=$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.device_name$&label=Uplink"
+                  },
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+                  "workflow_name": "Get Data from NetBox"
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt13",
+                "name": "JSONPath Query",
+                "title": "Extract Uplink Interface Name",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "display_name": "Extract Uplink Interface Name",
+                  "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt12.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+                  "jsonpath_queries": [
+                    {
+                      "default_value": "GigabitEthernet1/0/1",
+                      "jsonpath_query": "$[0].name",
+                      "jsonpath_query_name": "uplink_interface",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": true
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt14",
+                "name": "Set Variables",
+                "title": "Set Current Device Variables",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Set Current Device Variables",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF8$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.device_name$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF9$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.serial_number$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFA$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.pid$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFB$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt32.output.script_queries.site_path$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFC$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.template_name$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFD$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.ip_address$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFE$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.subnet_mask$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFF$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.gateway$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFG$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt13.output.jsonpath_queries.uplink_interface$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFI$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt11.output.script_queries.device_id$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt33",
+                "name": "Generic Catalyst Center API Request",
+                "title": "Get PnP Device ID by Serial",
+                "type": "catalystcenter.invoke_api",
+                "base_type": "activity",
+                "properties": {
+                  "_endpoint": "/dna/intent/api/v1/onboarding/pnp-device?serialNumber=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF9$",
+                  "_method": "GET",
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "description": "Get PnP device ID from Catalyst Center by serial number",
+                  "display_name": "Get PnP Device ID by Serial",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt34",
+                "name": "JSONPath Query",
+                "title": "Extract PnP Device ID",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "display_name": "Extract PnP Device ID",
+                  "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt33.output.raw_body$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$[0].id",
+                      "jsonpath_query_name": "pnp_device_id",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": false,
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt35",
+                "name": "Generic Catalyst Center API Request",
+                "title": "Get Site ID by Path",
+                "type": "catalystcenter.invoke_api",
+                "base_type": "activity",
+                "properties": {
+                  "_endpoint": "/dna/intent/api/v1/site?name=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFB$",
+                  "_method": "GET",
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "description": "Get site ID from Catalyst Center by site path",
+                  "display_name": "Get Site ID by Path",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt36",
+                "name": "JSONPath Query",
+                "title": "Extract CCC Site ID",
+                "type": "corejava.jsonpathquery",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "display_name": "Extract CCC Site ID",
+                  "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt35.output.raw_body$",
+                  "jsonpath_queries": [
+                    {
+                      "jsonpath_query": "$.response[0].id",
+                      "jsonpath_query_name": "ccc_site_id",
+                      "jsonpath_query_type": "string",
+                      "set_default_value": false,
+                      "zdate_type_format": "yyyy-MM-dd'T'HH:mm:ssZ"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt37",
+                "name": "Set Variables",
+                "title": "Store CCC IDs",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Store CCC IDs",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFL$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt34.output.jsonpath_queries.pnp_device_id$"
+                    },
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFM$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt36.output.jsonpath_queries.ccc_site_id$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt15",
+                "name": "Generic Catalyst Center API Request",
+                "title": "Claim Device via PnP",
+                "type": "catalystcenter.invoke_api",
+                "base_type": "activity",
+                "properties": {
+                  "_body": "{\n  \"deviceId\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFL$\",\n  \"siteId\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFM$\",\n  \"type\": \"Default\",\n  \"hostname\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF8$\",\n  \"staticIP\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFD$\",\n  \"subnetMask\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFE$\",\n  \"gateway\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFF$\",\n  \"vlanId\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFH$\",\n  \"ipInterfaceName\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFG$\",\n  \"configInfo\": {\n    \"configParameters\": [\n      {\"key\": \"Hostname\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF8$\"},\n      {\"key\": \"SystemMTU\", \"value\": \"1500\"},\n      {\"key\": \"MgmtVlan\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFH$\"},\n      {\"key\": \"Portchannel\", \"value\": \"1\"},\n      {\"key\": \"Interfaces\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFG$\"},\n      {\"key\": \"SwitchIP\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFD$\"},\n      {\"key\": \"SubnetMask\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFE$\"},\n      {\"key\": \"Gateway\", \"value\": \"$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFF$\"}\n    ]\n  }\n}",
+                  "_endpoint": "/dna/intent/api/v1/onboarding/pnp-device/site-claim",
+                  "_method": "POST",
+                  "action_timeout": 180,
+                  "continue_on_failure": true,
+                  "description": "Claim device to site via PnP API",
+                  "display_name": "Claim Device via PnP",
+                  "runtime_user": {
+                    "target_default": true
+                  },
+                  "skip_execution": false,
+                  "target": {
+                    "override_workflow_target_group_criteria": true,
+                    "target_group": {
+                      "run_on_all_targets": false,
+                      "use_criteria": {
+                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                        "conditions": [
+                          {
+                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                            "operator": "eq",
+                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt16",
+                "name": "Condition Block",
+                "title": "Check PnP Claim Success",
+                "type": "logic.if_else",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Check PnP Claim Success",
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity",
+                "blocks": [
+                  {
+                    "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt17",
+                    "name": "Condition Branch",
+                    "title": "If Claim Succeeded",
+                    "type": "logic.condition_block",
+                    "base_type": "activity",
+                    "properties": {
+                      "condition": {
+                        "left_operand": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt15.output.succeeded$",
+                        "operator": "eq",
+                        "right_operand": true
+                      },
+                      "continue_on_failure": false,
+                      "display_name": "If Claim Succeeded",
+                      "skip_execution": false
+                    },
+                    "object_type": "definition_activity",
+                    "actions": [
+                      {
+                        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt18",
+                        "name": "Set Variables",
+                        "title": "Initialize Poll Counter",
+                        "type": "core.set_multiple_variables",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Initialize Poll Counter",
+                          "skip_execution": false,
+                          "variables_to_update": [
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFJ$",
+                              "variable_value_new": 0
+                            },
+                            {
+                              "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFK$",
+                              "variable_value_new": "Pending"
+                            }
+                          ]
+                        },
+                        "object_type": "definition_activity"
+                      },
+                      {
+                        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt19",
+                        "name": "While Loop",
+                        "title": "Poll for Provisioning Status",
+                        "type": "logic.while",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Poll for Provisioning Status",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "blocks": [
+                          {
+                            "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt20",
+                            "name": "Condition Branch",
+                            "title": "While Not Provisioned and Poll Counter < 25",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": {
+                                  "left_operand": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFK$",
+                                  "operator": "ne",
+                                  "right_operand": "Provisioned"
+                                },
+                                "operator": "and",
+                                "right_operand": {
+                                  "left_operand": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFJ$",
+                                  "operator": "lt",
+                                  "right_operand": 25
+                                }
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "While Not Provisioned and Poll Counter < 25",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt21",
+                                "name": "Sleep",
+                                "title": "Wait 15 seconds",
+                                "type": "core.sleep",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Wait 15 seconds",
+                                  "skip_execution": false,
+                                  "sleep_interval": 15
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt22",
+                                "name": "Generic Catalyst Center API Request",
+                                "title": "Get PnP Device Status",
+                                "type": "catalystcenter.invoke_api",
+                                "base_type": "activity",
+                                "properties": {
+                                  "_endpoint": "/dna/intent/api/v1/onboarding/pnp-device?serialNumber=$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF9$",
+                                  "_method": "GET",
+                                  "action_timeout": 180,
+                                  "continue_on_failure": true,
+                                  "description": "Check PnP device onboarding status",
+                                  "display_name": "Get PnP Device Status",
+                                  "runtime_user": {
+                                    "target_default": true
+                                  },
+                                  "skip_execution": false,
+                                  "target": {
+                                    "override_workflow_target_group_criteria": true,
+                                    "target_group": {
+                                      "run_on_all_targets": false,
+                                      "use_criteria": {
+                                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                                        "conditions": [
+                                          {
+                                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                                            "operator": "eq",
+                                            "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt23",
+                                "name": "JSONPath Query",
+                                "title": "Extract Onboarding State",
+                                "type": "corejava.jsonpathquery",
+                                "base_type": "activity",
+                                "properties": {
+                                  "action_timeout": 180,
+                                  "continue_on_failure": true,
+                                  "display_name": "Extract Onboarding State",
+                                  "input_json": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt22.output.raw_body$",
+                                  "jsonpath_queries": [
+                                    {
+                                      "default_value": "Unknown",
+                                      "jsonpath_query": "$[0].deviceInfo.onbState",
+                                      "jsonpath_query_name": "onb_state",
+                                      "jsonpath_query_type": "string",
+                                      "set_default_value": true
+                                    }
+                                  ],
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt24",
+                                "name": "Execute Python Script",
+                                "title": "Increment Poll Counter",
+                                "type": "python3.script",
+                                "base_type": "activity",
+                                "properties": {
+                                  "action_timeout": 180,
+                                  "continue_on_failure": false,
+                                  "display_name": "Increment Poll Counter",
+                                  "script": "import sys\n\ncurrent_count = int(sys.argv[1])\nnew_count = current_count + 1\n\nprint(f\"Poll count: {new_count}\")",
+                                  "script_arguments": [
+                                    "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFJ$"
+                                  ],
+                                  "script_queries": [
+                                    {
+                                      "script_query": "new_count",
+                                      "script_query_name": "new_count",
+                                      "script_query_type": "integer"
+                                    }
+                                  ],
+                                  "skip_execution": false
+                                },
+                                "object_type": "definition_activity"
+                              },
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt25",
+                                "name": "Set Variables",
+                                "title": "Update Poll Status",
+                                "type": "core.set_multiple_variables",
+                                "base_type": "activity",
+                                "properties": {
+                                  "continue_on_failure": false,
+                                  "display_name": "Update Poll Status",
+                                  "skip_execution": false,
+                                  "variables_to_update": [
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFK$",
+                                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt23.output.jsonpath_queries.onb_state$"
+                                    },
+                                    {
+                                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFJ$",
+                                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt24.output.script_queries.new_count$"
+                                    }
+                                  ]
+                                },
+                                "object_type": "definition_activity"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt26",
+                        "name": "Condition Block",
+                        "title": "Check if Provisioned",
+                        "type": "logic.if_else",
+                        "base_type": "activity",
+                        "properties": {
+                          "continue_on_failure": false,
+                          "display_name": "Check if Provisioned",
+                          "skip_execution": false
+                        },
+                        "object_type": "definition_activity",
+                        "blocks": [
+                          {
+                            "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt27",
+                            "name": "Condition Branch",
+                            "title": "If Provisioned Successfully",
+                            "type": "logic.condition_block",
+                            "base_type": "activity",
+                            "properties": {
+                              "condition": {
+                                "left_operand": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFK$",
+                                "operator": "eq",
+                                "right_operand": "Provisioned"
+                              },
+                              "continue_on_failure": false,
+                              "display_name": "If Provisioned Successfully",
+                              "skip_execution": false
+                            },
+                            "object_type": "definition_activity",
+                            "actions": [
+                              {
+                                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt28",
+                                "name": "Patch Data in NetBox",
+                                "title": "Update Device Status to Active",
+                                "type": "workflow.atomic_workflow",
+                                "base_type": "subworkflow",
+                                "properties": {
+                                  "continue_on_failure": true,
+                                  "description": "Update NetBox device status to active after successful provisioning",
+                                  "display_name": "Update Device Status to Active",
+                                  "input": {
+                                    "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/devices/$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFI$/",
+                                    "variable_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxC": "{\"status\": \"active\"}"
+                                  },
+                                  "runtime_user": {
+                                    "target_default": true
+                                  },
+                                  "skip_execution": false,
+                                  "target": {
+                                    "override_workflow_target_group_criteria": true,
+                                    "target_group": {
+                                      "run_on_all_targets": false,
+                                      "use_criteria": {
+                                        "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+                                        "conditions": [
+                                          {
+                                            "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                                            "operator": "eq",
+                                            "right_operand": "$global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh.global.variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh$"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "workflow_id": "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA",
+                                  "workflow_name": "Patch Data in NetBox"
+                                },
+                                "object_type": "definition_activity"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt29",
+                "name": "Execute Python Script",
+                "title": "Increment Device Counter",
+                "type": "python3.script",
+                "base_type": "activity",
+                "properties": {
+                  "action_timeout": 180,
+                  "continue_on_failure": false,
+                  "display_name": "Increment Device Counter",
+                  "script": "import sys\n\ncurrent_count = int(sys.argv[1])\nnew_count = current_count + 1\n\nprint(f\"Device count: {new_count}\")",
+                  "script_arguments": [
+                    "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7$"
+                  ],
+                  "script_queries": [
+                    {
+                      "script_query": "new_count",
+                      "script_query_name": "new_count",
+                      "script_query_type": "integer"
+                    }
+                  ],
+                  "skip_execution": false
+                },
+                "object_type": "definition_activity"
+              },
+              {
+                "unique_name": "definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt30",
+                "name": "Set Variables",
+                "title": "Update Device Counter",
+                "type": "core.set_multiple_variables",
+                "base_type": "activity",
+                "properties": {
+                  "continue_on_failure": false,
+                  "display_name": "Update Device Counter",
+                  "skip_execution": false,
+                  "variables_to_update": [
+                    {
+                      "variable_to_update": "$workflow.definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf.local.variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF7$",
+                      "variable_value_new": "$activity.definition_activity_02RVT50509JZ71zALxi8TNtncxIHPfLnt29.output.script_queries.new_count$"
+                    }
+                  ]
+                },
+                "object_type": "definition_activity"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "categories": [
+      "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN"
+    ]
+  },
+  "categories": {
+    "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN": {
+      "unique_name": "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d": {
+      "unique_name": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
+      "name": "WLSN Catalyst Center",
+      "title": "WLSN Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.10",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+        "description": "",
+        "display_name": "WLSN Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC": {
+      "unique_name": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+      "name": "WLSN NetBox",
+      "title": "WLSN NetBox",
+      "type": "netbox.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.93",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+        "description": "",
+        "display_name": "WLSN NetBox",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c": {
+      "unique_name": "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c",
+      "name": "Google Maps API",
+      "title": "Google Maps API",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "Google Maps API",
+        "host": "maps.googleapis.com",
+        "ignore_proxy": false,
+        "is_https_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR": {
+      "unique_name": "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+      "name": "WLSN Docker",
+      "title": "WLSN Docker",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+        "description": "",
+        "display_name": "WLSN Docker",
+        "host": "192.168.99.94",
+        "port": 22
+      }
+    },
+    "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM": {
+      "unique_name": "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM",
+      "name": "dCloud NetBox",
+      "title": "dCloud NetBox",
+      "type": "netbox.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "198.18.134.22",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02SPS08DMIFJB5HHiBGxkNeHHrP51R9QyYj",
+        "default_runtime_user_id": "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3",
+        "description": "",
+        "display_name": "dCloud NetBox",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq": {
+      "unique_name": "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq",
+      "name": "dCloud Catalyst Center",
+      "title": "dCloud Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "198.18.129.100",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02SPS08DMIFJB5HHiBGxkNeHHrP51R9QyYj",
+        "default_runtime_user_id": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+        "description": "",
+        "display_name": "dCloud Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX": {
+      "unique_name": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+      "name": "WLSN CatC API Admin",
+      "title": "WLSN CatC API Admin",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "devnet",
+        "display_name": "WLSN CatC API Admin"
+      }
+    },
+    "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9": {
+      "unique_name": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+      "name": "WLSN NetBox",
+      "title": "WLSN NetBox",
+      "type": "runtime_user.netbox_token_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_token": "*****",
+        "display_name": "WLSN NetBox"
+      }
+    },
+    "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC": {
+      "unique_name": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+      "name": "dCloud CatC API User",
+      "title": "dCloud CatC API User",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "user1",
+        "display_name": "dCloud CatC API User"
+      }
+    },
+    "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8": {
+      "unique_name": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+      "name": "devnet",
+      "title": "devnet",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "devnet",
+        "password": "*****",
+        "user": "devnet"
+      }
+    },
+    "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3": {
+      "unique_name": "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3",
+      "name": "dCloud NetBox",
+      "title": "dCloud NetBox",
+      "type": "runtime_user.netbox_token_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_token": "*****",
+        "display_name": "dCloud NetBox"
+      }
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA"
+  ],
+  "remotemetas": {
+    "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh": {
+      "base_type": "remote_meta",
+      "type": "generic.remote_meta",
+      "name": "remote-wlsn-01",
+      "title": "remote-wlsn-01",
+      "version": "1.0.0",
+      "properties": {
+        "advanced": {
+          "require_advanced": false
+        },
+        "cloud_type": "vmware",
+        "display_name": "remote-wlsn-01",
+        "network": {
+          "dns_servers": "192.168.99.101,192.168.99.102",
+          "gateway": "192.168.99.1",
+          "ip_endpoint": "192.168.99.21/24",
+          "is_static_ip": true
+        },
+        "proxy": {
+          "require_proxy": false
+        }
+      },
+      "unique_name": "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh",
+      "object_type": "remote_meta"
+    },
+    "remote_meta_02SPS08DZGEV415wQhDdaMasxpRmEsfphqy": {
+      "base_type": "remote_meta",
+      "type": "generic.remote_meta",
+      "name": "remote-dcloud-01",
+      "title": "remote-dcloud-01",
+      "version": "1.0.0",
+      "properties": {
+        "advanced": {
+          "require_advanced": false
+        },
+        "cloud_type": "vmware",
+        "display_name": "remote-dcloud-01",
+        "network": {
+          "dns_servers": "198.18.128.1,8.8.8.8",
+          "gateway": "198.18.128.1",
+          "ip_endpoint": "198.18.134.8/18",
+          "is_static_ip": true
+        },
+        "proxy": {
+          "require_proxy": false
+        }
+      },
+      "unique_name": "remote_meta_02SPS08DZGEV415wQhDdaMasxpRmEsfphqy",
+      "object_type": "remote_meta"
+    }
+  },
+  "dependent_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RRTPAT00TUC0oWGXLkN1TmA8lXoe3RBxA"
+  ],
+  "target_groups": {
+    "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4": {
+      "unique_name": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "catalystcenter.endpoint",
+          "view_target_type": "catalystcenter.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
+            "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq"
+          ]
+        },
+        {
+          "data_target_type": "netbox.endpoint",
+          "view_target_type": "netbox.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+            "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR"
+          ]
+        },
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk": {
+      "unique_name": "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk",
+      "properties": {
+        "value": "dCloud Catalyst Center",
+        "scope": "global",
+        "name": "Target_CatC",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    },
+    "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh": {
+      "unique_name": "variable_02RYFONKQYBK45LkKmbk7yRyaXFEzcffmwh",
+      "properties": {
+        "value": "dCloud NetBox",
+        "scope": "global",
+        "name": "Target_NetBox",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    }
+  }
+}

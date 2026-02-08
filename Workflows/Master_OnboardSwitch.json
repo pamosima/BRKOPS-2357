@@ -1,0 +1,1332 @@
+{
+  "workflow": {
+    "unique_name": "definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd",
+    "name": "[Master] Onboard Switch",
+    "title": "[Master] Onboard Switch",
+    "type": "generic.workflow",
+    "base_type": "workflow",
+    "variables": [
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Serial Numbers",
+          "type": "datatype.string",
+          "description": "Comma-separated serial numbers",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5HOF261BKBqOAXJJvjWbAxGPDsJ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Tenant Name",
+          "type": "datatype.string",
+          "description": "Selected tenant name",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5GGPG3eKck60cqbaInHRSjvFSy1",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Device Type Model",
+          "type": "datatype.string",
+          "description": "Selected device type model",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5GVEK1TSuZFXaOuSRIWCJWIONrz",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Device Type Part Number",
+          "type": "datatype.string",
+          "description": "Part number from device type",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5HE0M1CFjHOVEQBrI3aRgyCUGJj",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Device Role Name",
+          "type": "datatype.string",
+          "description": "Selected device role name",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5HYQZ0vBNVeCUPkGzP3gWPiFwB2",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Site ID",
+          "type": "datatype.string",
+          "description": "NetBox site ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5I6B11nHCqnobThDGc4h13ivl7G",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "List of Device Roles",
+          "type": "datatype.array",
+          "description": "Array of device roles for dropdown",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RYD16LC5BHU4OQHj2VbCdK904FuPl3MWI",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Site Number",
+          "type": "datatype.string",
+          "description": "Extracted site number from site name",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5HJ4O1UW2mJgsUY7RFuQ6FdlnRp",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "List of Tenants",
+          "type": "datatype.array",
+          "description": "Array of tenants for dropdown",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RYD16LC5RH76GNOZVe5CYQsiNp1KYrzKn",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Device Type ID",
+          "type": "datatype.string",
+          "description": "NetBox device type ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5H1WP4FWMtXZPCIuF59Wfu6dvda",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "List of Interface Templates",
+          "type": "datatype.array",
+          "description": "Array of interface templates for dropdown",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RYD16LC5LDS5OiWZvW8qbap6yBUnhJfPW",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "List of Device Types",
+          "type": "datatype.array",
+          "description": "Array of device types for dropdown",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RYD16LC621V6Hc0YnZ4PrRTTvgVF94WbZ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Site Name",
+          "type": "datatype.string",
+          "description": "Selected site name",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5HTM63jTDO35i9Zbxt6qvAmlg1B",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Device Role ID",
+          "type": "datatype.string",
+          "description": "NetBox device role ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5IC2S6PpU3Qg7g5CQAyCxNQeYaF",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Tenant ID",
+          "type": "datatype.string",
+          "description": "NetBox tenant ID",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5GPM76qE0QAWtSGB7yVdSqE7erQ",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "datatype.string",
+        "properties": {
+          "value": "",
+          "scope": "local",
+          "name": "Uplink Interface",
+          "type": "datatype.string",
+          "description": "Selected uplink interface",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": "text"
+        },
+        "unique_name": "variable_workflow_02RYCNHA5H8NP1fHl40BY24vPyCyUTQIos5",
+        "object_type": "variable_workflow"
+      },
+      {
+        "schema_id": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+        "properties": {
+          "value": [],
+          "scope": "local",
+          "name": "List of Sites",
+          "type": "datatype.array",
+          "description": "Array of sites for dropdown",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02RYD16LC5WYH5r4g82kgZcFaG7My6PN56y",
+        "object_type": "variable_workflow"
+      }
+    ],
+    "properties": {
+      "atomic": {
+        "is_atomic": false
+      },
+      "delete_workflow_instance": false,
+      "description": "Master workflow for complete switch onboarding process.\n\nThis workflow orchestrates the following steps:\n1. Add Switches to Site - Creates devices in NetBox with planned status\n2. Create Prefixes and IPs - Sets up IP addressing from Catalyst Center PnP data\n3. Claim Device via PnP - Claims devices in Catalyst Center and provisions them\n4. Run pyATS Tests - Validates device configuration and connectivity\n\nInputs (via dropdown selection):\n- Tenant: NetBox tenant\n- Site: NetBox site\n- Device Type: Device type model\n- Device Role: Device role\n- Uplink Interface: Interface template for uplink\n- Serial Numbers: Comma-separated device serial numbers\n\nPrerequisites:\n- All sub-workflows must be imported\n- NetBox and Catalyst Center targets configured\n- SSH host configured with pyATS venv for tests\n- Devices must have contacted Catalyst Center (visible in PnP)",
+      "display_name": "[Master] Onboard Switch",
+      "runtime_user": {
+        "target_default": true
+      },
+      "target": {
+        "execute_on_target_group": true,
+        "target_group": {
+          "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+          "run_on_all_targets": false,
+          "selected_target_types": [
+            "web-service.endpoint",
+            "catalystcenter.endpoint",
+            "netbox.endpoint",
+            "terminal.unix_linux_endpoint"
+          ],
+          "use_criteria": {
+            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
+            "conditions": [
+              {
+                "operator": "eq",
+                "left_operand": "$targetgroup.target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4.common.display_name$",
+                "right_operand": "$global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk.global.variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk$"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "object_type": "definition_workflow",
+    "actions": [
+      {
+        "unique_name": "definition_activity_02RYH8B6CI5R00DhSm4lVbleSoMdfVewGFN",
+        "name": "Group",
+        "title": "Fetch Dropdown Data from NetBox",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Fetch Dropdown Data from NetBox",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02RYH8B99O19A4K8JIcKlDy6jHqSu4XXc7T",
+            "name": "Get All Tenants",
+            "title": "Get All Tenants",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get All Tenants",
+              "input": {
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/tenancy/tenants/",
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Atomic] Get Data from NetBox"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BBYRCEI34c5IrRMtnTZmafzEL5vhs",
+            "name": "Get All Sites",
+            "title": "Get All Sites",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get All Sites",
+              "input": {
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/sites/",
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Atomic] Get Data from NetBox"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BEE1NXB0YVlSocLObUJNGRZftml5Z",
+            "name": "Get All Device Types",
+            "title": "Get All Device Types",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get All Device Types",
+              "input": {
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/device-types/",
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Atomic] Get Data from NetBox"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BGVLC005UW1RWJ0lNMzB5SxXTz76Q",
+            "name": "Get All Device Roles",
+            "title": "Get All Device Roles",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get All Device Roles",
+              "input": {
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/device-roles/",
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Atomic] Get Data from NetBox"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BJ9GSSA4Fy0kPnKPZxf2g4nPnr1Lk",
+            "name": "Get All Interface Templates",
+            "title": "Get All Interface Templates",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Get All Interface Templates",
+              "input": {
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxB": "api/dcim/interface-templates/",
+                "variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxC": ""
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Atomic] Get Data from NetBox"
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD",
+            "name": "Execute Python Script",
+            "title": "Populate Dropdown Lists",
+            "type": "python3.script",
+            "base_type": "activity",
+            "properties": {
+              "action_timeout": 180,
+              "continue_on_failure": false,
+              "display_name": "Populate Dropdown Lists",
+              "script": "import json\nimport sys\n\ntenants = json.loads(sys.argv[1]) if sys.argv[1] else []\nsites = json.loads(sys.argv[2]) if sys.argv[2] else []\ndevice_types = json.loads(sys.argv[3]) if sys.argv[3] else []\ndevice_roles = json.loads(sys.argv[4]) if sys.argv[4] else []\ninterface_templates = json.loads(sys.argv[5]) if sys.argv[5] else []\n\ntenant_list = json.dumps([{\"id\": str(t.get(\"id\", \"\")), \"name\": t.get(\"name\", \"\")} for t in tenants])\nsite_list = json.dumps([{\"id\": str(s.get(\"id\", \"\")), \"name\": s.get(\"name\", \"\")} for s in sites])\ndevice_type_list = json.dumps([{\"id\": str(dt.get(\"id\", \"\")), \"name\": dt.get(\"model\", \"\"), \"part_number\": dt.get(\"part_number\", \"\")} for dt in device_types])\ndevice_role_list = json.dumps([{\"id\": str(dr.get(\"id\", \"\")), \"name\": dr.get(\"name\", \"\")} for dr in device_roles])\ninterface_template_list = json.dumps([{\"id\": str(it.get(\"id\", \"\")), \"name\": it.get(\"name\", \"\")} for it in interface_templates])",
+              "script_arguments": [
+                "$activity.definition_activity_02RYH8B99O19A4K8JIcKlDy6jHqSu4XXc7T.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+                "$activity.definition_activity_02RYH8BBYRCEI34c5IrRMtnTZmafzEL5vhs.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+                "$activity.definition_activity_02RYH8BEE1NXB0YVlSocLObUJNGRZftml5Z.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+                "$activity.definition_activity_02RYH8BGVLC005UW1RWJ0lNMzB5SxXTz76Q.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$",
+                "$activity.definition_activity_02RYH8BJ9GSSA4Fy0kPnKPZxf2g4nPnr1Lk.output.variable_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxD$"
+              ],
+              "script_queries": [
+                {
+                  "script_query": "tenant_list",
+                  "script_query_name": "tenant_list",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "site_list",
+                  "script_query_name": "site_list",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "device_type_list",
+                  "script_query_name": "device_type_list",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "device_role_list",
+                  "script_query_name": "device_role_list",
+                  "script_query_type": "string"
+                },
+                {
+                  "script_query": "interface_template_list",
+                  "script_query_name": "interface_template_list",
+                  "script_query_type": "string"
+                }
+              ],
+              "skip_execution": false
+            },
+            "object_type": "definition_activity"
+          },
+          {
+            "unique_name": "definition_activity_02RYH8BNOSZUP6YFneZOOKuJW1hCnFwGlHJ",
+            "name": "Set Variables",
+            "title": "Store Dropdown Lists",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Store Dropdown Lists",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5RH76GNOZVe5CYQsiNp1KYrzKn$",
+                  "variable_value_new": "$activity.definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD.output.script_queries.tenant_list$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5WYH5r4g82kgZcFaG7My6PN56y$",
+                  "variable_value_new": "$activity.definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD.output.script_queries.site_list$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC621V6Hc0YnZ4PrRTTvgVF94WbZ$",
+                  "variable_value_new": "$activity.definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD.output.script_queries.device_type_list$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5BHU4OQHj2VbCdK904FuPl3MWI$",
+                  "variable_value_new": "$activity.definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD.output.script_queries.device_role_list$"
+                },
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5LDS5OiWZvW8qbap6yBUnhJfPW$",
+                  "variable_value_new": "$activity.definition_activity_02RYH8BL6UWHH7GJdpNYmROPGOM6n95rEGD.output.script_queries.interface_template_list$"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW",
+        "name": "Create Prompt",
+        "title": "Collect Switch Onboarding Information",
+        "type": "task.prompt_request",
+        "base_type": "activity",
+        "properties": {
+          "assignee_roles": [
+            "admin",
+            "user"
+          ],
+          "assignees": [
+            "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.output.started_by$"
+          ],
+          "continue_on_failure": false,
+          "description": "Collect information for switch onboarding",
+          "display_name": "Collect Switch Onboarding Information",
+          "expiration_date": {
+            "is_relative_time": true,
+            "relative_time": {
+              "duration": 72,
+              "time_units": "hours"
+            }
+          },
+          "form_elements": [
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Tenant",
+              "form_option_label_key": "name",
+              "form_option_value_key": "id",
+              "form_source_array": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5RH76GNOZVe5CYQsiNp1KYrzKn$"
+            },
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Site",
+              "form_option_label_key": "name",
+              "form_option_value_key": "id",
+              "form_source_array": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5WYH5r4g82kgZcFaG7My6PN56y$"
+            },
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Device Type",
+              "form_option_label_key": "name",
+              "form_option_value_key": "id",
+              "form_source_array": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC621V6Hc0YnZ4PrRTTvgVF94WbZ$"
+            },
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Device Role",
+              "form_option_label_key": "name",
+              "form_option_value_key": "id",
+              "form_source_array": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5BHU4OQHj2VbCdK904FuPl3MWI$"
+            },
+            {
+              "allow_multiselect": false,
+              "form_element": "select",
+              "form_label": "Uplink Interface",
+              "form_option_label_key": "name",
+              "form_option_value_key": "name",
+              "form_source_array": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC5LDS5OiWZvW8qbap6yBUnhJfPW$"
+            },
+            {
+              "allow_multiselect": false,
+              "form_element": "text",
+              "form_label": "Serial Numbers",
+              "form_option_label_key": ""
+            }
+          ],
+          "prompt_body": "Please provide the following information for switch onboarding:\n\n• **Tenant**: Select the NetBox tenant\n• **Site**: Select the site where switches will be added\n• **Device Type**: Select the switch device type\n• **Device Role**: Select the device role\n• **Uplink Interface**: Select the uplink interface template\n• **Serial Numbers**: Enter serial numbers (comma-separated)",
+          "prompt_title": "Onboard Switch - Master Workflow",
+          "skip_execution": false,
+          "task_owner": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.output.started_by$",
+          "task_requestor": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.output.started_by$",
+          "wait_for_prompt_response": true
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx",
+        "name": "Execute Python Script",
+        "title": "Extract Prompt Values",
+        "type": "python3.script",
+        "base_type": "activity",
+        "properties": {
+          "action_timeout": 180,
+          "continue_on_failure": false,
+          "display_name": "Extract Prompt Values",
+          "script": "import json\nimport sys\nimport re\n\n# Parse JSON objects from dropdown selections\ntenant_obj = json.loads(sys.argv[1]) if sys.argv[1] else {}\nsite_obj = json.loads(sys.argv[2]) if sys.argv[2] else {}\ndevice_type_obj = json.loads(sys.argv[3]) if sys.argv[3] else {}\ndevice_role_obj = json.loads(sys.argv[4]) if sys.argv[4] else {}\nuplink_obj = json.loads(sys.argv[5]) if sys.argv[5] else {}\nserial_numbers_input = sys.argv[6]\ndevice_types_json = sys.argv[7]\n\n# Extract IDs and names\ntenant_id = tenant_obj.get('id', '')\ntenant_name = tenant_obj.get('name', '')\nsite_id = site_obj.get('id', '')\nsite_name = site_obj.get('name', '')\ndevice_type_id = device_type_obj.get('id', '')\ndevice_role_id = device_role_obj.get('id', '')\nuplink_interface = uplink_obj.get('name', '')\nserials = serial_numbers_input\n\n# Extract site number from site name\nsite_number_match = re.search(r'\\d+$', site_name)\nsite_number = site_number_match.group() if site_number_match else '1'\n\n# Get part number from device types list\ndevice_types = json.loads(device_types_json) if device_types_json else []\npart_number = next((dt.get('part_number', '') for dt in device_types if str(dt.get('id', '')) == device_type_id), '')\n\nprint(f\"Tenant: {tenant_name} ({tenant_id}), Site: {site_name} ({site_id})\")",
+          "script_arguments": [
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Tenant$",
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Site$",
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Device Type$",
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Device Role$",
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Uplink Interface$",
+            "$activity.definition_activity_02RYH8BPGR4OR0jSRC7l4zfyx0Rm4WuV4iW.output.prompt_response.Serial Numbers$",
+            "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYD16LC621V6Hc0YnZ4PrRTTvgVF94WbZ$"
+          ],
+          "script_queries": [
+            {
+              "script_query": "tenant_id",
+              "script_query_name": "tenant_id",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "tenant_name",
+              "script_query_name": "tenant_name",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "site_id",
+              "script_query_name": "site_id",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "site_name",
+              "script_query_name": "site_name",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "device_type_id",
+              "script_query_name": "device_type_id",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "device_role_id",
+              "script_query_name": "device_role_id",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "uplink_interface",
+              "script_query_name": "uplink_interface",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "serials",
+              "script_query_name": "serials",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "part_number",
+              "script_query_name": "part_number",
+              "script_query_type": "string"
+            },
+            {
+              "script_query": "site_number",
+              "script_query_name": "site_number",
+              "script_query_type": "string"
+            }
+          ],
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RYH8BTN1HBC0gxdBx6hh3hmQvQOaXJ5E5",
+        "name": "Set Variables",
+        "title": "Store Prompt Values",
+        "type": "core.set_multiple_variables",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Store Prompt Values",
+          "skip_execution": false,
+          "variables_to_update": [
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5GPM76qE0QAWtSGB7yVdSqE7erQ$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.tenant_id$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5GGPG3eKck60cqbaInHRSjvFSy1$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.tenant_name$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5I6B11nHCqnobThDGc4h13ivl7G$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.site_id$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HTM63jTDO35i9Zbxt6qvAmlg1B$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.site_name$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5H1WP4FWMtXZPCIuF59Wfu6dvda$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.device_type_id$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5IC2S6PpU3Qg7g5CQAyCxNQeYaF$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.device_role_id$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5H8NP1fHl40BY24vPyCyUTQIos5$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.uplink_interface$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HOF261BKBqOAXJJvjWbAxGPDsJ$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.serials$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HE0M1CFjHOVEQBrI3aRgyCUGJj$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.part_number$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HJ4O1UW2mJgsUY7RFuQ6FdlnRp$",
+              "variable_value_new": "$activity.definition_activity_02RYH8BRG97QE6XNHKLMPgRdLvrrCbOqGNx.output.script_queries.site_number$"
+            }
+          ]
+        },
+        "object_type": "definition_activity"
+      },
+      {
+        "unique_name": "definition_activity_02RYH8BVNWJE07SfelHoEvvIIb9LaeeFfcb",
+        "name": "Group",
+        "title": "Step 1: Add Switches to Site",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Step 1: Add Switches to Site",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02RYH8BZ1O1I74UyXvkYRf59eaO3DrEt9vg",
+            "name": "Add Switches to Site",
+            "title": "Add Switches to Site",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Add Switches to Site",
+              "input": {
+                "variable_workflow_02RYCDP6FK08D6gS7Di1SjpMPnv4EMYrXtG": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HE0M1CFjHOVEQBrI3aRgyCUGJj$",
+                "variable_workflow_02RYCDP6FK9IL1i5QDynLwDaFtQHHaLS6KS": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5GPM76qE0QAWtSGB7yVdSqE7erQ$",
+                "variable_workflow_02RYCDP6FKGKY2KxjaBqYFQIQNH1iRumiV9": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5I6B11nHCqnobThDGc4h13ivl7G$",
+                "variable_workflow_02RYCDP6FKM4W5wztz0dB7itnrl3Ukj0c0e": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5H1WP4FWMtXZPCIuF59Wfu6dvda$",
+                "variable_workflow_02RYCDP6FKU8K3aLG7AD4WdQvlyPcuINM7E": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5H8NP1fHl40BY24vPyCyUTQIos5$",
+                "variable_workflow_02RYCDP6FKZMD6Bf4vDJ8f16bkjCOKWcrWu": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HJ4O1UW2mJgsUY7RFuQ6FdlnRp$",
+                "variable_workflow_02RYCDP6FL7D96YNbmBMHaCFDtYjiKukWvB": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HTM63jTDO35i9Zbxt6qvAmlg1B$",
+                "variable_workflow_02RYCDP6FLD0A41d4g0un452qKQ0eUrjgK2": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5IC2S6PpU3Qg7g5CQAyCxNQeYaF$",
+                "variable_workflow_02RYCDP6FLIVJ1R8bFXr7CniurLNNLTz1aV": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5HOF261BKBqOAXJJvjWbAxGPDsJ$"
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RVT72B9NLAT5JKZ7nW66KClVwVuKrvg6z",
+              "workflow_name": "[Sub-Onboard] Add Switches to Site"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02RYH8C164NTI0zPNVH5uJds8lXJrfxBogY",
+        "name": "Group",
+        "title": "Step 2: Create Prefixes and IPs",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Step 2: Create Prefixes and IPs",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02RYH8C3TF61W0gXjSDw8DXjVyd8cK51JPh",
+            "name": "Create Prefixes and IPs in NetBox from Catalyst Center",
+            "title": "Create Prefixes and IPs",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Create Prefixes and IPs",
+              "input": {
+                "variable_workflow_02RVWCIP00TUC0oWGXLkN1TmA8lXoe3RBxB": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5GGPG3eKck60cqbaInHRSjvFSy1$"
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RVWCIP00TUC0oWGXLkN1TmA8lXoe3RBxA",
+              "workflow_name": "[Sub-Onboard] Create Prefixes and IPs"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02RYH8C5JF3TR4KHGuIexW99rGKt6mUzoku",
+        "name": "Group",
+        "title": "Step 3: Onboard Switch via PnP",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Step 3: Onboard Switch via PnP",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02RYH8C8IHMGX0Gd08lGBlR9Ybk03ZoN8WV",
+            "name": "Onboard Switch via PnP",
+            "title": "Onboard Switch via PnP",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Onboard Switch via PnP",
+              "input": {
+                "variable_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntF1": "$workflow.definition_workflow_02RYCLD6EKI8E2s25U4HOM013cesXPSwFKd.local.variable_workflow_02RYCNHA5GGPG3eKck60cqbaInHRSjvFSy1$"
+              },
+              "runtime_user": {
+                "target_default": true
+              },
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf",
+              "workflow_name": "[Sub-Onboard] Claim Device via PnP"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02RYH8CAGRLHY5CyIKHf4GszLC8TZqUhYK5",
+        "name": "Group",
+        "title": "Step 4: Run pyATS Network Tests",
+        "type": "logic.group",
+        "base_type": "activity",
+        "properties": {
+          "continue_on_failure": false,
+          "display_name": "Step 4: Run pyATS Network Tests",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity",
+        "actions": [
+          {
+            "unique_name": "definition_activity_02RYH8CDB7T263ovciCX5pkSGoGvx5Vnquu",
+            "name": "Run pyATS Network Tests",
+            "title": "Run pyATS Network Tests",
+            "type": "workflow.atomic_workflow",
+            "base_type": "subworkflow",
+            "properties": {
+              "continue_on_failure": true,
+              "display_name": "Run pyATS Network Tests",
+              "input": {},
+              "runtime_user": {},
+              "skip_execution": false,
+              "target": {
+                "execute_on_this_target_group": true,
+                "target_group_id": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4"
+              },
+              "workflow_id": "definition_workflow_02RVVTSJL1E093yLsvgFIDRKHXGjTjA5uY0",
+              "workflow_name": "[Sub-Onboard] Run pyATS Tests"
+            },
+            "object_type": "definition_activity"
+          }
+        ]
+      },
+      {
+        "unique_name": "definition_activity_02RYH8CEQLO0Y6eEMrjQgb0yOv3DBCQ0y63",
+        "name": "Completed",
+        "title": "Workflow Completed",
+        "type": "logic.completed",
+        "base_type": "activity",
+        "properties": {
+          "completion_type": "succeeded",
+          "continue_on_failure": false,
+          "display_name": "Workflow Completed",
+          "result_message": "Switch onboarding process completed successfully!\n\nSteps completed:\n1. Added switches to NetBox site\n2. Created prefixes and IP addresses\n3. Onboarded switches via Catalyst Center PnP\n4. Ran pyATS network tests",
+          "skip_execution": false
+        },
+        "object_type": "definition_activity"
+      }
+    ],
+    "categories": [
+      "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN"
+    ]
+  },
+  "categories": {
+    "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN": {
+      "unique_name": "category_02RRO197QIU1N4lnnTBXQ9QbmLLZtDXEIRN",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "basic.category",
+      "base_type": "category",
+      "category_type": "custom",
+      "object_type": "category"
+    }
+  },
+  "targets": {
+    "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d": {
+      "unique_name": "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
+      "name": "WLSN Catalyst Center",
+      "title": "WLSN Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.10",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+        "description": "",
+        "display_name": "WLSN Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC": {
+      "unique_name": "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+      "name": "WLSN NetBox",
+      "title": "WLSN NetBox",
+      "type": "netbox.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "192.168.99.93",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "default_runtime_user_id": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+        "description": "",
+        "display_name": "WLSN NetBox",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c": {
+      "unique_name": "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c",
+      "name": "Google Maps API",
+      "title": "Google Maps API",
+      "type": "web-service.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "disable_certificate_validation": false,
+        "display_name": "Google Maps API",
+        "host": "maps.googleapis.com",
+        "ignore_proxy": false,
+        "is_https_proxy": false,
+        "no_runtime_user": true,
+        "protocol": "https"
+      }
+    },
+    "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR": {
+      "unique_name": "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+      "name": "WLSN Docker",
+      "title": "WLSN Docker",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02PZPDMADVCHW17LBkiPU0VlP2JnyMUqY0D",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+        "description": "",
+        "display_name": "WLSN Docker",
+        "host": "192.168.99.94",
+        "port": 22
+      }
+    },
+    "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM": {
+      "unique_name": "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM",
+      "name": "dCloud NetBox",
+      "title": "dCloud NetBox",
+      "type": "netbox.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "198.18.134.22",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02SPS08DMIFJB5HHiBGxkNeHHrP51R9QyYj",
+        "default_runtime_user_id": "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3",
+        "description": "",
+        "display_name": "dCloud NetBox",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq": {
+      "unique_name": "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq",
+      "name": "dCloud Catalyst Center",
+      "title": "dCloud Catalyst Center",
+      "type": "catalystcenter.endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "_host": "198.18.129.100",
+        "_port": 443,
+        "_protocol": "https",
+        "_tls_insecure": true,
+        "ao_remote_id": "02SPS08DMIFJB5HHiBGxkNeHHrP51R9QyYj",
+        "default_runtime_user_id": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+        "description": "",
+        "display_name": "dCloud Catalyst Center",
+        "ignore_proxy": false,
+        "is_https_proxy": false
+      }
+    },
+    "definition_target_02SSEC1GDXFZ20iEKxuKQVRv5sPgPE8upWv": {
+      "unique_name": "definition_target_02SSEC1GDXFZ20iEKxuKQVRv5sPgPE8upWv",
+      "name": "dCloud Docker",
+      "title": "dCloud Docker",
+      "type": "terminal.unix_linux_endpoint",
+      "base_type": "target",
+      "object_type": "definition_target",
+      "properties": {
+        "ao_remote_id": "02SPS08DMIFJB5HHiBGxkNeHHrP51R9QyYj",
+        "bash_shell": "/bin/bash",
+        "default_runtime_user_id": "definition_runtime_user_02SSEBVDQT0882qB3MJWoDkh13GTiGLG7Y0",
+        "display_name": "dCloud Docker",
+        "host": "198.18.134.22",
+        "port": 22
+      }
+    }
+  },
+  "runtime_users": {
+    "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX": {
+      "unique_name": "definition_runtime_user_02Q27PR8XUXVG7TTDmDGG2ZoyxTrQRUf7SX",
+      "name": "WLSN CatC API Admin",
+      "title": "WLSN CatC API Admin",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "devnet",
+        "display_name": "WLSN CatC API Admin"
+      }
+    },
+    "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9": {
+      "unique_name": "definition_runtime_user_02Q33243345V15wqObawPAHY80bzrWVm6V9",
+      "name": "WLSN NetBox",
+      "title": "WLSN NetBox",
+      "type": "runtime_user.netbox_token_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_token": "*****",
+        "display_name": "WLSN NetBox"
+      }
+    },
+    "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC": {
+      "unique_name": "definition_runtime_user_02RW1NM2BFPUO4rGnvMziVKyNETmwk0mtwC",
+      "name": "dCloud CatC API User",
+      "title": "dCloud CatC API User",
+      "type": "runtime_user.catalystcenter_basic_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_password": "*****",
+        "_username": "user1",
+        "display_name": "dCloud CatC API User"
+      }
+    },
+    "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8": {
+      "unique_name": "definition_runtime_user_02RWJ9VRRHAUM4OHSqzt53hP352v1fgRUz8",
+      "name": "devnet",
+      "title": "devnet",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "devnet",
+        "password": "*****",
+        "user": "devnet"
+      }
+    },
+    "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3": {
+      "unique_name": "definition_runtime_user_02SS7ENN7HQMW4Kyau0ghx2WdorE1YFHJY3",
+      "name": "dCloud NetBox",
+      "title": "dCloud NetBox",
+      "type": "runtime_user.netbox_token_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "_token": "*****",
+        "display_name": "dCloud NetBox"
+      }
+    },
+    "definition_runtime_user_02SSEBVDQT0882qB3MJWoDkh13GTiGLG7Y0": {
+      "unique_name": "definition_runtime_user_02SSEBVDQT0882qB3MJWoDkh13GTiGLG7Y0",
+      "name": "dCloud Docker",
+      "title": "dCloud Docker",
+      "type": "runtime_user.terminal_password_credentials",
+      "base_type": "runtime_user",
+      "object_type": "definition_runtime_user",
+      "properties": {
+        "display_name": "dCloud Docker",
+        "password": "*****",
+        "user": "devnet"
+      }
+    }
+  },
+  "target_groups": {
+    "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4": {
+      "unique_name": "target_group_02RYFETOZ4HR26rQvvJO9ivmfP7ZMiGrxM4",
+      "name": "BRKOPS-2357",
+      "title": "BRKOPS-2357",
+      "type": "generic.target_group",
+      "base_type": "target_group",
+      "version": "1.0.0",
+      "targets": [
+        {
+          "data_target_type": "catalystcenter.endpoint",
+          "view_target_type": "catalystcenter.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02Q27PW22HA1R1zohuyTZKLL08H1ZtseP2d",
+            "definition_target_02SSBBM5N459624gVNjF5LnueWyeia3qsLq"
+          ]
+        },
+        {
+          "data_target_type": "netbox.endpoint",
+          "view_target_type": "netbox.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RPUNI85LRRY0UogrmrEt4WeuzlLfBLXMC",
+            "definition_target_02SQQGDUZMEP92SzpigZkcOHcANOTp49vgM"
+          ]
+        },
+        {
+          "data_target_type": "web-service.endpoint",
+          "view_target_type": "web-service.endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RRREVNL8TQP2SU3B72iz38cXw328WK69c"
+          ]
+        },
+        {
+          "data_target_type": "terminal.unix_linux_endpoint",
+          "view_target_type": "terminal.unix_linux_endpoint",
+          "include_all_targets": false,
+          "selected_target_ids": [
+            "definition_target_02RWJAEBQ688P3taKFIxCFoaDpv420dWrUR",
+            "definition_target_02SSEC1GDXFZ20iEKxuKQVRv5sPgPE8upWv"
+          ]
+        }
+      ],
+      "object_type": "target_group"
+    }
+  },
+  "variables": {
+    "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk": {
+      "unique_name": "variable_02RYFOC3YODIW3enGXTKI03lEs1mRnrYdpk",
+      "properties": {
+        "value": "dCloud Catalyst Center",
+        "scope": "global",
+        "name": "Target_CatC",
+        "type": "datatype.string",
+        "is_required": false,
+        "display_on_wizard": false,
+        "is_invisible": false,
+        "variable_string_format": "text"
+      },
+      "object_type": "variable"
+    }
+  },
+  "variable_types": {
+    "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B": {
+      "base_type": "datatype",
+      "name": "GenericMapArray",
+      "object_type": "variable_type_array",
+      "properties": {
+        "display_name": "GenericMapArray",
+        "elements_type_id": "variable_type_object_02RS9UB9BN3FO0xpXdKJXwWLNspyklvYJa7"
+      },
+      "title": "GenericMapArray",
+      "type": "datatype.arraytype",
+      "unique_name": "variable_type_array_02RSBWYJCL4P70vBz8EMlSn6DdcoaaXdO5B",
+      "variable_type_schema_id": "variable_type_schema_array_02RSBWYJ9XMBM0gdSvYsYhQkU4yx4R37swj"
+    },
+    "variable_type_object_02RS9UB9BN3FO0xpXdKJXwWLNspyklvYJa7": {
+      "base_type": "datatype",
+      "description": "generic map, item of id, name",
+      "name": "GenericMapItem",
+      "object_type": "variable_type_object",
+      "properties": {
+        "display_name": "GenericMapItem"
+      },
+      "title": "GenericMapItem",
+      "type": "datatype.objecttype",
+      "unique_name": "variable_type_object_02RS9UB9BN3FO0xpXdKJXwWLNspyklvYJa7",
+      "variable_type_schema_id": "variable_type_schema_object_02RS9UB994C7B6WfUWzjog3kf6HgnXUIw6B",
+      "keys": [
+        {
+          "name": "id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "atomic_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RVT72B9NLAT5JKZ7nW66KClVwVuKrvg6z",
+    "definition_workflow_02RVWCIP00TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf",
+    "definition_workflow_02RVVTSJL1E093yLsvgFIDRKHXGjTjA5uY0"
+  ],
+  "remotemetas": {
+    "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh": {
+      "base_type": "remote_meta",
+      "type": "generic.remote_meta",
+      "name": "remote-wlsn-01",
+      "title": "remote-wlsn-01",
+      "version": "1.0.0",
+      "properties": {
+        "advanced": {
+          "require_advanced": false
+        },
+        "cloud_type": "vmware",
+        "display_name": "remote-wlsn-01",
+        "network": {
+          "dns_servers": "192.168.99.101,192.168.99.102",
+          "gateway": "192.168.99.1",
+          "ip_endpoint": "192.168.99.21/24",
+          "is_static_ip": true
+        },
+        "proxy": {
+          "require_proxy": false
+        }
+      },
+      "unique_name": "remote_meta_02PZPDMARJFXL4cljmxILTXsdTRNhbPF9Nh",
+      "object_type": "remote_meta"
+    },
+    "remote_meta_02SPS08DZGEV415wQhDdaMasxpRmEsfphqy": {
+      "base_type": "remote_meta",
+      "type": "generic.remote_meta",
+      "name": "remote-dcloud-01",
+      "title": "remote-dcloud-01",
+      "version": "1.0.0",
+      "properties": {
+        "advanced": {
+          "require_advanced": false
+        },
+        "cloud_type": "vmware",
+        "display_name": "remote-dcloud-01",
+        "network": {
+          "dns_servers": "198.18.128.1,8.8.8.8",
+          "gateway": "198.18.128.1",
+          "ip_endpoint": "198.18.134.8/18",
+          "is_static_ip": true
+        },
+        "proxy": {
+          "require_proxy": false
+        }
+      },
+      "unique_name": "remote_meta_02SPS08DZGEV415wQhDdaMasxpRmEsfphqy",
+      "object_type": "remote_meta"
+    }
+  },
+  "dependent_workflows": [
+    "definition_workflow_02RRTABC40TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RVT72B9NLAT5JKZ7nW66KClVwVuKrvg6z",
+    "definition_workflow_02RVWCIP00TUC0oWGXLkN1TmA8lXoe3RBxA",
+    "definition_workflow_02RVT50509JZ71zALxi8TNtncxIHPfLntFf",
+    "definition_workflow_02RVVTSJL1E093yLsvgFIDRKHXGjTjA5uY0"
+  ]
+}
