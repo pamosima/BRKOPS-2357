@@ -35,3 +35,8 @@ WORKDIR /app
 # Configure pip and install Python packages
 RUN python3 -m pip config set global.break-system-packages true && \
     python3 -m pip install --user pyats[library] pyats.contrib pynetbox --upgrade
+
+# Create pyats config directory and disable reporter to prevent Docker IPC issues
+RUN mkdir -p /home/docker/.pyats && \
+    echo "[reporter]" > /home/docker/.pyats/pyats.conf && \
+    echo "enabled = false" >> /home/docker/.pyats/pyats.conf
