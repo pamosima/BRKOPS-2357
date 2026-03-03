@@ -1,8 +1,8 @@
 {
   "workflow": {
     "unique_name": "definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e",
-    "name": "[Sub-Config] Push Config to Devices",
-    "title": "[Sub-Config] Push Config to Devices",
+    "name": "[Demo] Push Config to Devices",
+    "title": "[Demo] Push Config to Devices",
     "type": "generic.workflow",
     "base_type": "workflow",
     "variables": [
@@ -52,22 +52,6 @@
           "variable_string_format": "text"
         },
         "unique_name": "variable_workflow_02TVD46YSL37M3eFu9PzbLdZVacJ7laFc6M",
-        "object_type": "variable_workflow"
-      },
-      {
-        "schema_id": "datatype.string",
-        "properties": {
-          "value": "",
-          "scope": "local",
-          "name": "Current Device JSON",
-          "type": "datatype.string",
-          "description": "Current device being processed in the loop",
-          "is_required": false,
-          "display_on_wizard": false,
-          "is_invisible": false,
-          "variable_string_format": "text"
-        },
-        "unique_name": "variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z",
         "object_type": "variable_workflow"
       },
       {
@@ -151,6 +135,22 @@
         "object_type": "variable_workflow"
       },
       {
+        "schema_id": "datatype.integer",
+        "properties": {
+          "value": 0,
+          "scope": "local",
+          "name": "Current Index",
+          "type": "datatype.integer",
+          "description": "Current device index in the loop",
+          "is_required": false,
+          "display_on_wizard": false,
+          "is_invisible": false,
+          "variable_string_format": ""
+        },
+        "unique_name": "variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z",
+        "object_type": "variable_workflow"
+      },
+      {
         "schema_id": "datatype.boolean",
         "properties": {
           "value": false,
@@ -205,7 +205,7 @@
       },
       "delete_workflow_instance": false,
       "description": "Pushes rendered configuration from NetBox to multiple network devices via SSH.\n\nWorkflow:\n1. Builds NetBox API filter URL based on filter type and value\n2. Fetches matching devices from NetBox\n3. Loops through each device:\n   - Calls NetBox render-config API to get rendered configuration\n   - Maps NetBox platform to Netmiko device type\n   - Executes push_config.py on Linux host via SSH\n4. Reports success/failure summary\n\nFilter Types:\n- name: Device name (exact match)\n- tenant: Tenant slug\n- role: Device role slug\n- platform: Platform slug\n- site: Site slug\n- tag: Tag slug\n\nPrerequisites:\n- Devices must exist in NetBox with primary_ip and platform set\n- Devices must have a config template assigned (device, role, or platform)\n- Linux host with push_config.py, Python venv, and .env credentials\n- Network connectivity from Linux host to target devices",
-      "display_name": "[Sub-Config] Push Config to Devices",
+      "display_name": "[Demo] Push Config to Devices",
       "runtime_user": {
         "target_default": true
       },
@@ -326,7 +326,7 @@
           "continue_on_failure": false,
           "description": "Parse the NetBox response and extract device information for looping",
           "display_name": "Parse Device List",
-          "script": "import json\nimport sys\n\nPLATFORM_MAP = {\n    'cisco_ios': 'cisco_ios',\n    'ios': 'cisco_ios',\n    'cisco-ios': 'cisco_ios',\n    'cisco_xe': 'cisco_xe',\n    'ios-xe': 'cisco_xe',\n    'cisco-ios-xe': 'cisco_xe',\n    'iosxe': 'cisco_xe',\n    'cisco_nxos': 'cisco_nxos',\n    'nxos': 'cisco_nxos',\n    'cisco-nxos': 'cisco_nxos',\n    'nexus': 'cisco_nxos',\n    'cisco_xr': 'cisco_xr',\n    'iosxr': 'cisco_xr',\n    'cisco-iosxr': 'cisco_xr',\n    'arista_eos': 'arista_eos',\n    'eos': 'arista_eos',\n    'arista': 'arista_eos',\n    'juniper_junos': 'juniper_junos',\n    'junos': 'juniper_junos',\n    'juniper': 'juniper_junos',\n}\n\nnetbox_response = sys.argv[1] if len(sys.argv) > 1 else '{}'\n\ntry:\n    data = json.loads(netbox_response)\n    devices = data.get('results', [])\n    \n    device_list = []\n    for d in devices:\n        device_id = d.get('id', '')\n        device_name = d.get('name', '')\n        \n        primary_ip = d.get('primary_ip4') or d.get('primary_ip')\n        ip_address = ''\n        if primary_ip:\n            ip_address = primary_ip.get('address', '').split('/')[0]\n        \n        platform = d.get('platform')\n        platform_slug = platform.get('slug', '').lower() if platform else ''\n        device_type = PLATFORM_MAP.get(platform_slug, 'cisco_ios')\n        \n        if ip_address:  # Only include devices with IP\n            device_list.append({\n                'id': str(device_id),\n                'name': device_name,\n                'ip': ip_address,\n                'platform': platform_slug,\n                'device_type': device_type\n            })\n    \n    device_list_json = json.dumps(device_list)\n    total_devices = len(device_list)\n    \n    print(f'Found {total_devices} devices with primary IP')\n    for d in device_list:\n        print(f\"  - {d['name']} ({d['ip']}) - {d['device_type']}\")\n        \nexcept Exception as e:\n    device_list_json = '[]'\n    total_devices = 0\n    print(f'Error: {str(e)}')\n",
+          "script": "import json\nimport sys\n\nPLATFORM_MAP = {\n    'cisco_ios': 'cisco_ios',\n    'ios': 'cisco_ios',\n    'cisco-ios': 'cisco_ios',\n    'cisco_xe': 'cisco_xe',\n    'ios-xe': 'cisco_xe',\n    'cisco-ios-xe': 'cisco_xe',\n    'iosxe': 'cisco_xe',\n    'cisco_nxos': 'cisco_nxos',\n    'nxos': 'cisco_nxos',\n    'cisco-nxos': 'cisco_nxos',\n    'nexus': 'cisco_nxos',\n    'cisco_xr': 'cisco_xr',\n    'iosxr': 'cisco_xr',\n    'cisco-iosxr': 'cisco_xr',\n    'arista_eos': 'arista_eos',\n    'eos': 'arista_eos',\n    'arista': 'arista_eos',\n    'juniper_junos': 'juniper_junos',\n    'junos': 'juniper_junos',\n    'juniper': 'juniper_junos',\n}\n\nnetbox_response = sys.argv[1] if len(sys.argv) > 1 else '{}'\n\ntry:\n    data = json.loads(netbox_response)\n    devices = data.get('results', [])\n    \n    device_list = []\n    for d in devices:\n        device_id = d.get('id', '')\n        device_name = d.get('name', '')\n        \n        primary_ip = d.get('primary_ip4') or d.get('primary_ip')\n        ip_address = ''\n        if primary_ip:\n            ip_address = primary_ip.get('address', '').split('/')[0]\n        \n        platform = d.get('platform')\n        platform_slug = platform.get('slug', '').lower() if platform else ''\n        device_type = PLATFORM_MAP.get(platform_slug, 'cisco_ios')\n        \n        if ip_address:\n            device_list.append({\n                'id': str(device_id),\n                'name': device_name,\n                'ip': ip_address,\n                'platform': platform_slug,\n                'device_type': device_type\n            })\n    \n    device_list_json = json.dumps(device_list)\n    total_devices = len(device_list)\n    \n    print(f'Found {total_devices} devices with primary IP')\n    for d in device_list:\n        print(f\"  - {d['name']} ({d['ip']}) - {d['device_type']}\")\n        \nexcept Exception as e:\n    device_list_json = '[]'\n    total_devices = 0\n    print(f'Error: {str(e)}')\n",
           "script_arguments": [
             "$activity.definition_activity_02TVD47G2CAEA2TXOFf4mNfKKDp1jinQWeS.output.raw_body$"
           ],
@@ -364,6 +364,10 @@
             {
               "variable_to_update": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSIYES0TFpZeWYOToOrzSdQ8r7WU$",
               "variable_value_new": "$activity.definition_activity_02TVD47JFH5W94XI42YSllerCGblTDzfMPt.output.script_queries.total_devices$"
+            },
+            {
+              "variable_to_update": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$",
+              "variable_value_new": 0
             }
           ]
         },
@@ -443,50 +447,49 @@
       },
       {
         "unique_name": "definition_activity_02TVD48G13IV12SQIibILtdzObtLZlBGNoe",
-        "name": "For Each",
+        "name": "While Loop",
         "title": "Process Each Device",
-        "type": "logic.for_each",
+        "type": "logic.while",
         "base_type": "activity",
         "properties": {
           "continue_on_failure": true,
           "display_name": "Process Each Device",
-          "skip_execution": false,
-          "source_array": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSL37M3eFu9PzbLdZVacJ7laFc6M$"
+          "skip_execution": false
         },
         "object_type": "definition_activity",
-        "actions": [
+        "blocks": [
           {
-            "unique_name": "definition_activity_02TVD48OHZYUY2ey2iBlRw8J7TNVQ8B6KmR",
-            "name": "Set Variables",
-            "title": "Store Current Device",
-            "type": "core.set_multiple_variables",
+            "unique_name": "definition_activity_02TVD48G13IV12SQIibILtdzObtLZlBGNoF",
+            "name": "Condition Branch",
+            "title": "While Current Index < Total Devices",
+            "type": "logic.condition_block",
             "base_type": "activity",
             "properties": {
-              "continue_on_failure": false,
-              "display_name": "Store Current Device",
-              "skip_execution": false,
-              "variables_to_update": [
-                {
-                  "variable_to_update": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$",
-                  "variable_value_new": "$activity.definition_activity_02TVD48G13IV12SQIibILtdzObtLZlBGNoe.input.source_array[@]$"
-                }
-              ]
+              "condition": {
+                "left_operand": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$",
+                "operator": "lt",
+                "right_operand": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSIYES0TFpZeWYOToOrzSdQ8r7WU$"
+              },
+              "continue_on_failure": true,
+              "display_name": "While Current Index < Total Devices",
+              "skip_execution": false
             },
-            "object_type": "definition_activity"
-          },
+            "object_type": "definition_activity",
+            "actions": [
           {
             "unique_name": "definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q",
             "name": "Execute Python Script",
-            "title": "Extract Device Info",
+            "title": "Extract Current Device",
             "type": "python3.script",
             "base_type": "activity",
             "properties": {
               "action_timeout": 180,
               "continue_on_failure": false,
-              "description": "Extract device info from the current loop item",
-              "display_name": "Extract Device Info",
-              "script": "import json\nimport sys\n\ndevice_json = sys.argv[1]\n\ntry:\n    device = json.loads(device_json)\n    device_id = str(device.get('id', ''))\n    device_name = device.get('name', '')\n    device_ip = device.get('ip', '')\n    device_type = device.get('device_type', 'cisco_ios')\n    \n    print(f'Processing: {device_name} ({device_ip}) - {device_type}')\nexcept Exception as e:\n    print(f'Error: {str(e)}')\n    device_id = ''\n    device_name = ''\n    device_ip = ''\n    device_type = 'cisco_ios'\n",
+              "description": "Extract device info at the current index",
+              "display_name": "Extract Current Device",
+              "script": "import json\nimport sys\n\ndevice_list_json = sys.argv[1]\ncurrent_index = int(sys.argv[2])\n\ntry:\n    device_list = json.loads(device_list_json)\n    if current_index < len(device_list):\n        device = device_list[current_index]\n        device_id = str(device.get('id', ''))\n        device_name = device.get('name', '')\n        device_ip = device.get('ip', '')\n        device_type = device.get('device_type', 'cisco_ios')\n        print(f'Processing [{current_index + 1}/{len(device_list)}]: {device_name} ({device_ip}) - {device_type}')\n    else:\n        device_id = ''\n        device_name = ''\n        device_ip = ''\n        device_type = 'cisco_ios'\n        print(f'Error: Index {current_index} out of range')\nexcept Exception as e:\n    print(f'Error: {str(e)}')\n    device_id = ''\n    device_name = ''\n    device_ip = ''\n    device_type = 'cisco_ios'\n",
               "script_arguments": [
+                "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSL37M3eFu9PzbLdZVacJ7laFc6M$",
                 "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$"
               ],
               "script_queries": [
@@ -554,15 +557,15 @@
           {
             "unique_name": "definition_activity_02TVD48XVZKCO6iJY0WaEnYwPOBLljWJkkQ",
             "name": "Execute Python Script",
-            "title": "Parse and Build SSH Command",
+            "title": "Parse Config and Build SSH Command",
             "type": "python3.script",
             "base_type": "activity",
             "properties": {
               "action_timeout": 180,
               "continue_on_failure": true,
               "description": "Parse the rendered config and build the SSH command",
-              "display_name": "Parse and Build SSH Command",
-              "script": "import sys\nimport json\n\nscripts_path = sys.argv[1]\ndevice_ip = sys.argv[2]\ndevice_type = sys.argv[3]\nrendered_response = sys.argv[4]\nrender_succeeded = sys.argv[5].lower() == 'true' if len(sys.argv) > 5 else False\n\nif not render_succeeded:\n    ssh_cmd = ''\n    error_msg = 'Config rendering failed - device may not have a config template assigned'\n    print(f'Error: {error_msg}')\nelse:\n    try:\n        # Parse rendered config\n        try:\n            data = json.loads(rendered_response)\n            config_content = data.get('content', rendered_response)\n        except:\n            config_content = rendered_response\n        \n        # Split config into lines and filter\n        config_lines = [line.strip() for line in config_content.split('\\n') if line.strip()]\n        config_commands = [line for line in config_lines if not line.startswith('!')]\n        \n        if not config_commands:\n            ssh_cmd = ''\n            error_msg = 'No config commands found in rendered config'\n            print(f'Error: {error_msg}')\n        else:\n            config_json = json.dumps(config_commands)\n            config_escaped = config_json.replace(\"'\", \"'\\\"'\\\"'\")\n            \n            ssh_cmd = f\"cd {scripts_path} && source venv/bin/activate && export $(grep -v '^#' .env | xargs) && python3 push_config.py {device_ip} {device_type} '{config_escaped}'\"\n            error_msg = ''\n            \n            print(f'Built command for {device_ip} with {len(config_commands)} commands')\n    except Exception as e:\n        ssh_cmd = ''\n        error_msg = str(e)\n        print(f'Error: {error_msg}')\n",
+              "display_name": "Parse Config and Build SSH Command",
+              "script": "import sys\nimport json\n\nscripts_path = sys.argv[1]\ndevice_ip = sys.argv[2]\ndevice_type = sys.argv[3]\nrendered_response = sys.argv[4]\nrender_succeeded = sys.argv[5].lower() == 'true' if len(sys.argv) > 5 else False\n\nif not render_succeeded:\n    ssh_cmd = ''\n    error_msg = 'Config rendering failed - device may not have a config template assigned'\n    print(f'Error: {error_msg}')\nelse:\n    try:\n        try:\n            data = json.loads(rendered_response)\n            config_content = data.get('content', rendered_response)\n        except:\n            config_content = rendered_response\n        \n        config_lines = [line.strip() for line in config_content.split('\\n') if line.strip()]\n        config_commands = [line for line in config_lines if not line.startswith('!')]\n        \n        if not config_commands:\n            ssh_cmd = ''\n            error_msg = 'No config commands found in rendered config'\n            print(f'Error: {error_msg}')\n        else:\n            config_json = json.dumps(config_commands)\n            config_escaped = config_json.replace(\"'\", \"'\\\"'\\\"'\")\n            \n            ssh_cmd = f\"cd {scripts_path} && source venv/bin/activate && export $(grep -v '^#' .env | xargs) && python3 push_config.py {device_ip} {device_type} '{config_escaped}'\"\n            error_msg = ''\n            \n            print(f'Built command with {len(config_commands)} commands')\n    except Exception as e:\n        ssh_cmd = ''\n        error_msg = str(e)\n        print(f'Error: {error_msg}')\n",
               "script_arguments": [
                 "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.static.variable_workflow_02TVD46YSK1GH2VOnhJQN2ScfsSjms2778r$",
                 "$activity.definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q.output.script_queries.device_ip$",
@@ -652,7 +655,7 @@
                       "continue_on_failure": false,
                       "description": "Parse the push result and update counters",
                       "display_name": "Parse Push Result",
-                      "script": "import sys\nimport json\nimport re\n\ndevice_name = sys.argv[1]\ndevice_ip = sys.argv[2]\nssh_output = sys.argv[3]\nssh_succeeded = sys.argv[4].lower() == 'true' if len(sys.argv) > 4 else False\ncurrent_summary = sys.argv[5] if len(sys.argv) > 5 else ''\ncurrent_success = int(sys.argv[6]) if len(sys.argv) > 6 else 0\ncurrent_failure = int(sys.argv[7]) if len(sys.argv) > 7 else 0\n\ntry:\n    if not ssh_succeeded:\n        success = False\n        result_msg = f'{device_name} ({device_ip}): FAILED - SSH error'\n    else:\n        json_match = re.search(r'\\{[^{}]*\"status\"[^{}]*\\}', ssh_output, re.DOTALL)\n        if json_match:\n            result = json.loads(json_match.group())\n            success = result.get('status') == 'success'\n            if success:\n                result_msg = f\"{device_name} ({device_ip}): SUCCESS - {result.get('commands_sent', 0)} commands\"\n            else:\n                result_msg = f\"{device_name} ({device_ip}): FAILED - {result.get('error', 'Unknown error')[:50]}\"\n        else:\n            success = 'success' in ssh_output.lower() and 'failed' not in ssh_output.lower()\n            result_msg = f\"{device_name} ({device_ip}): {'SUCCESS' if success else 'FAILED'}\"\n    \n    if success:\n        new_success = current_success + 1\n        new_failure = current_failure\n    else:\n        new_success = current_success\n        new_failure = current_failure + 1\n    \n    new_summary = current_summary + result_msg + '\\n' if current_summary else result_msg + '\\n'\n    \nexcept Exception as e:\n    success = False\n    new_success = current_success\n    new_failure = current_failure + 1\n    new_summary = current_summary + f'{device_name} ({device_ip}): ERROR - {str(e)}\\n'\n\nprint(f'Result: {result_msg}')\n",
+                      "script": "import sys\nimport json\nimport re\n\ndevice_name = sys.argv[1]\ndevice_ip = sys.argv[2]\nssh_output = sys.argv[3]\nssh_succeeded = sys.argv[4].lower() == 'true' if len(sys.argv) > 4 else False\ncurrent_summary = sys.argv[5] if len(sys.argv) > 5 else ''\ncurrent_success = int(sys.argv[6]) if len(sys.argv) > 6 and sys.argv[6] else 0\ncurrent_failure = int(sys.argv[7]) if len(sys.argv) > 7 and sys.argv[7] else 0\n\ntry:\n    if not ssh_succeeded:\n        success = False\n        result_msg = f'{device_name} ({device_ip}): FAILED - SSH error'\n    else:\n        json_match = re.search(r'\\{[^{}]*\"status\"[^{}]*\\}', ssh_output, re.DOTALL)\n        if json_match:\n            result = json.loads(json_match.group())\n            success = result.get('status') == 'success'\n            if success:\n                result_msg = f\"{device_name} ({device_ip}): SUCCESS - {result.get('commands_sent', 0)} commands\"\n            else:\n                result_msg = f\"{device_name} ({device_ip}): FAILED - {result.get('error', 'Unknown error')[:50]}\"\n        else:\n            success = 'success' in ssh_output.lower() and 'failed' not in ssh_output.lower()\n            result_msg = f\"{device_name} ({device_ip}): {'SUCCESS' if success else 'FAILED'}\"\n    \n    if success:\n        new_success = current_success + 1\n        new_failure = current_failure\n    else:\n        new_success = current_success\n        new_failure = current_failure + 1\n    \n    new_summary = current_summary + result_msg + '\\n' if current_summary else result_msg + '\\n'\n    \nexcept Exception as e:\n    success = False\n    new_success = current_success\n    new_failure = current_failure + 1\n    new_summary = current_summary + f'{device_name} ({device_ip}): ERROR - {str(e)}\\n'\n\nprint(f'Result: {result_msg}')\n",
                       "script_arguments": [
                         "$activity.definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q.output.script_queries.device_name$",
                         "$activity.definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q.output.script_queries.device_ip$",
@@ -741,7 +744,7 @@
                       "continue_on_failure": false,
                       "description": "Record the failure in the summary",
                       "display_name": "Record Failure",
-                      "script": "import sys\n\ndevice_name = sys.argv[1]\ndevice_ip = sys.argv[2]\nerror_msg = sys.argv[3]\ncurrent_summary = sys.argv[4] if len(sys.argv) > 4 else ''\ncurrent_failure = int(sys.argv[5]) if len(sys.argv) > 5 else 0\n\nresult_msg = f'{device_name} ({device_ip}): FAILED - {error_msg}'\nnew_summary = current_summary + result_msg + '\\n' if current_summary else result_msg + '\\n'\nnew_failure = current_failure + 1\n\nprint(f'Recorded failure: {result_msg}')\n",
+                      "script": "import sys\n\ndevice_name = sys.argv[1]\ndevice_ip = sys.argv[2]\nerror_msg = sys.argv[3]\ncurrent_summary = sys.argv[4] if len(sys.argv) > 4 else ''\ncurrent_failure = int(sys.argv[5]) if len(sys.argv) > 5 and sys.argv[5] else 0\n\nresult_msg = f'{device_name} ({device_ip}): FAILED - {error_msg}'\nnew_summary = current_summary + result_msg + '\\n' if current_summary else result_msg + '\\n'\nnew_failure = current_failure + 1\n\nprint(f'Recorded failure: {result_msg}')\n",
                       "script_arguments": [
                         "$activity.definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q.output.script_queries.device_name$",
                         "$activity.definition_activity_02TVD48RBHHDU4L0BwiNtt1LZGBxoyKhv5q.output.script_queries.device_ip$",
@@ -790,6 +793,27 @@
                   }
                 ]
               }
+            ]
+          },
+          {
+            "unique_name": "definition_activity_02TVD48OHZYUY2ey2iBlRw8J7TNVQ8B6KmR",
+            "name": "Set Variables",
+            "title": "Increment Index",
+            "type": "core.set_multiple_variables",
+            "base_type": "activity",
+            "properties": {
+              "continue_on_failure": false,
+              "display_name": "Increment Index",
+              "skip_execution": false,
+              "variables_to_update": [
+                {
+                  "variable_to_update": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$",
+                  "variable_value_new": "$workflow.definition_workflow_02TVD46Y5S41S4rVjSxmBQ8x5ZNRdHEaA4e.local.variable_workflow_02TVD46YSLTVR2WQFalNBrrg5TAplOrU72z$ + 1"
+                }
+              ]
+            },
+            "object_type": "definition_activity"
+          }
             ]
           }
         ]
