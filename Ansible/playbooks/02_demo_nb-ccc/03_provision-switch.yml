@@ -22,33 +22,33 @@
   gather_facts: false
 
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
 
   tasks:
     - name: Get Network Device Info and check managed status
-      cisco.dnac.network_device_info:
-        <<: *dnac_login
+      cisco.catalystcenter.network_device_info:
+        <<: *catalystcenter_login
         managementIpAddress: "{{ hostvars[inventory_hostname].primary_ip4 }}"
       register: device_info_result
       until:
-        - device_info_result.dnac_response.response[0].managedAtleastOnce == true
-        - device_info_result.dnac_response.response[0].collectionStatus == "Managed"
-        - device_info_result.dnac_response.response[0].reachabilityStatus == "Reachable"
-        - device_info_result.dnac_response.response[0].pendingSyncRequestsCount == "0"
-        - device_info_result.dnac_response.response[0].family == "Switches and Hubs"
+        - device_info_result.catalystcenter_response.response[0].managedAtleastOnce == true
+        - device_info_result.catalystcenter_response.response[0].collectionStatus == "Managed"
+        - device_info_result.catalystcenter_response.response[0].reachabilityStatus == "Reachable"
+        - device_info_result.catalystcenter_response.response[0].pendingSyncRequestsCount == "0"
+        - device_info_result.catalystcenter_response.response[0].family == "Switches and Hubs"
       retries: 25
       delay: 15
       when: hostvars[inventory_hostname].status.value == "planned"
 
     - name: Provision a wired device to a site
-      cisco.dnac.provision_intent:
-        <<: *dnac_login
+      cisco.catalystcenter.provision_intent:
+        <<: *catalystcenter_login
         config:
           - site_name: "Global/{{ hostvars[inventory_hostname].sites[0].tenant.name }}/{{ hostvars[inventory_hostname].sites[0].region.name }}/{{ hostvars[inventory_hostname].sites[0].name }}{{ '/'+hostvars[inventory_hostname].ccc_location if hostvars[inventory_hostname].ccc_location | default('') else '' }}"
             management_ip_address: "{{ hostvars[inventory_hostname].primary_ip4 }}"

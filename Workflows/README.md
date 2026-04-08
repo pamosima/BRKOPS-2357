@@ -193,7 +193,7 @@ Devices require the following custom fields for Catalyst Center integration:
 - SSH host with Python 3 and pyATS installed in a virtual environment
 - pyATS venv at `{pyATS Scripts Path}/venv`
 - Network connectivity to devices under test
-- `.env` file with credentials (NETBOX_API, NETBOX_TOKEN, DNAC_CLI_USER, DNAC_CLI_PASSWORD)
+- `.env` file with credentials (NETBOX_API, NETBOX_TOKEN, CATALYSTCENTER_CLI_USER, CATALYSTCENTER_CLI_PASSWORD; legacy `DNAC_CLI_*` still supported)
 
 ## Import Order
 

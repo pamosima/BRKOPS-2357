@@ -15,7 +15,8 @@
 
 ---
 plugin: netbox.netbox.nb_inventory
-validate_certs: true
+# false for self-signed NetBox TLS (set true when using a CA-trusted certificate)
+validate_certs: false
 config_context: false
 flatten_custom_fields: false
 site_data: true
@@ -30,6 +31,7 @@ group_by:
 
 compose:
   ccc_template_name: custom_fields.ccc_template_name
+  # Optional manual override; playbook resolves PID from device-type Part Number via API
   ccc_pid: custom_fields.ccc_pid
   ccc_ip: primary_ip.address
   ccc_location: location.name

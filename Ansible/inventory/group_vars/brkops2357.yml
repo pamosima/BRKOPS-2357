@@ -19,25 +19,27 @@ tenant: brkops2357
 # Netbox API vars
 netbox_api_endpoint: "{{ lookup('env', 'NETBOX_API') }}"
 netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
-netbox_verify: true
+# false for self-signed / lab TLS (matches NetBox modules using validate_certs: false)
+netbox_verify: false
 
-# DNAC connection variables
-dnac_host: "{{ lookup('env', 'DNAC_HOST') }}"
-dnac_username: "{{ lookup('env', 'DNAC_USER') }}"
-dnac_password: "{{ lookup('env', 'DNAC_PASSWORD') }}"
-dnac_verify: false
-dnac_port: 443
-dnac_version: 2.3.7.6
-dnac_debug: true
+# Catalyst Center connection variables (env: prefer CATALYSTCENTER_*; legacy DNAC_*; catalystcentersdk CATALYST_CENTER_*)
+catalystcenter_host: "{{ lookup('env', 'CATALYSTCENTER_HOST') or lookup('env', 'DNAC_HOST') }}"
+catalystcenter_username: "{{ lookup('env', 'CATALYSTCENTER_USER') or lookup('env', 'DNAC_USER') }}"
+catalystcenter_password: "{{ lookup('env', 'CATALYSTCENTER_PASSWORD') or lookup('env', 'DNAC_PASSWORD') }}"
+catalystcenter_verify: false
+catalystcenter_port: 443
+catalystcenter_version: 2.3.7.6
+catalystcenter_debug: true
 
-# DNAC global configuration vars
-dnac_area: BRKOPS-2357
-dnac_dhcp: 198.18.130.11
-dnac_domain_name: demo.local
-dnac_dns_server: 198.18.130.11
-dnac_ntp_server: 198.18.133.141
-dnac_timezone: Europe/Amsterdam
-dnac_cli_user: netadmin
-dnac_cli_password: C1sco12345
-dnac_snmp_ro_community: public
-dnac_snmp_rw_community: private
+# Catalyst Center global configuration vars
+catalystcenter_area: BRKOPS-2357
+catalystcenter_dhcp: 198.18.130.11
+catalystcenter_domain_name: demo.local
+catalystcenter_dns_server: 198.18.130.11
+catalystcenter_ntp_server: 198.18.133.141
+catalystcenter_timezone: Europe/Amsterdam
+# Device CLI for Catalyst Center–managed devices (env: prefer CATALYSTCENTER_CLI_*; legacy DNAC_CLI_*; else defaults below)
+catalystcenter_cli_user: "{{ lookup('env', 'CATALYSTCENTER_CLI_USER') or lookup('env', 'DNAC_CLI_USER') or 'netadmin' }}"
+catalystcenter_cli_password: "{{ lookup('env', 'CATALYSTCENTER_CLI_PASSWORD') or lookup('env', 'DNAC_CLI_PASSWORD') or 'C1sco12345' }}"
+catalystcenter_snmp_ro_community: public
+catalystcenter_snmp_rw_community: private

@@ -22,14 +22,14 @@
   gather_facts: false
 
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
-      dnac_debug: "{{ dnac_debug }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
+      catalystcenter_debug: "{{ catalystcenter_debug }}"
       state: merged
 
   tasks:
@@ -68,7 +68,7 @@
                 'site': {
                   'area': {
                     'name': item.value.name,
-                    'parent_name': 'Global/' + dnac_area +
+                    'parent_name': 'Global/' + catalystcenter_area +
                                    (item.value.parent.display if item.value.parent is not none else '')
                   }
                 },
@@ -94,7 +94,7 @@
                 'site': {
                   'building': {
                     'name': item.value.name,
-                    'parent_name': 'Global/' + dnac_area + '/' + region_name,
+                    'parent_name': 'Global/' + catalystcenter_area + '/' + region_name,
                     'address': item.value.physical_address,
                     'latitude': item.value.latitude | float,
                     'longitude': item.value.longitude | float,
@@ -127,7 +127,7 @@
                   'floor': {
                     'name': item.value.name,
                     'floor_number': item.value.custom_fields.get('ccc_floor_number', 1) | int,
-                    'parent_name': 'Global/' + dnac_area + '/' + region_name + '/' + site.value.name,
+                    'parent_name': 'Global/' + catalystcenter_area + '/' + region_name + '/' + site.value.name,
                     'rfModel': item.value.custom_fields.get('ccc_rf_model', 'Cubes And Walled Offices'),
                     'width': item.value.custom_fields.get('ccc_floor_width', 100.0) | float,
                     'length': item.value.custom_fields.get('ccc_floor_length', 100.0) | float,
@@ -143,8 +143,8 @@
       when: item.value.status.value == 'planned'
 
     - name: Create sites from design_sites config
-      cisco.dnac.site_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.site_workflow_manager:
+        <<: *catalystcenter_login
         config: "{{ design_sites }}"
       register: site_creation_result
       when: design_sites
@@ -153,6 +153,7 @@
       netbox.netbox.netbox_site:
         netbox_url: "{{ netbox_api_endpoint }}"
         netbox_token: "{{ netbox_token }}"
+        validate_certs: "{{ netbox_verify }}"
         data:
           name: "{{ item.value.name }}"
           status: active
@@ -163,6 +164,7 @@
       netbox.netbox.netbox_location:
         netbox_url: "{{ netbox_api_endpoint }}"
         netbox_token: "{{ netbox_token }}"
+        validate_certs: "{{ netbox_verify }}"
         data:
           name: "{{ item.value.name }}"
           status: active
