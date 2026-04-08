@@ -16,6 +16,12 @@
 ---
 # Playbook to onboard the planned switches definied in Netbox
 # Usage: ansible-playbook playbooks/02_demo_nb-ccc/02_switch-onboarding.yml -i inventory/nb_inventory.yml
+#
+# NetBox data uses ansible.builtin.uri (REST) instead of nb_lookup: with nb_inventory
+# loaded, nb_lookup can crash the Ansible task worker on macOS (SSL + fork).
+# Onboarding wait uses Catalyst Center REST + uri instead of cisco.catalystcenter.pnp_device_info
+# with until/retries — that pattern can trigger "worker was found in a dead state" on macOS.
+
 - name: Playbook to manage Cisco Catalyst Center Plug and Play using NetBox inventory
   hosts: brkops2357
   connection: local
@@ -37,18 +43,61 @@
         pnp_details:
           claim_switching_devices: []
 
-    - name: Retrieve NetBox interfaces (Uplink and MGMT)
+    # NetBox device list API omits device_type.part_number; full device-type record has it.
+    - name: Query NetBox device type for Part Number (Cisco PID)
+      ansible.builtin.uri:
+        url: "{{ (netbox_api_endpoint | regex_replace('/$', '')) }}/api/dcim/device-types/?slug={{ device_types[0] | urlencode }}&limit=1"
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Accept: application/json
+        validate_certs: "{{ netbox_verify }}"
+      register: _nb_device_type
+      when:
+        - hostvars[inventory_hostname].status.value == 'planned'
+        - device_types | default([]) | length > 0
+
+    - name: Set ccc_pid from optional custom field or device type Part Number
       ansible.builtin.set_fact:
-        nb_uplink: "{{ query('netbox.netbox.nb_lookup', 'interfaces',
-          api_endpoint=netbox_api_endpoint,
-          token=netbox_token,
-          validate_certs=netbox_verify,
-          api_filter='device=' + hostvars[inventory_hostname].inventory_hostname + ' label=Uplink') }}"
-        nb_mgmtvlan: "{{ query('netbox.netbox.nb_lookup', 'vlans',
-          api_endpoint=netbox_api_endpoint,
-          token=netbox_token,
-          validate_certs=netbox_verify,
-          api_filter='name=MGMT') }}"
+        ccc_pid: "{{ hostvars[inventory_hostname].custom_fields.ccc_pid | default(_nb_device_type.json.results[0].part_number, true) }}"
+      when:
+        - hostvars[inventory_hostname].status.value == 'planned'
+        - not (_nb_device_type.skipped | default(false))
+        - (_nb_device_type.json.results | default([])) | length > 0
+
+    - name: Query MGMT VLAN from NetBox (REST)
+      ansible.builtin.uri:
+        url: "{{ (netbox_api_endpoint | regex_replace('/$', '')) }}/api/ipam/vlans/?name=MGMT"
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Accept: application/json
+        validate_certs: "{{ netbox_verify }}"
+      register: _nb_mgmt_vlan
+      when: hostvars[inventory_hostname].status.value == 'planned'
+
+    - name: Query device uplink interface from NetBox (REST)
+      ansible.builtin.uri:
+        url: "{{ (netbox_api_endpoint | regex_replace('/$', '')) }}/api/dcim/interfaces/?device={{ inventory_hostname | urlencode }}&label=Uplink"
+        headers:
+          Authorization: "Token {{ netbox_token }}"
+          Accept: application/json
+        validate_certs: "{{ netbox_verify }}"
+      register: _nb_uplink_if
+      when: hostvars[inventory_hostname].status.value == 'planned'
+
+    - name: Normalize NetBox REST results to nb_lookup-shaped facts
+      ansible.builtin.set_fact:
+        nb_mgmtvlan:
+          - key: "{{ _nb_mgmt_vlan.json.results[0].id }}"
+            value: "{{ _nb_mgmt_vlan.json.results[0] }}"
+        nb_uplink:
+          - key: "{{ _nb_uplink_if.json.results[0].id }}"
+            value: "{{ _nb_uplink_if.json.results[0] }}"
+      when:
+        - hostvars[inventory_hostname].status.value == 'planned'
+        - not (_nb_mgmt_vlan.skipped | default(false))
+        - not (_nb_uplink_if.skipped | default(false))
+        - (_nb_mgmt_vlan.json.results | default([])) | length > 0
+        - (_nb_uplink_if.json.results | default([])) | length > 0
 
     - name: Build PnP device information
       ansible.builtin.set_fact:
@@ -57,7 +106,7 @@
             - serial_number: "{{ hostvars[inventory_hostname].serial }}"
               hostname: "{{ hostvars[inventory_hostname].inventory_hostname }}"
               state: "{{ 'Unclaimed' if hostvars[inventory_hostname].status.value == 'planned' else 'Unknown' }}"
-              pid: "{{ hostvars[inventory_hostname].ccc_pid }}"
+              pid: "{{ ccc_pid }}"
           site_name: "Global/{{ hostvars[inventory_hostname].sites[0].tenant.name }}/{{ hostvars[inventory_hostname].sites[0].region.name }}/{{ hostvars[inventory_hostname].sites[0].name }}{{ '/'+hostvars[inventory_hostname].ccc_location if hostvars[inventory_hostname].ccc_location | default('') else '' }}"
           add_device_method: "Single"
           project_name: "Onboarding Configuration"
@@ -93,14 +142,39 @@
       loop: "{{ pnp_details.claim_switching_devices }}"
       when: pnp_details.claim_switching_devices | length > 0
 
-    - name: Wait for device to be onboarded
-      cisco.catalystcenter.pnp_device_info:
-        <<: *catalystcenter_login
-        serialNumber: "{{ hostvars[inventory_hostname].serial }}"
+    - name: Get Catalyst Center API token (for REST onboarding wait)
+      ansible.builtin.uri:
+        url: "https://{{ catalystcenter_host }}:{{ catalystcenter_port }}/dna/system/api/v1/auth/token"
+        method: POST
+        user: "{{ catalystcenter_username }}"
+        password: "{{ catalystcenter_password }}"
+        force_basic_auth: true
+        validate_certs: "{{ catalystcenter_verify }}"
+        return_content: true
+      register: _ccc_token
+      run_once: true
+      when:
+        - pnp_details.claim_switching_devices | length > 0
+        - not ansible_check_mode
+
+    - name: Wait for device to be onboarded (REST poll)
+      ansible.builtin.uri:
+        url: >-
+          https://{{ catalystcenter_host }}:{{ catalystcenter_port }}/dna/intent/api/v1/onboarding/pnp-device?serialNumber={{ hostvars[inventory_hostname].serial | urlencode }}
+        headers:
+          X-Auth-Token: "{{ hostvars[ansible_play_hosts[0]]['_ccc_token'].json.Token }}"
+          Accept: application/json
+        validate_certs: "{{ catalystcenter_verify }}"
+        status_code: [200, 404]
       register: onboarding_result
-      until: onboarding_result.catalystcenter_response[0].deviceInfo.onbState == "Provisioned"
+      # API returns a JSON array at top level (not wrapped in "response")
+      until: >-
+        (onboarding_result.json | default([]) | length > 0)
+        and (onboarding_result.json[0].deviceInfo.onbState | default('') == "Provisioned")
       retries: 25
       delay: 15
       when:
         - pnp_details.claim_switching_devices | length > 0
         - not ansible_check_mode
+        - hostvars[ansible_play_hosts[0]]['_ccc_token'] is defined
+        - hostvars[ansible_play_hosts[0]]['_ccc_token'].json.Token is defined

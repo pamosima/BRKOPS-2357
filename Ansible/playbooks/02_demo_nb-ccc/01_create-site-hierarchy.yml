@@ -153,6 +153,7 @@
       netbox.netbox.netbox_site:
         netbox_url: "{{ netbox_api_endpoint }}"
         netbox_token: "{{ netbox_token }}"
+        validate_certs: "{{ netbox_verify }}"
         data:
           name: "{{ item.value.name }}"
           status: active
@@ -163,6 +164,7 @@
       netbox.netbox.netbox_location:
         netbox_url: "{{ netbox_api_endpoint }}"
         netbox_token: "{{ netbox_token }}"
+        validate_certs: "{{ netbox_verify }}"
         data:
           name: "{{ item.value.name }}"
           status: active

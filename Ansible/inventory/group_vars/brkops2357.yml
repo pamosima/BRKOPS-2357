@@ -19,9 +19,10 @@ tenant: brkops2357
 # Netbox API vars
 netbox_api_endpoint: "{{ lookup('env', 'NETBOX_API') }}"
 netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
-netbox_verify: true
+# false for self-signed / lab TLS (matches NetBox modules using validate_certs: false)
+netbox_verify: false
 
-# Catalyst Center connection variables (env: prefer CATALYSTCENTER_*; legacy DNAC_* still supported)
+# Catalyst Center connection variables (env: prefer CATALYSTCENTER_*; legacy DNAC_*; catalystcentersdk CATALYST_CENTER_*)
 catalystcenter_host: "{{ lookup('env', 'CATALYSTCENTER_HOST') or lookup('env', 'DNAC_HOST') }}"
 catalystcenter_username: "{{ lookup('env', 'CATALYSTCENTER_USER') or lookup('env', 'DNAC_USER') }}"
 catalystcenter_password: "{{ lookup('env', 'CATALYSTCENTER_PASSWORD') or lookup('env', 'DNAC_PASSWORD') }}"

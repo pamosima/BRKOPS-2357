@@ -16,9 +16,19 @@ Playbooks use the **[`cisco.catalystcenter`](https://galaxy.ansible.com/ui/repo/
 
 ## Usage
 
+**Load credentials in the same shell before any playbook** so `inventory/group_vars/brkops2357.yml` can read them from the environment (`lookup('env', ...)`):
+
+```bash
+cd /path/to/brkops-2357
+source .bash-script.sh
+cd Ansible
+```
+
+Without this, Catalyst Center API calls fail with **`AccessTokenError`** / missing username and password—the Python SDK (`catalystcentersdk`) and Ansible both need credentials, either via **`CATALYSTCENTER_USER`** / **`CATALYSTCENTER_PASSWORD`** (and **`CATALYSTCENTER_HOST`**) or the SDK-style names **`CATALYST_CENTER_USERNAME`** / **`CATALYST_CENTER_PASSWORD`**.
+
 To use the playbooks in this repository, follow these commands:
 
-- **First navigate to the Ansible directory:**
+- **First navigate to the Ansible directory** (after sourcing `.bash-script.sh` as above):
 
   ```bash
   cd Ansible
@@ -33,8 +43,10 @@ To use the playbooks in this repository, follow these commands:
 - **Add Example Data to NetBox**
 
   ```bash
-  ansible-playbook playbooks/00_setup/02_nb_config.yml
+  ansible-playbook -i localhost, playbooks/00_setup/02_nb_config.yml
   ```
+
+  The play uses **`connection: local`** (no SSH to `localhost`). Ensure **`NETBOX_API`** and **`NETBOX_TOKEN`** are set (for example `source` the repo `.bash-script.sh` first).
 
 - **Create Site Hierarchy in Catalyst Center (without NetBox Data)**
 
@@ -131,15 +143,24 @@ To set up the project locally, follow these steps:
    source .bash-script.sh
    ```
 
-8. **Install Ansible Galaxy collections:**
+8. **Install Ansible Galaxy collections** into the project so `ansible.cfg` can find them:
 
    ```bash
-   ansible-galaxy collection install -r Ansible/requirements.yml
+   ansible-galaxy collection install -r Ansible/requirements.yml -p Ansible/collections
    ```
 
-   This pulls **`cisco.catalystcenter`** (and other collections listed in `requirements.yml`).
+   This pulls **`cisco.catalystcenter`**, **`netbox.netbox`**, and **`ansible.utils`**. The checked-in **`Ansible/ansible.cfg`** sets `collections_path` to `./collections` and `~/.ansible/collections`.
 
-9. **Adjust the following inventory and group variable files:**
+9. **Run playbooks from the `Ansible/` directory** (so Ansible loads `ansible.cfg`). Example:
+
+   ```bash
+   cd Ansible
+   ansible-playbook -i inventory/ccc_inventory.yml playbooks/01_demo_ccc/01_create-site-hierarchy.yml
+   ```
+
+   If you run from the repo root without `cd Ansible`, Ansible may not find `cisco.catalystcenter` unless you set `ANSIBLE_CONFIG=Ansible/ansible.cfg` or export collection paths.
+
+10. **Adjust the following inventory and group variable files:**
 
    - `Ansible/inventory/ccc_inventory.yml`
    - `Ansible/inventory/nb_inventory.yml`

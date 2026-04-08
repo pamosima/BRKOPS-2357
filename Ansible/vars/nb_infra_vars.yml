@@ -184,7 +184,7 @@ manufacturers:
     slug: "cisco"
 
 device_types:
-  - part_number: C9KV-UADP-8P
+  - part_number: "C9KV-UADP-8P"
     manufacturer: Cisco
     model: Catalyst 9000 UADP 8 Port Virtual Switch
     slug: cisco-c9kv-uadp-8p
@@ -246,6 +246,7 @@ devices:
     platform: "iosxe"
     custom_fields:
       ccc_template_name: "Ansible_Day0-Template"
+      ccc_pid: "C9KV-UADP-8P"
   - name: "sw2-1"
     site: "Site-2"
     location: "Site-2-1"
@@ -259,6 +260,7 @@ devices:
     platform: "iosxe"
     custom_fields:
       ccc_template_name: "Ansible_Day0-Template"
+      ccc_pid: "C9KV-UADP-8P"
   - name: "sw3-1"
     site: "Site-3"
     location: "Site-3-1"
@@ -272,6 +274,7 @@ devices:
     platform: "iosxe"
     custom_fields:
       ccc_template_name: "Ansible_Day0-Template"
+      ccc_pid: "C9KV-UADP-8P"
   - name: "sw4-1"
     site: "Site-4"
     location: "Site-4-1"
@@ -285,6 +288,7 @@ devices:
     platform: "iosxe"
     custom_fields:
       ccc_template_name: "Ansible_Day0-Template"
+      ccc_pid: "C9KV-UADP-8P"
   - name: "sw5-1"
     site: "Site-5"
     location: "Site-5-1"
@@ -298,6 +302,7 @@ devices:
     platform: "iosxe"
     custom_fields:
       ccc_template_name: "Ansible_Day0-Template"
+      ccc_pid: "C9KV-UADP-8P"
 
 interfaces:
   - name: "GigabitEthernet1/0/1"

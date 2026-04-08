@@ -48,7 +48,8 @@ venv/*
 **/.vscode/*
 **/.vscode
 
-ansible.cfg
+# Root-only; Ansible/ansible.cfg in-repo defines collection paths for playbooks
+/ansible.cfg
 vars.json
 
 # Docker stack bundles (large, may contain secrets)

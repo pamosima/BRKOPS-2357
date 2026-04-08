@@ -18,6 +18,7 @@
 # Usage: ansible-playbook playbooks/00_setup/02_nb_config.yml
 - name: NetBox Infrastructure Setup
   hosts: localhost
+  connection: local
   gather_facts: no
   collections:
     - netbox.netbox
@@ -159,8 +160,8 @@
           part_number: "{{ device_type.part_number }}"
           slug: "{{ device_type.slug }}"
           default_platform: "{{ device_type.default_platform }}"
-          u_height: "{{ device_type.u_height if defined | default(false) else omit  }}"
-          is_full_depth: "{{ device_type.is_full_depth if defined | default(false) else omit }}"
+          u_height: "{{ device_type.u_height | default(omit) }}"
+          is_full_depth: "{{ device_type.is_full_depth | default(omit) }}"
         state: present
       loop: "{{ device_types }}"
       loop_control:
