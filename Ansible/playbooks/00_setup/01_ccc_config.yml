@@ -27,50 +27,50 @@
 
   # Initialize ccc connection vars
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
-      dnac_debug: "{{ dnac_debug }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
+      catalystcenter_debug: "{{ catalystcenter_debug }}"
       state: merged
 
   # Creating the top-level area
   tasks:
     - name: Create sites from design_sites config
-      cisco.dnac.site_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.site_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: true
         config: "{{ global_design_sites }}"
 
     # Creating credentials
     - name: Create Global Credentials
-      cisco.dnac.device_credential_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.device_credential_workflow_manager:
+        <<: *catalystcenter_login
         config:
           - global_credential_details: "{{ global_credential_details }}"
 
     # Assigning credentials to top-level area
     - name: Assign Credentials to a site
-      cisco.dnac.device_credential_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.device_credential_workflow_manager:
+        <<: *catalystcenter_login
         config:
           - assign_credentials_to_site: "{{ assign_credentials_to_site }}"
 
     # Adjusting networking settings for top-level area
     - name: Manage the network settings
-      cisco.dnac.network_settings_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.network_settings_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: true
         config:
           - network_management_details: "{{ network_management_details }}"
 
     # Creating new onboarding template for the project
     - name: Create a new template
-      cisco.dnac.template_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.template_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: true
         config:
           - import:

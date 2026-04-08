@@ -25,19 +25,19 @@
 
   # Initialize ccc connection vars
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
-      dnac_debug: "{{ dnac_debug }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
+      catalystcenter_debug: "{{ catalystcenter_debug }}"
       state: merged
 
   tasks:
     - name: Create sites from design_sites config
-      cisco.dnac.site_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.site_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: True
         config: "{{ global_design_sites }}"

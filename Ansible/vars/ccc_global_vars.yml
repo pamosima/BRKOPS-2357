@@ -17,7 +17,7 @@
 global_design_sites:
   - site:
       area:
-        name: "{{ dnac_area }}"
+        name: "{{ catalystcenter_area }}"
         parent_name: Global
     type: area
 
@@ -25,13 +25,13 @@ network_management_details:
   - site_name: Global
     settings:
       dhcp_server:
-        - "{{ dnac_dhcp }}"
+        - "{{ catalystcenter_dhcp }}"
       dns_server:
-        domain_name: "{{ dnac_domain_name }}"
-        primary_ip_address: "{{ dnac_dns_server }}"
+        domain_name: "{{ catalystcenter_domain_name }}"
+        primary_ip_address: "{{ catalystcenter_dns_server }}"
       ntp_server:
-        - "{{ dnac_ntp_server }}"
-      timezone: "{{ dnac_timezone }}"
+        - "{{ catalystcenter_ntp_server }}"
+      timezone: "{{ catalystcenter_timezone }}"
       snmp_server:
         configure_dnac_ip: true
       syslog_server:
@@ -40,24 +40,24 @@ network_management_details:
 global_credential_details:
   cli_credential:
     - description: CLI
-      username: "{{ dnac_cli_user }}"
-      password: "{{ dnac_cli_password }}"
-      enable_password: "{{ dnac_cli_password }}"
+      username: "{{ catalystcenter_cli_user }}"
+      password: "{{ catalystcenter_cli_password }}"
+      enable_password: "{{ catalystcenter_cli_password }}"
   snmp_v2c_read:
     - description: RO
-      read_community: "{{ dnac_snmp_ro_community }}"
+      read_community: "{{ catalystcenter_snmp_ro_community }}"
   snmp_v2c_write:
     - description: RW
-      write_community: "{{ dnac_snmp_rw_community }}"
+      write_community: "{{ catalystcenter_snmp_rw_community }}"
 
 assign_credentials_to_site:
   Sync: false
   cli_credential:
     description: CLI
-    username: "{{ dnac_cli_user }}"
+    username: "{{ catalystcenter_cli_user }}"
   snmp_v2c_read:
     description: RO
   snmp_v2c_write:
     description: RW
   site_name:
-    - "Global/{{ dnac_area }}"
+    - "Global/{{ catalystcenter_area }}"

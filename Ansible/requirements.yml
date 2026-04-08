@@ -16,5 +16,5 @@
 ---
 collections:
   - name: ansible.utils
-  - name: cisco.dnac
+  - name: cisco.catalystcenter
   - name: netbox.netbox

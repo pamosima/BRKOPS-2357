@@ -20,16 +20,25 @@ from pyats.contrib.creators.netbox import Netbox
 from pyats.easypy import run
 from genie import testbed
 
+
+def _env_cli_credentials():
+    """Prefer CATALYSTCENTER_CLI_*; fall back to legacy DNAC_CLI_*."""
+    user = os.getenv("CATALYSTCENTER_CLI_USER") or os.getenv("DNAC_CLI_USER")
+    password = os.getenv("CATALYSTCENTER_CLI_PASSWORD") or os.getenv("DNAC_CLI_PASSWORD")
+    return user, password
+
 def main(runtime):
     netbox_url = os.getenv("NETBOX_API")
     netbox_token = os.getenv("NETBOX_TOKEN")
     url_filter = "status=planned"
 
+    cli_user, cli_password = _env_cli_credentials()
+
     nb_testbed = Netbox(
         netbox_url=netbox_url,
         user_token=netbox_token,
-        def_user=os.getenv("DNAC_CLI_USER"),
-        def_pass=os.getenv("DNAC_CLI_PASSWORD"),
+        def_user=cli_user,
+        def_pass=cli_password,
         url_filter=url_filter,
         verify=False
     )

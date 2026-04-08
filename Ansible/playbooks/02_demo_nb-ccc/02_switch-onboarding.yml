@@ -22,14 +22,14 @@
   gather_facts: false
 
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
-      dnac_debug: "{{ dnac_debug }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
+      catalystcenter_debug: "{{ catalystcenter_debug }}"
 
   tasks:
     - name: Initialize pnp_details
@@ -85,8 +85,8 @@
       when: hostvars[inventory_hostname].status.value == 'planned'
 
     - name: Claim Switching devices through PnP
-      cisco.dnac.pnp_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.pnp_workflow_manager:
+        <<: *catalystcenter_login
         validate_response_schema: false
         config:
           - "{{ item }}"
@@ -94,11 +94,11 @@
       when: pnp_details.claim_switching_devices | length > 0
 
     - name: Wait for device to be onboarded
-      cisco.dnac.pnp_device_info:
-        <<: *dnac_login
+      cisco.catalystcenter.pnp_device_info:
+        <<: *catalystcenter_login
         serialNumber: "{{ hostvars[inventory_hostname].serial }}"
       register: onboarding_result
-      until: onboarding_result.dnac_response[0].deviceInfo.onbState == "Provisioned"
+      until: onboarding_result.catalystcenter_response[0].deviceInfo.onbState == "Provisioned"
       retries: 25
       delay: 15
       when:

@@ -26,13 +26,13 @@
     - "../../vars/ccc_global_vars.yml"
 
   vars:
-    dnac_login: &dnac_login
-      dnac_host: "{{ dnac_host }}"
-      dnac_username: "{{ dnac_username }}"
-      dnac_password: "{{ dnac_password }}"
-      dnac_verify: "{{ dnac_verify }}"
-      dnac_port: "{{ dnac_port }}"
-      dnac_version: "{{ dnac_version }}"
+    catalystcenter_login: &catalystcenter_login
+      catalystcenter_host: "{{ catalystcenter_host }}"
+      catalystcenter_username: "{{ catalystcenter_username }}"
+      catalystcenter_password: "{{ catalystcenter_password }}"
+      catalystcenter_verify: "{{ catalystcenter_verify }}"
+      catalystcenter_port: "{{ catalystcenter_port }}"
+      catalystcenter_version: "{{ catalystcenter_version }}"
       state: deleted
     valid_statuses:
       - staging
@@ -42,8 +42,8 @@
 
   tasks:
     - name: Delete Provision/Unprovision Devices by IP Address
-      cisco.dnac.inventory_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.inventory_workflow_manager:
+        <<: *catalystcenter_login
         config:
           - ip_address_list:
               ["198.18.1.11", "198.18.2.11", "198.18.3.11", "198.18.4.11"]
@@ -80,7 +80,7 @@
                 'site': {
                   'area': {
                     'name': item.value.name,
-                    'parent_name': 'Global/' + dnac_area +
+                    'parent_name': 'Global/' + catalystcenter_area +
                                    (item.value.parent.display if item.value.parent is not none else '')
                   }
                 },
@@ -106,7 +106,7 @@
                 'site': {
                   'building': {
                     'name': item.value.name,
-                    'parent_name': 'Global/' + dnac_area + '/' + region_name,
+                    'parent_name': 'Global/' + catalystcenter_area + '/' + region_name,
                     'address': item.value.physical_address,
                     'latitude': item.value.latitude | float,
                     'longitude': item.value.longitude | float,
@@ -138,7 +138,7 @@
                   'floor': {
                     'name': item.value.name,
                     'floor_number': item.value.custom_fields.get('ccc_floor_number', 1) | int,
-                    'parent_name': 'Global/' + dnac_area + '/' + region_name + '/' + site.value.name,
+                    'parent_name': 'Global/' + catalystcenter_area + '/' + region_name + '/' + site.value.name,
                     'rfModel': item.value.custom_fields.get('ccc_rf_model', 'Cubes And Walled Offices'),
                     'width': item.value.custom_fields.get('ccc_floor_width', 100.0) | float,
                     'length': item.value.custom_fields.get('ccc_floor_length', 100.0) | float,
@@ -153,31 +153,31 @@
       loop: "{{ nb_locations }}"
 
     - name: Remove sites from design_sites config
-      cisco.dnac.site_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.site_workflow_manager:
+        <<: *catalystcenter_login
         config: "{{ design_sites }}"
 
     - name: Remove sites from design_sites config
-      cisco.dnac.site_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.site_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: True
         config: "{{ global_design_sites }}"
 
     - name: Remove Global Credentials
-      cisco.dnac.device_credential_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.device_credential_workflow_manager:
+        <<: *catalystcenter_login
         config:
           - global_credential_details: "{{ global_credential_details }}"
 
     - name: Remove Credentials to a site
-      cisco.dnac.device_credential_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.device_credential_workflow_manager:
+        <<: *catalystcenter_login
         config:
           - assign_credentials_to_site: "{{ assign_credentials_to_site }}"
 
     - name: Remove the network settings
-      cisco.dnac.network_settings_workflow_manager:
-        <<: *dnac_login
+      cisco.catalystcenter.network_settings_workflow_manager:
+        <<: *catalystcenter_login
         config_verify: True
         config:
           - network_management_details: "{{ network_management_details }}"

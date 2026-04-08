@@ -16,6 +16,6 @@
 ---
 collections:
   - name: ansible.utils
-  - name: cisco.dnac
+  - name: cisco.catalystcenter
     version: "6.28.0"
   - name: netbox.netbox

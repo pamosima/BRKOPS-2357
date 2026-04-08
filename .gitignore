@@ -50,3 +50,6 @@ venv/*
 
 ansible.cfg
 vars.json
+
+# Docker stack bundles (large, may contain secrets)
+docker-bundles/

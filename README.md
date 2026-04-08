@@ -7,7 +7,7 @@ For those who missed the session, you can watch the recording in the [Cisco Live
 ## Repository Components
 
 - [Cisco Workflows Automation - Low-code/no-code automation for NetBox and Catalyst Center](./Workflows/README.md)
-- [Automating Network Operations with Ansible, Catalyst Center, and NetBox](./Ansible/README.md)
+- [Automating Network Operations with Ansible, Catalyst Center, and NetBox](./Ansible/README.md) — playbooks use the [`cisco.catalystcenter`](https://galaxy.ansible.com/ui/repo/published/cisco/catalystcenter/) collection and `catalystcentersdk`; see that README for setup and environment variables
 - [GitLab CI/CD Integration for Network Automation](./GitLab/README.md)
 - [NetBox Custom Scripts for Cisco Catalyst Center Site Creation and Plug-and-Play](./Netbox/README.md)
 - [pyATS Network Testing Framework with NTP Testcase and NetBox Integration](./pyATS/README.md)
